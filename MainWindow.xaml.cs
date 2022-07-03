@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using SequenceClicker.View;
+using SequenceClicker.API;
 
 namespace SequenceClicker
 {
@@ -22,13 +24,23 @@ namespace SequenceClicker
     /// </summary>
     public partial class MainWindow : Window
     {
+        OverlayWindow overlayWindow;
+
+        bool test = false;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            OverlayWindow overlayWindow = new OverlayWindow();
-            overlayWindow.Topmost = true;
+            overlayWindow = new OverlayWindow();
             overlayWindow.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            test = !test;
+            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
+            User32API.SetWindowTransparent(hwnd, test);
         }
     }
 }

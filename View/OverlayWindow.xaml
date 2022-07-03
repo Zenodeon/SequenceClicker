@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"    
-        Background="#7F0000FF"
+        Background="Transparent"
         Topmost="True"
-        Title="OverlayWindow" Height="450" Width="800">
-    <Grid>
-        
+        WindowState="Maximized"     
+        Title="OverlayWindow" Height="450" Width="800"
+        IsHitTestVisible="False"
+        >
+    <Grid IsHitTestVisible="False">
+        <Rectangle Fill="#7FFF0000" IsHitTestVisible="False" Height="50"/>
     </Grid>
 </Window>
