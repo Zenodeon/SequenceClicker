@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using SequenceClicker.API;
+using SequenceClicker.Component;
 
 namespace SequenceClicker.View
 {
@@ -22,6 +23,15 @@ namespace SequenceClicker.View
         public OverlayWindow()
         {
             InitializeComponent();
+
+            CursorPoint cursorPoint = new CursorPoint();
+
+            CursorSite.Children.Add(cursorPoint);
+            cursorPoint.Visibility = Visibility.Visible;
+
+            Canvas.SetLeft(cursorPoint, 100);
+            Canvas.SetTop(cursorPoint, 100);
+            Canvas.SetZIndex(cursorPoint, 0);
         }
     }
 }

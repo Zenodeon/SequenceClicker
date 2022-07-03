@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SequenceClicker.View"
+        xmlns:comp="clr-namespace:SequenceClicker.Component"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"    
@@ -14,6 +15,7 @@
         IsHitTestVisible="False"
         >
     <Grid IsHitTestVisible="False">
+        <Canvas x:Name="CursorSite"/>
         <Rectangle Fill="#7FFF0000" IsHitTestVisible="False" Height="50"/>
     </Grid>
 </Window>
