@@ -1,4 +1,6 @@
-﻿using System;
+﻿global using DebugLogger.Wpf;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +29,8 @@ namespace SequenceClicker
 
         public MainWindow()
         {
+            DLog.Instantiate();
+
             InitializeComponent();
 
             overlayWindow = new OverlayWindow();
