@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using SequenceClicker.View;
-
-namespace SequenceClicker
+namespace SequenceClicker.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OverlayWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OverlayWindow : Window
     {
-        public MainWindow()
+        public OverlayWindow()
         {
             InitializeComponent();
-
-            OverlayWindow overlayWindow = new OverlayWindow();
-            overlayWindow.Topmost = true;
-            overlayWindow.Show();
         }
     }
 }
