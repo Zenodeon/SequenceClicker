@@ -11,11 +11,9 @@
         Background="Transparent"
         Topmost="True"
         WindowState="Maximized"     
-        Title="OverlayWindow" Height="450" Width="800"
-        IsHitTestVisible="False"
-        >
-    <Grid IsHitTestVisible="False">
+        Title="OverlayWindow" Height="450" Width="800">
+    <Grid>
         <Canvas x:Name="CursorSite"/>
-        <Rectangle Fill="#7FFF0000" IsHitTestVisible="False" Height="50"/>
+        <Rectangle Fill="#7FFF0000" Height="50"/>
     </Grid>
 </Window>
