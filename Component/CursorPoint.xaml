@@ -9,6 +9,7 @@
              PreviewMouseDown="OnPreviewMouseDown"
              PreviewMouseUp="OnPreviewMouseUp"
              PreviewMouseMove="OnPreviewMouseMove"
+             RenderTransformOrigin="0.5,0.5"
              Height="64" Width="64">
     <Grid Name="base" Opacity="0.4">
         <Rectangle Fill="Green"/>

@@ -20,6 +20,8 @@ namespace SequenceClicker.Component
     /// </summary>
     public partial class CursorPoint : UserControl
     {
+        bool holding = false;
+
         public CursorPoint()
         {
             InitializeComponent();
@@ -27,17 +29,40 @@ namespace SequenceClicker.Component
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            switch(e.ChangedButton)
+            {
+                case MouseButton.Left:
+                    holding = true;
+                    CaptureMouse();
+                    break;
+                default:
+                    break;
+            }      
         }
 
         private void OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            switch (e.ChangedButton)
+            {
+                case MouseButton.Left:
+                    holding = false;
+                    ReleaseMouseCapture();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
+            if (holding)
+                UpdatePosition(e.GetPosition(null));
+        }
 
+        private void UpdatePosition(Point mousePos)
+        {
+            Canvas.SetLeft(this, mousePos.X - (RenderSize.Width / 2));
+            Canvas.SetTop(this, mousePos.Y - (RenderSize.Height / 2));
         }
     }
 }
