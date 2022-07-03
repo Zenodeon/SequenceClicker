@@ -17,9 +17,6 @@ using SequenceClicker.API;
 
 namespace SequenceClicker.View
 {
-    /// <summary>
-    /// Interaction logic for OverlayWindow.xaml
-    /// </summary>
     public partial class OverlayWindow : Window
     {
         public OverlayWindow()
