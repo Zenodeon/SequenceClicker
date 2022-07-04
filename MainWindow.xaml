@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SequenceClicker"
         mc:Ignorable="d"
+        Closed="Window_Closed"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Height=" 30" Width="100" Click="Button_Click"/>

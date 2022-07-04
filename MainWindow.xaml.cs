@@ -28,16 +28,18 @@ namespace SequenceClicker
         bool test = false;
 
         private IntPtr hwnd;
-        private HwndSource? hwndSource;
+        //private HwndSource? hwndSource;
 
         public MainWindow()
         {
             DLog.Instantiate();
 
             InitializeComponent();
+            LocalState.mainWindow = this;
 
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
+            LocalState.overlayWindow = overlayWindow;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -83,6 +85,11 @@ namespace SequenceClicker
             //    handled = true;
             //}
             return IntPtr.Zero;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            overlayWindow.Close();
         }
     }
 }
