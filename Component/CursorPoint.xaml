@@ -11,7 +11,9 @@
              PreviewMouseMove="OnPreviewMouseMove"
              RenderTransformOrigin="0.5,0.5"
              Height="64" Width="64">
-    <Grid Name="base" Opacity="0.4">
+    <Grid Name="base" Opacity="1">
         <Rectangle Fill="Green"/>
+        <Image Source="C:\Users\Admin\Desktop\unknown (1).png"/>
+        <TextBlock x:Name="IDD" Text="0" FontSize="50" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
     </Grid>
 </UserControl>

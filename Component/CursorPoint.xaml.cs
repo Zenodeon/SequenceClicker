@@ -20,11 +20,15 @@ namespace SequenceClicker.Component
     /// </summary>
     public partial class CursorPoint : UserControl
     {
-        bool holding = false;
+        int id;
 
-        public CursorPoint()
+        private bool holding = false;
+
+        public CursorPoint(int id)
         {
             InitializeComponent();
+            this.id = id;
+            IDD.Text = id + "";
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -34,6 +38,9 @@ namespace SequenceClicker.Component
                 case MouseButton.Left:
                     holding = true;
                     CaptureMouse();
+                    break;
+
+                case MouseButton.Right:
                     break;
                 default:
                     break;
@@ -47,6 +54,10 @@ namespace SequenceClicker.Component
                 case MouseButton.Left:
                     holding = false;
                     ReleaseMouseCapture();
+                    break;
+
+                case MouseButton.Right:
+                    LocalState.overlayWindow.OpenMenuPanel(e.GetPosition(null), this);
                     break;
                 default:
                     break;
