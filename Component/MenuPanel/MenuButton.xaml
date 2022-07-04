@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.Component"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="20">
+             Background="Transparent"
+             Width="100" Height="20">
     <Grid>
-            
+        <Button x:Name="MButton" Content="MButton" Click="MButton_Click"/>
     </Grid>
 </UserControl>

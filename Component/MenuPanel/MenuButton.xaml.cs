@@ -20,9 +20,20 @@ namespace SequenceClicker.Component
     /// </summary>
     public partial class MenuButton : UserControl
     {
-        public MenuButton()
+        MenuButtonBP menuButtonBP;
+
+        public MenuButton(MenuButtonBP menuButtonBP)
         {
             InitializeComponent();
+            this.menuButtonBP = menuButtonBP;
+
+            MButton.Content = menuButtonBP.name;
+        }
+
+        private void MButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuButtonBP.callback.Invoke();
+            LocalState.overlayWindow.CloseMenuPanel();
         }
     }
 }
