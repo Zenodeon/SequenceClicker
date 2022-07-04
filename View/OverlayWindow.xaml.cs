@@ -43,10 +43,9 @@ namespace SequenceClicker.View
             MenuPanel panel = LocalState.menuPanel;
 
             if (!panel.active)
-            {
                 CursorSite.Children.Add(panel);
-                panel.active = true;
-            }
+
+            panel.OpenPanel(cursorPoint);
 
             Canvas.SetLeft(panel, screenPos.X);
             Canvas.SetTop(panel, screenPos.Y);
@@ -57,7 +56,12 @@ namespace SequenceClicker.View
         {
             MenuPanel panel = LocalState.menuPanel;
             CursorSite.Children.Remove(panel);
-            panel.active = false;
+            panel.ClosePanel();
+        }
+
+        public void AddCursorPoint()
+        {
+            DLog.Log("Adding Point : Placeholder");
         }
     }
 }
