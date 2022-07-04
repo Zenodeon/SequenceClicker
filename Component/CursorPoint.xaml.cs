@@ -18,7 +18,7 @@ namespace SequenceClicker.Component
     /// <summary>
     /// Interaction logic for CursorPoint.xaml
     /// </summary>
-    public partial class CursorPoint : UserControl
+    public partial class CursorPoint : UserControl, IMenuPanelContent
     {
         int id;
 
@@ -74,6 +74,11 @@ namespace SequenceClicker.Component
         {
             Canvas.SetLeft(this, mousePos.X - (RenderSize.Width / 2));
             Canvas.SetTop(this, mousePos.Y - (RenderSize.Height / 2));
+        }
+
+        public void AddMenuContent(ref List<MenuButtonBP> buttons)
+        {
+            buttons.Add(new MenuButtonBP("Add", LocalState.overlayWindow.AddCursorPoint));
         }
     }
 }
