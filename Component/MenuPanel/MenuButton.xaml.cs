@@ -30,8 +30,26 @@ namespace SequenceClicker.Component
             MButton.Content = menuButtonBP.name;
         }
 
-        private void MButton_Click(object sender, RoutedEventArgs e)
+        private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            OnMouseEvent(ButtonState.Down);
+        }
+
+        private void OnPreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            OnMouseEvent(ButtonState.Drag);
+        }
+
+        private void OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OnMouseEvent(ButtonState.Up);
+        }
+
+        private void OnMouseEvent(ButtonState state)
+        {
+            if (state != menuButtonBP.callbackOnState)
+                return;
+
             menuButtonBP.callback.Invoke();
             LocalState.overlayWindow.CloseMenuPanel();
         }

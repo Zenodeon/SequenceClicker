@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:SequenceClicker.Component"
              mc:Ignorable="d" 
              Background="Transparent"
+             PreviewMouseDown="OnPreviewMouseDown"
+             PreviewMouseMove="OnPreviewMouseMove"
+             PreviewMouseUp="OnPreviewMouseUp"
              Width="100" Height="20">
     <Grid>
-        <Button x:Name="MButton" Content="MButton" Click="MButton_Click"/>
+        <Button x:Name="MButton" Content="MButton"/>
     </Grid>
 </UserControl>

@@ -8,13 +8,23 @@ namespace SequenceClicker.Component
 {
     public struct MenuButtonBP
     {
-        public string name { get; set; }
-        public Action callback { get; set; }
+        public string name;
+        public Action callback;
 
-        public MenuButtonBP(string name, Action callback)
+        public ButtonState callbackOnState;
+
+        public MenuButtonBP(string name, Action callback, ButtonState callbackOnState)
         {
             this.name = name;
             this.callback = callback;
+            this.callbackOnState = callbackOnState;
         }
+    }
+
+    public enum ButtonState
+    {
+        Down,
+        Drag,
+        Up
     }
 }
