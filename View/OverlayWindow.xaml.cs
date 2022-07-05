@@ -20,22 +20,17 @@ namespace SequenceClicker.View
 {
     public partial class OverlayWindow : Window
     {
+        List<CursorPoint> csrPoints = new List<CursorPoint>();
+
         public OverlayWindow()
         {
             InitializeComponent();
 
             LocalState.menuPanel = new MenuPanel();
 
-            CursorPoint cursorPoint = new CursorPoint(0);
-            CursorPoint cursorPoint1 = new CursorPoint(1);
-
-            CursorSite.Children.Add(cursorPoint);
-            CursorSite.Children.Add(cursorPoint1);
-
-            Canvas.SetLeft(cursorPoint, 100);
-            Canvas.SetTop(cursorPoint, 100);
-            Canvas.SetZIndex(cursorPoint, 0);
-            Canvas.SetZIndex(cursorPoint1, -1);
+            CursorPoint cursorPoint = new CursorPoint(0, main: true);
+            AddCursorPointToCanvas(cursorPoint);
+            cursorPoint.SetCanvasPosition(100, 100, 0);
         }
 
         public void OpenMenuPanel(Point screenPos, CursorPoint cursorPoint)
@@ -47,9 +42,7 @@ namespace SequenceClicker.View
 
             panel.OpenPanel(cursorPoint);
 
-            Canvas.SetLeft(panel, screenPos.X);
-            Canvas.SetTop(panel, screenPos.Y);
-            Canvas.SetZIndex(panel, 1);
+            panel.SetCanvasPosition(screenPos.X, screenPos.Y, 1);
         }
 
         public void CloseMenuPanel()
@@ -61,7 +54,22 @@ namespace SequenceClicker.View
 
         public void AddCursorPoint()
         {
-            DLog.Log("Adding Point : Placeholder");
+            CursorPoint newCsrPoint = new CursorPoint(csrPoints.Count);
+            AddCursorPointToCanvas(newCsrPoint);
+            newCsrPoint.SetupMode();
+        }
+
+        private void AddCursorPointToCanvas(CursorPoint cursorPoint)
+        {
+            CursorSite.Children.Add(cursorPoint);
+            csrPoints.Add(cursorPoint);
+        }
+
+        private void RemoveCursorPointFromCanvas(CursorPoint cursorPoint)
+        {
+            DLog.Warn("'AddCursorPointToCanvas' Feature Not Done");
+            //CursorSite.Children.Remove(cursorPoint);
+            //csrPoints.Remove(cursorPoint);
         }
     }
 }
