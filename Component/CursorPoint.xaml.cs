@@ -15,36 +15,54 @@ using System.Windows.Shapes;
 
 namespace SequenceClicker.Component
 {
-    /// <summary>
-    /// Interaction logic for CursorPoint.xaml
-    /// </summary>
     public partial class CursorPoint : UserControl, IMenuPanelContent
     {
         int id;
+        private bool main = false;
 
-        private bool holding = false;
+        private bool setup = false;
+        private bool moving = false;
+        //private bool mouseInUse = false;
 
-        public CursorPoint(int id)
+        private Point cursorPosOnElement;
+
+        private bool _holding = false;
+        private bool holding
+        {
+            get => _holding;
+            set
+            {
+                _holding = value;
+                if (value)
+                    this.CaptureMouse();
+                else
+                    this.ReleaseMouseCapture();
+            }
+        }
+
+        public CursorPoint(int id, bool main = false)
         {
             InitializeComponent();
             this.id = id;
             IDD.Text = id + "";
+            this.main = main;
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            switch(e.ChangedButton)
+            cursorPosOnElement = e.GetPosition(this);
+
+            switch (e.ChangedButton)
             {
                 case MouseButton.Left:
                     holding = true;
-                    CaptureMouse();
                     break;
 
                 case MouseButton.Right:
                     break;
                 default:
                     break;
-            }      
+            }
         }
 
         private void OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -53,7 +71,11 @@ namespace SequenceClicker.Component
             {
                 case MouseButton.Left:
                     holding = false;
-                    ReleaseMouseCapture();
+
+                    if (setup)
+                        setup = false;
+
+                    moving = false;
                     break;
 
                 case MouseButton.Right:
@@ -66,19 +88,42 @@ namespace SequenceClicker.Component
 
         private void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (holding)
-                UpdatePosition(e.GetPosition(null));
+            if (!holding)
+                return;
+
+            if (!setup && !moving && Keyboard.IsKeyDown(Key.LeftAlt))
+            {
+                holding = false;
+                LocalState.overlayWindow.AddCursorPoint();
+
+                return;
+            }
+
+            UpdatePosition(e.GetPosition(null));
+            moving = true;
+        }
+
+        public void SetupMode()
+        {
+            setup = true;
+            holding = true;
         }
 
         private void UpdatePosition(Point mousePos)
         {
-            Canvas.SetLeft(this, mousePos.X - (RenderSize.Width / 2));
-            Canvas.SetTop(this, mousePos.Y - (RenderSize.Height / 2));
+            Point newPos;
+
+            if (setup)
+                newPos = (Point)(mousePos - ((Vector)RenderSize / 2));
+            else
+                newPos = (Point)(mousePos - cursorPosOnElement);
+
+            this.SetCanvasPosition(newPos);
         }
 
         public void AddMenuContent(ref List<MenuButtonBP> buttons)
         {
-            buttons.Add(new MenuButtonBP("Add", LocalState.overlayWindow.AddCursorPoint));
+            buttons.Add(new MenuButtonBP("Add", LocalState.overlayWindow.AddCursorPoint, ButtonState.Down));
         }
     }
 }
