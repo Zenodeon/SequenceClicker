@@ -13,20 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using SequenceClicker.View;
+
 namespace SequenceClicker.Component
 {
     public partial class CursorPoint : UserControl, IMenuPanelContent
     {
-        int id;
+        private OverlayWindow overlayWin => LocalState.OverlayWindow;
+
+        public int id { get; private set; }
         private bool main = false;
 
         private bool setup = false;
         private bool moving = false;
         //private bool mouseInUse = false;
 
+        public Point targetPoint { get; private set; }
         private Point cursorPosOnElement;
 
-        private Point elementSize => new Point(this.Width, this.Height);
+        public Point elementPosition => this.GetCanasPosition() + (Vector)cursorPosOnElement;
+        public Point elementSize => new Point(this.Width, this.Height);
 
         private bool _holding = false;
         private bool holding
@@ -78,10 +84,12 @@ namespace SequenceClicker.Component
                         setup = false;
 
                     moving = false;
+
+                    targetPoint = e.GetPosition(null);
                     break;
 
                 case MouseButton.Right:
-                    LocalState.OverlayWindow.OpenMenuPanel(e.GetPosition(null), this);
+                    overlayWin.OpenMenuPanel(e.GetPosition(null), this);
                     break;
                 default:
                     break;
@@ -96,7 +104,7 @@ namespace SequenceClicker.Component
             if (!setup && !moving && Keyboard.IsKeyDown(Key.LeftAlt))
             {
                 holding = false;
-                LocalState.OverlayWindow.AddCursorPoint();
+                overlayWin.AddCursorPoint();
 
                 return;
             }
@@ -123,7 +131,7 @@ namespace SequenceClicker.Component
 
         public void AddMenuContent(ref List<MenuButtonBP> buttons)
         {
-            buttons.Add(new MenuButtonBP("Add", LocalState.OverlayWindow.AddCursorPoint, ButtonState.Down));
+            buttons.Add(new MenuButtonBP("Add", overlayWin.AddCursorPoint, ButtonState.Down));
             buttons.Add(new MenuButtonBP("Remove", null, ButtonState.Up));
         }
     }
