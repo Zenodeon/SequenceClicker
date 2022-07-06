@@ -10,6 +10,13 @@ namespace SequenceClicker
 {
     public static class CanvasUtility
     {
+        public static Point GetCanasPosition(this UIElement element)
+        {
+            Point point = new Point();
+            point.X = Canvas.GetLeft(element);
+            point.Y = Canvas.GetTop(element);
+            return point;
+        }
 
         public static void SetCanvasPosition(this UIElement element, double x, double y, int z)
         {
