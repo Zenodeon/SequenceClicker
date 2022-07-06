@@ -27,7 +27,7 @@ namespace SequenceClicker
     {
         OverlayWindow overlayWindow;
 
-        bool test = false;
+        bool overlayWinHasInput = false;
 
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
@@ -38,6 +38,8 @@ namespace SequenceClicker
 
             InitializeComponent();
             LocalState.MainWindow = this;
+
+            TouchInjector.InitializeTouchInjection();
 
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
@@ -55,24 +57,71 @@ namespace SequenceClicker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            test = !test;
-            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
-            User32API.SetWindowTransparent(hwnd, test);
+            DisableOverlayWindowInput(!overlayWinHasInput);
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
+            DisableOverlayWindowInput(true);
+
+            await Task.Run(() =>
             {
                 foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
                 {
-                    TouchAtPoint(cursorPoint.targetPoint);
+                    TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
                     Thread.Sleep(300);
                 }
             });
+
+            DisableOverlayWindowInput(false);
         }
 
-        private void TouchAtPoint(Point screenPoint)
+        private void TouchAtPoint(int id, Point screenPoint)
         {
+            // Touch Down Simulate
+            PointerTouchInfo contact = MakePointerTouchInfo((int)screenPoint.X, (int)screenPoint.Y, 1);
+            PointerFlags oFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+            contact.PointerInfo.PointerFlags = oFlags;
+            bool bIsSuccess = TouchInjector.InjectTouchInput(1, new[] { contact });
+
+            Thread.Sleep(100);
+
+            // Touch Up Simulate
+            contact.PointerInfo.PointerFlags = PointerFlags.UP;
+            TouchInjector.InjectTouchInput(1, new[] { contact });
+        }
+
+        private PointerTouchInfo MakePointerTouchInfo(int x, int y, int radius, uint orientation = 0, uint pressure = 256)
+        {
+            PointerTouchInfo contact = new PointerTouchInfo();
+
+            uint unPointerId = IdGenerator.GetUinqueUInt();
+            contact.PointerInfo.PointerId = unPointerId;
+
+            contact.PointerInfo.pointerType = PointerInputType.TOUCH;
+
+            contact.TouchFlags = TouchFlags.NONE;
+            contact.Orientation = orientation;
+            contact.Pressure = pressure;
+            contact.TouchMasks = TouchMask.CONTACTAREA | TouchMask.ORIENTATION | TouchMask.PRESSURE;
+
+            contact.PointerInfo.PtPixelLocation.X = x - 8;
+            contact.PointerInfo.PtPixelLocation.Y = y - 8;
+
+            contact.ContactArea.left = x - radius;
+            contact.ContactArea.right = x + radius;
+            contact.ContactArea.top = y - radius;
+            contact.ContactArea.bottom = y + radius;
+
+            return contact;
+        }
+
+        private void DisableOverlayWindowInput(bool state)
+        {
+            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
+            User32API.SetWindowTransparent(hwnd, state);
+
+            overlayWinHasInput = state;
         }
 
         private void Window_Closed(object sender, EventArgs e)
