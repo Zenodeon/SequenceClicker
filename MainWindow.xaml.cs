@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
@@ -16,8 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using SequenceClicker.View;
 using SequenceClicker.API;
+using SequenceClicker.View;
+using SequenceClicker.Component;
 
 namespace SequenceClicker
 {
@@ -59,7 +61,18 @@ namespace SequenceClicker
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Task.Run(() =>
+            {
+                foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
+                {
+                    TouchAtPoint(cursorPoint.targetPoint);
+                    Thread.Sleep(300);
+                }
+            });
+        }
 
+        private void TouchAtPoint(Point screenPoint)
+        {
         }
 
         private void Window_Closed(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace SequenceClicker.View
 {
     public partial class OverlayWindow : Window
     {
-        List<CursorPoint> csrPoints = new List<CursorPoint>();
+        public List<CursorPoint> csrPoints = new List<CursorPoint>();
 
         public OverlayWindow()
         {
