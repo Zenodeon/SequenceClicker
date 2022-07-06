@@ -60,7 +60,7 @@ namespace SequenceClicker.Component
                 return;
 
             menuButtonBP.callback.Invoke();
-            LocalState.overlayWindow.CloseMenuPanel();
+            LocalState.OverlayWindow.CloseMenuPanel();
         }
     }
 }

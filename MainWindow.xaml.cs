@@ -35,11 +35,11 @@ namespace SequenceClicker
             DLog.Instantiate();
 
             InitializeComponent();
-            LocalState.mainWindow = this;
+            LocalState.MainWindow = this;
 
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
-            LocalState.overlayWindow = overlayWindow;
+            LocalState.OverlayWindow = overlayWindow;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -57,39 +57,43 @@ namespace SequenceClicker
             IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
             User32API.SetWindowTransparent(hwnd, test);
         }
-
-        private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string hotkeyId = wParam.ToString();
 
-            if (msg == User32DS.WM_HOTKEY)
-            {
-                DLog.Log(msg + " : " + hotkeyId);
-                handled = true;
-            }
-            //if (msg == Constants.WM_HOTKEY && hotkeyId == Constants.START_HOTKEY_ID || hotkeyId == Constants.STOP_HOTKEY_ID || hotkeyId == Constants.TOGGLE_HOTKEY_ID)
-            //{
-            //    int virtualKey = ((int)lParam >> 16) & 0xFFFF;
-            //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StartHotkey.VirtualKeyCode && CanStartOperation())
-            //    {
-            //        StartCommand_Execute(null, null);
-            //    }
-            //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StopHotkey.VirtualKeyCode && clickTimer.Enabled)
-            //    {
-            //        StopCommand_Execute(null, null);
-            //    }
-            //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.ToggleHotkey.VirtualKeyCode && CanStartOperation() | clickTimer.Enabled)
-            //    {
-            //        ToggleCommand_Execute(null, null);
-            //    }
-            //    handled = true;
-            //}
-            return IntPtr.Zero;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             overlayWindow.Close();
         }
+
+        //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        //{
+        //    string hotkeyId = wParam.ToString();
+
+        //    if (msg == User32DS.WM_HOTKEY)
+        //    {
+        //        DLog.Log(msg + " : " + hotkeyId);
+        //        handled = true;
+        //    }
+        //    //if (msg == Constants.WM_HOTKEY && hotkeyId == Constants.START_HOTKEY_ID || hotkeyId == Constants.STOP_HOTKEY_ID || hotkeyId == Constants.TOGGLE_HOTKEY_ID)
+        //    //{
+        //    //    int virtualKey = ((int)lParam >> 16) & 0xFFFF;
+        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StartHotkey.VirtualKeyCode && CanStartOperation())
+        //    //    {
+        //    //        StartCommand_Execute(null, null);
+        //    //    }
+        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StopHotkey.VirtualKeyCode && clickTimer.Enabled)
+        //    //    {
+        //    //        StopCommand_Execute(null, null);
+        //    //    }
+        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.ToggleHotkey.VirtualKeyCode && CanStartOperation() | clickTimer.Enabled)
+        //    //    {
+        //    //        ToggleCommand_Execute(null, null);
+        //    //    }
+        //    //    handled = true;
+        //    //}
+        //    return IntPtr.Zero;
+        //}
     }
 }

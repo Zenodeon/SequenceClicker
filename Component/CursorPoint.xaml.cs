@@ -81,7 +81,7 @@ namespace SequenceClicker.Component
                     break;
 
                 case MouseButton.Right:
-                    LocalState.overlayWindow.OpenMenuPanel(e.GetPosition(null), this);
+                    LocalState.OverlayWindow.OpenMenuPanel(e.GetPosition(null), this);
                     break;
                 default:
                     break;
@@ -96,7 +96,7 @@ namespace SequenceClicker.Component
             if (!setup && !moving && Keyboard.IsKeyDown(Key.LeftAlt))
             {
                 holding = false;
-                LocalState.overlayWindow.AddCursorPoint();
+                LocalState.OverlayWindow.AddCursorPoint();
 
                 return;
             }
@@ -123,7 +123,7 @@ namespace SequenceClicker.Component
 
         public void AddMenuContent(ref List<MenuButtonBP> buttons)
         {
-            buttons.Add(new MenuButtonBP("Add", LocalState.overlayWindow.AddCursorPoint, ButtonState.Down));
+            buttons.Add(new MenuButtonBP("Add", LocalState.OverlayWindow.AddCursorPoint, ButtonState.Down));
             buttons.Add(new MenuButtonBP("Remove", null, ButtonState.Up));
         }
     }

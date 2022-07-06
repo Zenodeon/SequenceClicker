@@ -32,7 +32,7 @@ namespace SequenceClicker.Component
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
         {
-            LocalState.overlayWindow.CloseMenuPanel();
+            LocalState.OverlayWindow.CloseMenuPanel();
         }
 
         public void OpenPanel(IMenuPanelContent panelContent)

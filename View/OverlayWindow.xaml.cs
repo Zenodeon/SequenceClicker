@@ -26,7 +26,7 @@ namespace SequenceClicker.View
         {
             InitializeComponent();
 
-            LocalState.menuPanel = new MenuPanel();
+            LocalState.MenuPanel = new MenuPanel();
 
             CursorPoint cursorPoint = new CursorPoint(0, main: true);
             AddCursorPointToCanvas(cursorPoint);
@@ -35,7 +35,7 @@ namespace SequenceClicker.View
 
         public void OpenMenuPanel(Point screenPos, CursorPoint cursorPoint)
         {
-            MenuPanel panel = LocalState.menuPanel;
+            MenuPanel panel = LocalState.MenuPanel;
 
             if (!panel.active)
                 CursorSite.Children.Add(panel);
@@ -47,7 +47,7 @@ namespace SequenceClicker.View
 
         public void CloseMenuPanel()
         {
-            MenuPanel panel = LocalState.menuPanel;
+            MenuPanel panel = LocalState.MenuPanel;
             CursorSite.Children.Remove(panel);
             panel.ClosePanel();
         }

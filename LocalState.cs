@@ -11,9 +11,9 @@ namespace SequenceClicker
 {
     public static class LocalState
     {
-        public static MainWindow mainWindow { get; set; }
-        public static OverlayWindow overlayWindow { get; set; }
+        public static MainWindow MainWindow { get; set; }
+        public static OverlayWindow OverlayWindow { get; set; }
 
-        public static MenuPanel menuPanel { get; set; }
+        public static MenuPanel MenuPanel { get; set; }
     }
 }
