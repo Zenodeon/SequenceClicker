@@ -26,6 +26,8 @@ namespace SequenceClicker.Component
 
         private Point cursorPosOnElement;
 
+        private Point elementSize => new Point(this.Width, this.Height);
+
         private bool _holding = false;
         private bool holding
         {
@@ -107,17 +109,15 @@ namespace SequenceClicker.Component
         {
             setup = true;
             holding = true;
+
+            Point centerPoint = (Point)((Vector)elementSize / 2);
+            cursorPosOnElement = centerPoint;
+            this.SetCanvasPosition((Point)(Mouse.GetPosition(null) - centerPoint));
         }
 
         private void UpdatePosition(Point mousePos)
         {
-            Point newPos;
-
-            if (setup)
-                newPos = (Point)(mousePos - ((Vector)RenderSize / 2));
-            else
-                newPos = (Point)(mousePos - cursorPosOnElement);
-
+            Point newPos = (Point)(mousePos - cursorPosOnElement);
             this.SetCanvasPosition(newPos);
         }
 
