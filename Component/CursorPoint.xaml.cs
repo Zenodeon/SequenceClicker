@@ -124,6 +124,7 @@ namespace SequenceClicker.Component
         public void AddMenuContent(ref List<MenuButtonBP> buttons)
         {
             buttons.Add(new MenuButtonBP("Add", LocalState.overlayWindow.AddCursorPoint, ButtonState.Down));
+            buttons.Add(new MenuButtonBP("Remove", null, ButtonState.Up));
         }
     }
 }
