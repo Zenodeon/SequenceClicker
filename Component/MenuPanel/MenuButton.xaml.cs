@@ -22,12 +22,18 @@ namespace SequenceClicker.Component
     {
         MenuButtonBP menuButtonBP;
 
+        bool disabled = false;
+
         public MenuButton(MenuButtonBP menuButtonBP)
         {
             InitializeComponent();
             this.menuButtonBP = menuButtonBP;
 
             MButton.Content = menuButtonBP.name;
+            disabled = menuButtonBP.callback == null;
+
+            if (disabled)
+                MButton.Background = Brushes.DimGray;
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -47,6 +53,9 @@ namespace SequenceClicker.Component
 
         private void OnMouseEvent(ButtonState state)
         {
+            if (disabled)
+                return;
+
             if (state != menuButtonBP.callbackOnState)
                 return;
 
