@@ -4,7 +4,7 @@ using System.Threading;
 
 //From https://github.com/DuelCode/TouchSimulate
 
-namespace InjectTouchInputTest
+namespace SequenceClicker
 {
     static class IdGenerator
     {
