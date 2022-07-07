@@ -2,49 +2,10 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 
-//From https://github.com/DuelCode/TouchSimulate
+//From https://github.com/michaelosthege/TCD.System
 
 namespace SequenceClicker
 {
-    static class IdGenerator
-    {
-        static private int _int;
-        private static uint _uint;
-        private static readonly object _mutex = new object();
-
-        public static int GetUniqueInt()
-        {
-            Interlocked.Increment(ref _int);
-            return _int;
-        }
-
-        public static uint GetUinqueUInt()
-        {
-            lock (_mutex)
-            {
-                if (_uint > 256)
-                {
-                    ResetUint();
-                }
-                if (_uint == uint.MaxValue)
-                    throw new IndexOutOfRangeException();
-                else
-                {
-                    _uint++;
-                    return _uint;
-                }
-            }
-        }
-
-        public static void ResetUint()
-        {
-            lock (_mutex)
-            {
-                _uint = uint.MinValue;
-            }
-        }
-    }
-
     /// <summary>
     /// Use this Classes static methods to initialize and inject touch input.
     /// </summary>
@@ -256,11 +217,7 @@ namespace SequenceClicker
         /// <summary>
         /// Mouse pointer type
         /// </summary>
-        MOUSE = 0x00000004,
-        /// <summary>
-        /// touchpad pointer type
-        /// </summary>
-        TOUCHPAD = 0x00000005
+        MOUSE = 0x00000004
     };
 
     /// <summary>
