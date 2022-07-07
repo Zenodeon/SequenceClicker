@@ -85,7 +85,8 @@ namespace SequenceClicker.Component
 
                     moving = false;
 
-                    targetPoint = e.GetPosition(null);
+                    Vector pointOnElement = (Vector)e.GetPosition(this);
+                    targetPoint = e.GetPosition(null) - pointOnElement + ((Vector)elementSize / 2);
                     break;
 
                 case MouseButton.Right:
