@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Closed="Window_Closed"
         Background="#222222"
+        PreviewTouchDown="Window_GotTouchCapture"
+        PreviewTouchMove="Window_GotTouchCapture"
+        PreviewTouchUp="Window_GotTouchCapture"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
