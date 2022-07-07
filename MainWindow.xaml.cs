@@ -39,11 +39,21 @@ namespace SequenceClicker
             InitializeComponent();
             LocalState.MainWindow = this;
 
-            TouchInjector.InitializeTouchInjection();
+            TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.INDIRECT);
 
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
             LocalState.OverlayWindow = overlayWindow;
+
+            Touch.FrameReported += touchTest;
+        }
+
+        private void touchTest(object sender, TouchFrameEventArgs e)
+        {
+            foreach (System.Windows.Input.TouchPoint tp in e.GetTouchPoints(null))
+            {
+                DLog.Log($"{tp.Position} : {tp.Action} : {tp.Size}");
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -78,40 +88,48 @@ namespace SequenceClicker
 
         private void TouchAtPoint(int id, Point screenPoint)
         {
+            IntPtr targetWindow = User32API.WindowFromPoint(new User32API.POINT(screenPoint));
+            User32API.SetForegroundWindow(targetWindow);
+
+            return;
             // Touch Down Simulate
-            PointerTouchInfo contact = MakePointerTouchInfo((int)screenPoint.X, (int)screenPoint.Y, 1);
-            PointerFlags oFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+            PointerTouchInfo contact = MakePointerTouchInfo(id, (int)screenPoint.X - 7, (int)screenPoint.Y - 7);
+            PointerFlags oFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.DOWN;
             contact.PointerInfo.PointerFlags = oFlags;
             bool bIsSuccess = TouchInjector.InjectTouchInput(1, new[] { contact });
 
-            Thread.Sleep(100);
+            int timer = 0;
 
-            // Touch Up Simulate
+            while(timer != 100)
+            {
+                contact.Move(1, 1);
+                contact.PointerInfo.PointerFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.UPDATE;
+                TouchInjector.InjectTouchInput(1, new[] { contact });
+
+                timer++;
+                Thread.Sleep(1);
+            }
+
+            //Touch Up Simulate
             contact.PointerInfo.PointerFlags = PointerFlags.UP;
             TouchInjector.InjectTouchInput(1, new[] { contact });
         }
 
-        private PointerTouchInfo MakePointerTouchInfo(int x, int y, int radius, uint orientation = 0, uint pressure = 256)
+        private PointerTouchInfo MakePointerTouchInfo(int id, int x, int y, uint pressure = 32000)
         {
             PointerTouchInfo contact = new PointerTouchInfo();
 
-            uint unPointerId = IdGenerator.GetUinqueUInt();
-            contact.PointerInfo.PointerId = unPointerId;
+            contact.PointerInfo.PointerId = (uint)id;
 
             contact.PointerInfo.pointerType = PointerInputType.TOUCH;
 
             contact.TouchFlags = TouchFlags.NONE;
-            contact.Orientation = orientation;
+
+            contact.TouchMasks = TouchMask.PRESSURE;
             contact.Pressure = pressure;
-            contact.TouchMasks = TouchMask.CONTACTAREA | TouchMask.ORIENTATION | TouchMask.PRESSURE;
 
-            contact.PointerInfo.PtPixelLocation.X = x - 8;
-            contact.PointerInfo.PtPixelLocation.Y = y - 8;
-
-            contact.ContactArea.left = x - radius;
-            contact.ContactArea.right = x + radius;
-            contact.ContactArea.top = y - radius;
-            contact.ContactArea.bottom = y + radius;
+            contact.PointerInfo.PtPixelLocation.X = x;
+            contact.PointerInfo.PtPixelLocation.Y = y;
 
             return contact;
         }
@@ -127,6 +145,15 @@ namespace SequenceClicker
         private void Window_Closed(object sender, EventArgs e)
         {
             overlayWindow.Close();
+        }
+
+        private void Window_GotTouchCapture(object sender, TouchEventArgs e)
+        {
+            
+            //foreach(System.Windows.Input.TouchPoint tp in e.GetIntermediateTouchPoints(null))
+            //{
+            //    DLog.Log($"{tp.Position} : {tp.Action} : {tp.Size}");
+            //}
         }
 
         //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
