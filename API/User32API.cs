@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
 
@@ -54,5 +56,33 @@ namespace SequenceClicker.API
             User32API.SetWindowLong(hwnd, GWL_EXSTYLE, newStyleTag);
         }
         #endregion
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(POINT Point);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder title, int size);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int x;
+            public int y;
+
+            public POINT(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            public POINT(Point point)
+            {
+                this.x = (int)point.X;
+                this.y = (int)point.Y;
+            }
+        }
     }
 }
