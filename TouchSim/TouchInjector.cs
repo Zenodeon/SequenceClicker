@@ -4,7 +4,7 @@ using System.Threading;
 
 //From https://github.com/michaelosthege/TCD.System
 
-namespace SequenceClicker
+namespace SequenceClicker.TouchSim
 {
     /// <summary>
     /// Use this Classes static methods to initialize and inject touch input.

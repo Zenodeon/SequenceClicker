@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using SequenceClicker.API;
 using SequenceClicker.View;
 using SequenceClicker.Component;
+using SequenceClicker.TouchSim;
 
 namespace SequenceClicker
 {
@@ -39,7 +40,7 @@ namespace SequenceClicker
             InitializeComponent();
             LocalState.MainWindow = this;
 
-            TouchInjector.InitializeTouchInjection(feedbackMode: TouchFeedback.INDIRECT);
+            TouchInput.Initialize();
 
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
@@ -91,47 +92,23 @@ namespace SequenceClicker
             IntPtr targetWindow = User32API.WindowFromPoint(new User32API.POINT(screenPoint));
             User32API.SetForegroundWindow(targetWindow);
 
-            return;
-            // Touch Down Simulate
-            PointerTouchInfo contact = MakePointerTouchInfo(id, (int)screenPoint.X - 7, (int)screenPoint.Y - 7);
-            PointerFlags oFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.DOWN;
-            contact.PointerInfo.PointerFlags = oFlags;
-            bool bIsSuccess = TouchInjector.InjectTouchInput(1, new[] { contact });
+            TouchInput.SetTouchPoint(0, screenPoint);
+
+            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
+
+            Thread.Sleep(1);
 
             int timer = 0;
 
-            while(timer != 100)
+            while(timer != 30)
             {
-                contact.Move(1, 1);
-                contact.PointerInfo.PointerFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.UPDATE;
-                TouchInjector.InjectTouchInput(1, new[] { contact });
+                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Update);
 
                 timer++;
                 Thread.Sleep(1);
             }
 
-            //Touch Up Simulate
-            contact.PointerInfo.PointerFlags = PointerFlags.UP;
-            TouchInjector.InjectTouchInput(1, new[] { contact });
-        }
-
-        private PointerTouchInfo MakePointerTouchInfo(int id, int x, int y, uint pressure = 32000)
-        {
-            PointerTouchInfo contact = new PointerTouchInfo();
-
-            contact.PointerInfo.PointerId = (uint)id;
-
-            contact.PointerInfo.pointerType = PointerInputType.TOUCH;
-
-            contact.TouchFlags = TouchFlags.NONE;
-
-            contact.TouchMasks = TouchMask.PRESSURE;
-            contact.Pressure = pressure;
-
-            contact.PointerInfo.PtPixelLocation.X = x;
-            contact.PointerInfo.PtPixelLocation.Y = y;
-
-            return contact;
+            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.End);
         }
 
         private void DisableOverlayWindowInput(bool state)
