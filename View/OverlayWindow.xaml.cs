@@ -30,7 +30,10 @@ namespace SequenceClicker.View
 
             CursorPoint cursorPoint = new CursorPoint(0, main: true);
             AddCursorPointToCanvas(cursorPoint);
-            cursorPoint.SetCanvasPosition(100, 100, 0);
+
+            Point startingPoint = new Point(100, 100);
+            cursorPoint.SetCanvasPosition(startingPoint - ((Vector)cursorPoint.elementSize / 2), 0);
+            cursorPoint.SetTargetPoint(startingPoint);
         }
 
         public void OpenMenuPanel(Point screenPos, CursorPoint cursorPoint)
