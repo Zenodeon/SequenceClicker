@@ -45,16 +45,6 @@ namespace SequenceClicker
             overlayWindow = new OverlayWindow();
             overlayWindow.Show();
             LocalState.OverlayWindow = overlayWindow;
-
-            Touch.FrameReported += touchTest;
-        }
-
-        private void touchTest(object sender, TouchFrameEventArgs e)
-        {
-            foreach (System.Windows.Input.TouchPoint tp in e.GetTouchPoints(null))
-            {
-                DLog.Log($"{tp.Position} : {tp.Action} : {tp.Size}");
-            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
