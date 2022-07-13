@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SequenceClicker.View
 {
     /// <summary>
-    /// Interaction logic for Sequencer.xaml
+    /// Interaction logic for SequencerPanel.xaml
     /// </summary>
-    public partial class Sequencer : UserControl
+    public partial class SequencerPanel : UserControl
     {
-        public Sequencer()
+        public SequencerPanel()
         {
             InitializeComponent();
         }
