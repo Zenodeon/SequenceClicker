@@ -10,16 +10,19 @@
         Background="#222222"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="1" Height="30" Width="200" Click="Button_Click" Content="Toggle Overlay Mode"/>
-        <Button Grid.Row="2" Height="30" Width="200" Click="Button_Click_1" Content="Sequence Points"/>
-        <GridSplitter Grid.Row="3" Height="5" Background="Red" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <view:SequencerPanel Grid.Row="4" Background="Black"/>
+        <Button Grid.Column="2" Grid.Row="0" Height="30" Width="200" Click="Button_Click" Content="Toggle Overlay Mode"/>
+        <Button Grid.Column="2" Grid.Row="1" Height="30" Width="200" Click="Button_Click_1" Content="Sequence Points"/>
+        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="5" Background="Red" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <view:BasicSequencerPanel Grid.Column="0" Grid.RowSpan="3"/>
     </Grid>
 </Window>
