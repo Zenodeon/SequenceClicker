@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SequenceClicker.View"
              xmlns:comp="clr-namespace:SequenceClicker.View.Sequencer.Component"
              mc:Ignorable="d" 
+             PreviewMouseWheel="OnPreviewMouseWheel"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>

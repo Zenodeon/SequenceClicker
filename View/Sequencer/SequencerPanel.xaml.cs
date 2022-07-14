@@ -20,9 +20,19 @@ namespace SequenceClicker.View
     /// </summary>
     public partial class SequencerPanel : UserControl
     {
+        private float wheelSen = 1;
+
+        private float scale = 1;
+
+
         public SequencerPanel()
         {
             InitializeComponent();
+        }
+
+        private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            DLog.Log(e.Delta + "");
         }
     }
 }
