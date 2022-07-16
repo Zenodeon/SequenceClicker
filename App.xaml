@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SequenceClicker"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Asset/Style/GlobalStyle.xaml" />
     </Application.Resources>
 </Application>
