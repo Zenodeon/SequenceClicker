@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SequenceClicker.View"
              xmlns:bsComp="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
-             Background="DimGray"
+             Background="{StaticResource DarkGray}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ListView Background="Transparent">
