@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
              Background="Transparent"
-             Width="260" Height="50">
+             Width="560" Height="100">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         
