@@ -5,11 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
-             Width="120" Height="50">
+             Width="40" Height="52">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
             <RowDefinition/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="12"/>
         </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="1" Stretch="Uniform">
+            <TextBox Text="0" Padding="{StaticResource NumericTextOffset}" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
+        </Viewbox>
+
+        <Viewbox Grid.Row="2" Stretch="Uniform">
+            <TextBlock Text="ms" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
+        </Viewbox>
     </Grid>
 </UserControl>
