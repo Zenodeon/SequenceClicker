@@ -38,6 +38,7 @@ namespace SequenceClicker
             DLog.Instantiate();
 
             InitializeComponent();
+            return;
             LocalState.MainWindow = this;
 
             TouchInput.Initialize();
@@ -111,7 +112,7 @@ namespace SequenceClicker
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            overlayWindow.Close();
+            //overlayWindow.Close();
         }
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
