@@ -5,8 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
-             Width="50" Height="50">
+             Width="120" Height="100">
     <Grid>
-        <TextBox Text="0" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" Foreground="White"  BorderThickness="0" Background="Transparent"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.5"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="2.5"/>
+        </Grid.RowDefinitions>
+        
+        <Rectangle Grid.Row="0" Fill="BlueViolet"/>
+        <Rectangle Grid.Row="6" Fill="BlueViolet"/>
+        
+        <Viewbox Grid.Row="1" Stretch="Uniform">
+            <TextBlock Text="Delay" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
+        </Viewbox>
+        
+        <Viewbox Grid.Row="2" Grid.RowSpan="2" Height="40" Stretch="Uniform">
+            <TextBox Text="0" Padding="{StaticResource NumericTextOffset}" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
+        </Viewbox>
+
+        <!--<Viewbox Grid.Row="2" Stretch="Uniform">
+            <TextBox Text="0" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" Foreground="White"  BorderThickness="0" Background="Transparent"/>
+        </Viewbox>
+
+        <Viewbox Grid.Row="3" Stretch="Uniform">
+            <TextBox Text="0" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" Foreground="White"  BorderThickness="0" Background="Transparent"/>
+        </Viewbox>-->
+
+        <Viewbox Grid.Row="4" Stretch="Uniform">
+            <TextBlock Text="ms" Margin="{StaticResource TextOffset}" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="Transparent"/>
+        </Viewbox>
+
+        <Viewbox Grid.Row="5" Stretch="Uniform">
+            <TextBlock Text="Static Delay" Margin="{StaticResource TextOffset}" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="Transparent"/>
+        </Viewbox>
     </Grid>
 </UserControl>
