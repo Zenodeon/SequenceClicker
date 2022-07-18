@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SequenceClicker.CustomControl.RButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SequenceClicker.CustomControl"
+             x:Name="root"
+             mc:Ignorable="d" 
+             Background="Transparent"
+             Width="100" Height="30">
+    <Grid>
+        <Border Background="{StaticResource DarkGray}" CornerRadius="{Binding CornerRadius, ElementName=root}" BorderBrush="DarkBlue" BorderThickness="1">
+            <Viewbox>
+                <TextBlock Text="Click" Foreground="White"/>
+            </Viewbox>
+        </Border>
+    </Grid>
+</UserControl>
