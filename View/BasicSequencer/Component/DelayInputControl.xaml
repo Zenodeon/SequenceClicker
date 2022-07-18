@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
+             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"           
              mc:Ignorable="d" 
              Width="40" Height="52">
     <Grid>
@@ -17,8 +18,6 @@
             <TextBox Text="0" Padding="{StaticResource NumericTextOffset}" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
         </Viewbox>
 
-        <Viewbox Grid.Row="2" Stretch="Uniform">
-            <TextBlock Text="ms" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
-        </Viewbox>
+        <CControl:MButton x:Name="DelayModeSwitch" Text="ms" Width="40" Height="12" BarSize="2" Grid.Row="2" OnClick="MButton_OnClick"/>
     </Grid>
 </UserControl>

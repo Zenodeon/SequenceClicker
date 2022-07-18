@@ -21,6 +21,8 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class DelayInputControl : UserControl
     {
+        public DelayType delayType = DelayType.ms;
+
         public DelayInputControl()
         {
             InitializeComponent();
@@ -47,5 +49,21 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 e.CancelCommand();
         }
         #endregion
+
+        private void MButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (delayType == DelayType.ms)
+                delayType = DelayType.Second;
+            else
+                delayType = DelayType.ms;
+
+            DelayModeSwitch.Text = delayType.ToString();
+        }
+
+        public enum DelayType
+        {
+            ms,
+            Second
+        }
     }
 }
