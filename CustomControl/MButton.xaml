@@ -12,7 +12,7 @@
              PreviewMouseUp="OnPreviewMouseUp"
              Width="80" Height="30">
     <Grid>
-        <Rectangle x:Name="Bar" Fill="DarkViolet" Opacity="0" Height="{Binding BarSize, ElementName=root}" VerticalAlignment="Bottom" Width="{Binding ActualWidth, ElementName=TextHolder, Mode=OneWay}"/>
+        <Rectangle x:Name="Bar" Fill="{StaticResource ButtonBarHover}" Opacity="0" Height="{Binding BarSize, ElementName=root}" VerticalAlignment="Bottom" Width="{Binding ActualWidth, ElementName=TextHolder, Mode=OneWay}"/>
         <Viewbox x:Name="TextHolder">
             <TextBlock Text="{Binding Text, ElementName=root}" Margin="{StaticResource TextOffset}" Foreground="White"/>
         </Viewbox>
