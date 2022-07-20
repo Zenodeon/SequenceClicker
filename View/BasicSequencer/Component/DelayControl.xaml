@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
+             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"                     
              mc:Ignorable="d" 
              Width="120" Height="80">
     <Grid>
@@ -29,15 +30,13 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <local:DelayInputControl Grid.ColumnSpan="2" Visibility="Collapsed"/>
+            <local:DelayInputControl x:Name="SInputCtrl" Grid.ColumnSpan="2" Visibility="Collapsed"/>
 
-            <local:DelayInputControl Grid.Column="0" Margin="-5 0 0 0" Visibility="Visible"/>
-            <local:DelayInputControl Grid.Column="1" Margin="0 0 -5 0" Visibility="Visible"/>
+            <local:DelayInputControl x:Name="RInputCtrl1" Grid.Column="0" Margin="-5 0 0 0" Visibility="Visible"/>
+            <local:DelayInputControl x:Name="RInputCtrl2" Grid.Column="1" Margin="0 0 -5 0" Visibility="Visible"/>
 
         </Grid>
 
-        <Viewbox Grid.Row="3" Stretch="Uniform">
-            <TextBlock Text="Static Delay" Margin="{StaticResource TextOffset}" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="Transparent"/>
-        </Viewbox>
+        <CControl:MButton x:Name="DelayModeSwitch" Height="12" Width="80" Text="Static Delay" BarSize="2" Grid.Row="3" OnClick="OnDelayModeSwitch"/>
     </Grid>
 </UserControl>
