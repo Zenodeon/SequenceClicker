@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="DarkGray" Color="#1c1c1c"/>
     <SolidColorBrush x:Key="MidGray" Color="#2d2d30"/>
+
+    <SolidColorBrush x:Key="ButtonBarHover" Color="#00D8F5"/>
+
     <Thickness x:Key="TextOffset" Left="-2.5" Top="-2.5" Right="-2.5" Bottom="0"/>
     <Thickness x:Key="NumericTextOffset" Left="-2.5" Top="-4.4" Right="-2.5" Bottom="-2.9"/>
 </ResourceDictionary>
