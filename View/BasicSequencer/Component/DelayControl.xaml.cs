@@ -21,6 +21,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class DelayControl : UserControl
     {
+
         public DelayMode delayMode = DelayMode.Random;
 
         public DelayControl()
@@ -56,5 +57,15 @@ namespace SequenceClicker.View.BasicSequencer.Component
             Static,
             Random
         }
+
+
+        public string DelayCtrlName
+        {
+            get { return (string)GetValue(DelayCtrlNameProperty); }
+            set { SetValue(DelayCtrlNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty DelayCtrlNameProperty =
+            DependencyProperty.Register("DelayCtrlName", typeof(string), typeof(DelayControl), new PropertyMetadata("Delay"));
     }
 }

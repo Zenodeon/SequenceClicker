@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
-             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"                     
+             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"       
+             x:Name="DelayCtrl"
              mc:Ignorable="d" 
              Width="120" Height="80">
     <Grid>
@@ -21,7 +22,7 @@
         <Rectangle Grid.Row="6" Fill="BlueViolet"/>
 
         <Viewbox Grid.Row="1" Stretch="Uniform">
-            <TextBlock Text="Delay" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
+            <TextBlock Text="{Binding DelayCtrlName, ElementName=DelayCtrl, FallbackValue=Delay}" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
         </Viewbox>
 
         <Grid Grid.Row="2">
