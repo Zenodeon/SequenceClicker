@@ -21,12 +21,17 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class DelayControl : UserControl
     {
-
         public DelayMode delayMode = DelayMode.Random;
+
+        private int staticDelay = 300;
+        private int minDelay = 300;
+        private int maxDelay = 600;
 
         public DelayControl()
         {
             InitializeComponent();
+
+            UpdateModeDesign();
         }
 
         private void OnDelayModeSwitch(object sender, RoutedEventArgs e)
@@ -36,9 +41,15 @@ namespace SequenceClicker.View.BasicSequencer.Component
             else
                 delayMode = DelayMode.Static;
 
+            UpdateModeFormat();
+        }
+
+        private void UpdateModeFormat()
+        {
             SwitchDelayInput(delayMode);
 
-            DelayModeSwitch.Text = delayMode.ToString() + " Delay";
+            string text = delayMode == DelayMode.Random ? "Random Range" : "Static";
+            DelayModeSwitch.Text = text + " Delay";
         }
 
         private void SwitchDelayInput(DelayMode delayMode)
@@ -57,7 +68,6 @@ namespace SequenceClicker.View.BasicSequencer.Component
             Static,
             Random
         }
-
 
         public string DelayCtrlName
         {
