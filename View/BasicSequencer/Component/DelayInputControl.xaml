@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Stretch="Uniform">
-            <TextBox Text="0" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
+            <TextBox x:Name="delayInput" Text="1" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput"  DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
         </Viewbox>
 
         <CControl:MButton x:Name="TimeModeSwitch" Text="ms" Width="40" Height="12" BarSize="2" Grid.Row="1" OnClick="OnTimeModeSwitch"/>

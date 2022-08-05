@@ -23,14 +23,54 @@ namespace SequenceClicker.View.BasicSequencer.Component
     {
         public TimeType timeType = TimeType.ms;
 
+        private float inputDelay { get => float.Parse(delayInput.Text); set { delayInput.Text = value + ""; } }
+
         public DelayInputControl()
         {
             InitializeComponent();
         }
 
+        private void OnTimeModeSwitch(object sender, RoutedEventArgs e)
+        {
+            if (timeType == TimeType.ms)
+                timeType = TimeType.Second;
+            else
+                timeType = TimeType.ms;
+
+            UpdateModeFormat();
+        }
+
+        private void UpdateModeFormat()
+        {
+            bool needConverting = delayInput.Text.Contains('.') || Keyboard.IsKeyDown(Key.LeftShift);
+
+            if(needConverting)
+            {
+                if (timeType == TimeType.ms)
+                    inputDelay *= 1000;
+                else
+                    inputDelay /= 1000;
+            }
+
+            TimeModeSwitch.Text = timeType.ToString();
+        }
+
+        public enum TimeType
+        {
+            ms,
+            Second
+        }
+
         #region TextInput Filtering
-        private readonly Regex allowedNumericRegex = new Regex("[^0-9.]+");
-        private bool IsNumericString(string text) => allowedNumericRegex.IsMatch(text);
+        private readonly Regex allowedMSNumericRegex = new Regex("[^0-9]+");
+        private readonly Regex allowedSecNumericRegex = new Regex("[^0-9.]+");
+        private bool IsNumericString(string text)
+        {
+            if (timeType == TimeType.ms)
+                return allowedMSNumericRegex.IsMatch(text);
+            else
+                return allowedSecNumericRegex.IsMatch(text);
+        }
 
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -49,21 +89,5 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 e.CancelCommand();
         }
         #endregion
-
-        private void OnTimeModeSwitch(object sender, RoutedEventArgs e)
-        {
-            if (timeType == TimeType.ms)
-                timeType = TimeType.Second;
-            else
-                timeType = TimeType.ms;
-
-            TimeModeSwitch.Text = timeType.ToString();
-        }
-
-        public enum TimeType
-        {
-            ms,
-            Second
-        }
     }
 }
