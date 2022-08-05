@@ -31,7 +31,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             InitializeComponent();
 
-            UpdateModeDesign();
+            UpdateModeFormat();
         }
 
         private void OnDelayModeSwitch(object sender, RoutedEventArgs e)
