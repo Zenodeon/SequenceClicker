@@ -14,12 +14,15 @@
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         
         <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="8 0 0 8"/>
+        
         <local:DelayControl Grid.Column="1"/>
+        <local:DelayControl Grid.Column="5"/>
+        
         <!--<RichTextBox Grid.Column="1" Foreground="Black"/>-->
     </Grid>
 </UserControl>

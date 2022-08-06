@@ -23,15 +23,21 @@ namespace SequenceClicker.View.BasicSequencer.Component
     {
         public DelayMode delayMode = DelayMode.Random;
 
-        private int staticDelay = 300;
-        private int minDelay = 300;
-        private int maxDelay = 600;
+        private int defStaticDelay = 150;
+        private int defMinDelay = 150;
+        private int defMaxDelay = 300;
 
         public DelayControl()
         {
             InitializeComponent();
-
+            SetDefaultValue();
             UpdateModeFormat();
+        }
+
+        private void SetDefaultValue()
+        {
+            SInputModl.SetDelayValue(defStaticDelay);
+            RInputModl.SetDelayValue(defMinDelay, defMaxDelay);
         }
 
         private void OnDelayModeSwitch(object sender, RoutedEventArgs e)
@@ -57,10 +63,8 @@ namespace SequenceClicker.View.BasicSequencer.Component
             bool isStaticMode = delayMode == DelayMode.Static;
             bool isRandomMode = delayMode == DelayMode.Random;
 
-            SInputCtrl.Visibility = isStaticMode? Visibility.Visible : Visibility.Collapsed;
-
-            RInputCtrl1.Visibility = isRandomMode ? Visibility.Visible : Visibility.Collapsed;
-            RInputCtrl2.Visibility = isRandomMode ? Visibility.Visible : Visibility.Collapsed;
+            SInputModl.Visibility = isStaticMode? Visibility.Visible : Visibility.Collapsed;
+            RInputModl.Visibility = isRandomMode ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public enum DelayMode

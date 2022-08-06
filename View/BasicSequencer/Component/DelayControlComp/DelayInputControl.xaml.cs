@@ -23,7 +23,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
     {
         public TimeType timeType = TimeType.ms;
 
-        private float inputDelay { get => float.Parse(delayInput.Text); set { delayInput.Text = value + ""; } }
+        public float inputDelay { get => float.Parse(delayInput.Text); set { delayInput.Text = value + ""; } }
 
         public DelayInputControl()
         {
