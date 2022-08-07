@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SequenceClicker.View"
              xmlns:bsComp="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
-             Background="{StaticResource DarkGray}"
+             Background="Transparent"
              d:DesignHeight="450" Width="440">
     <UserControl.Resources>
 

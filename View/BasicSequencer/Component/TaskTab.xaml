@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
              Background="Transparent"
-             Width="560" Height="80">
+             Width="440" Height="80">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -18,7 +18,7 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         
-        <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="8 0 0 8"/>
+        <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="0 8 8 0"/>
         
         <local:DelayControl Grid.Column="1"/>
         <local:DelayControl Grid.Column="5"/>
