@@ -18,7 +18,7 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         
-        <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="0 8 8 0"/>
+        <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="0 16 16 0"/>
         
         <local:DelayControl Grid.Column="1"/>
         <local:DelayControl Grid.Column="5"/>

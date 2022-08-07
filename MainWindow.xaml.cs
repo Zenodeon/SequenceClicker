@@ -124,6 +124,11 @@ namespace SequenceClicker
             //}
         }
 
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
         //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         //{
         //    string hotkeyId = wParam.ToString();

@@ -119,8 +119,8 @@
 
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer Name="logViewer" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-                        <ItemsPresenter Width="{Binding ActualWidth, ElementName=logViewer}"/>
+                    <ScrollViewer Name="logViewer" FlowDirection="RightToLeft" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                        <ItemsPresenter FlowDirection="LeftToRight" Width="{Binding ActualWidth, ElementName=logViewer}"/>
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
