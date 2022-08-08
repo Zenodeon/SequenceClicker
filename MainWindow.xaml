@@ -70,7 +70,8 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid>
+
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
@@ -85,10 +86,13 @@
                     <Image Source="/Asset/Icons/Window/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
             </Grid>
+
+            <view:SequenceController Grid.Row="1"/>
+
         </Grid>
 
-        <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
-        <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>
+        <!--<Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
+        <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>-->
 
         <view:BasicSequencerPanel Grid.Column="1"/>
     </Grid>
