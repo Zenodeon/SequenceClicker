@@ -21,9 +21,6 @@
     <Resource Include="Asset\Icons\Window\close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Asset\Icons\Window\max.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Asset\Icons\Window\min.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
