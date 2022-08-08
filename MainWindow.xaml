@@ -10,19 +10,86 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="MainWindow" Height="450" Width="560">
+        Title="MainWindow" Height="450" Width="540">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ToggleOn" Color="#2d2d30" />
+        <SolidColorBrush x:Key="ToggleOff" Color="#3A3A3D" />
+        <SolidColorBrush x:Key="ToggleCurrent" Color="#2d2d30"/>
+
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="CloseBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="CtmBtn">
+            <Setter Property="Background" Value="#2d2d30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3A3A3D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="440"/>
         </Grid.ColumnDefinitions>
+        
+        <Border CornerRadius="8 0 0 8" Background="{StaticResource DarkGray}" MouseDown="TitleBar_MouseDown"/>
 
-        <Border CornerRadius="8 8 8 8" Background="Red" MouseDown="TitleBar_MouseDown"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="1" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
-        <Button Grid.Column="1" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>
+                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource CloseBtn}" Click="CloseWindow">
+                    <Image Source="/Asset/Icons/Window/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+                
+                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource CtmBtn}" Click="MinWindow">
+                    <Image Source="/Asset/Icons/Window/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+            </Grid>
+        </Grid>
 
-        <view:BasicSequencerPanel Grid.Column="2"/>
+        <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
+        <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>
+
+        <view:BasicSequencerPanel Grid.Column="1"/>
     </Grid>
 </Window>

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="DarkGray" Color="#1c1c1c"/>
+    <SolidColorBrush x:Key="DarkGray" Color="#252525"/>
     <SolidColorBrush x:Key="MidGray" Color="#2d2d30"/>
 
     <SolidColorBrush x:Key="ButtonBarHover" Color="#00D8F5"/>

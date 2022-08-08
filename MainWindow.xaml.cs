@@ -129,6 +129,16 @@ namespace SequenceClicker
             DragMove();
         }
 
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MinWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
         //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         //{
         //    string hotkeyId = wParam.ToString();
