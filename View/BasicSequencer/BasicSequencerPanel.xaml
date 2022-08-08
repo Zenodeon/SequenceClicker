@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View"
              xmlns:bsComp="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
+             xmlns:SQ="clr-namespace:SequenceClicker"
              mc:Ignorable="d" 
              Background="Transparent"
              d:DesignHeight="450" Width="440">
@@ -105,33 +106,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <SQ:BorderClipConverter x:Key="BCC"/>
     </UserControl.Resources>
-    
+
     <Grid>
-        <ItemsControl Name="logsControl" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsVirtualizing="True"
+        <Border x:Name="cb" CornerRadius="16" Background="Transparent">
+            <Border.Clip>
+                <MultiBinding Converter="{StaticResource BCC}">
+                    <Binding Path="ActualWidth"
+                        RelativeSource="{RelativeSource Self}"/>
+                    <Binding Path="ActualHeight"
+                        RelativeSource="{RelativeSource Self}"/>
+                    <Binding Path="CornerRadius"
+                        RelativeSource="{RelativeSource Self}"/>
+                </MultiBinding>
+            </Border.Clip>
+            
+            <ItemsControl Name="logsControl" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsVirtualizing="True"
                                             VirtualizationMode="Recycling" 
                                             ScrollUnit="Pixel"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer Name="logViewer" FlowDirection="RightToLeft" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-                        <ItemsPresenter FlowDirection="LeftToRight" Width="{Binding ActualWidth, ElementName=logViewer}"/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-            <bsComp:TaskTab/>
-        </ItemsControl>
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="ItemsControl">
+                        <ScrollViewer Name="logViewer" FlowDirection="RightToLeft" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter FlowDirection="LeftToRight" Width="{Binding ActualWidth, ElementName=logViewer}"/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+                <bsComp:TaskTab/>
+            </ItemsControl>
+        </Border>
     </Grid>
 </UserControl>
