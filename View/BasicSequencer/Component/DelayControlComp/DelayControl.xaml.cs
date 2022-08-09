@@ -19,7 +19,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// <summary>
     /// Interaction logic for DelayControl.xaml
     /// </summary>
-    public partial class DelayControl : UserControl
+    public partial class DelayControl : UserControl, IDelay
     {
         public DelayMode delayMode = DelayMode.Random;
 
@@ -27,11 +27,32 @@ namespace SequenceClicker.View.BasicSequencer.Component
         private int defMinDelay = 150;
         private int defMaxDelay = 300;
 
+        IInputModule activeModule => delayMode == DelayMode.Random ? RInputModl : SInputModl;
+
+        private int finalDelay = -1;
+
         public DelayControl()
         {
             InitializeComponent();
+
             SetDefaultValue();
             UpdateModeFormat();
+        }
+
+        public void LiveMode(bool state)
+        {
+            this.IsHitTestVisible = !state;
+
+            if (state)
+                finalDelay = activeModule.GetDelay();
+
+            LivePanel.FadeOpacity(state ? 1 : 0);
+            LiveDelay.Text = finalDelay + "";
+        }
+
+        public void Delay()
+        {
+
         }
 
         private void SetDefaultValue()
@@ -55,7 +76,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
             SwitchDelayInput(delayMode);
 
             string text = delayMode == DelayMode.Random ? "Random Range" : "Static";
-            DelayModeSwitch.Text = text + " Delay";
+            DelayModeSwitch.Text = text;
         }
 
         private void SwitchDelayInput(DelayMode delayMode)
