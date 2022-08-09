@@ -130,18 +130,18 @@
                 </MultiBinding>
             </Border.Clip>
             
-            <ItemsControl Name="logsControl" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
+            <ItemsControl Name="TaskControl" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsVirtualizing="True"
-                                            VirtualizationMode="Recycling" 
-                                            ScrollUnit="Pixel"/>
+                                                VirtualizationMode="Recycling" 
+                                                ScrollUnit="Pixel"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer Name="logViewer" FlowDirection="RightToLeft" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer Name="TaskViewer" FlowDirection="RightToLeft" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter FlowDirection="LeftToRight" Width="{Binding ActualWidth, ElementName=logViewer}"/>
                         </ScrollViewer>
                     </ControlTemplate>
