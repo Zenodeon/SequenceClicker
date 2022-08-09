@@ -70,36 +70,12 @@ namespace SequenceClicker
             {
                 foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
                 {
-                    TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
+                    //TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
                     Thread.Sleep(300);
                 }
             });
 
             DisableOverlayWindowInput(false);
-        }
-
-        private void TouchAtPoint(int id, Point screenPoint)
-        {
-            IntPtr targetWindow = User32API.WindowFromPoint(new User32API.POINT(screenPoint));
-            User32API.SetForegroundWindow(targetWindow);
-
-            TouchInput.SetTouchPoint(0, screenPoint);
-
-            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
-
-            Thread.Sleep(1);
-
-            int timer = 0;
-
-            while(timer != 30)
-            {
-                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Update);
-
-                timer++;
-                Thread.Sleep(1);
-            }
-
-            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.End);
         }
 
         private void DisableOverlayWindowInput(bool state)
