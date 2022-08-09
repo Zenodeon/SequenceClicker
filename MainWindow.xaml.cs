@@ -33,20 +33,7 @@ namespace SequenceClicker
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
 
-        public MainWindow()
-        {
-            DLog.Instantiate();
-
-            InitializeComponent();
-            return;
-            LocalState.MainWindow = this;
-
-            TouchInput.Initialize();
-
-            overlayWindow = new OverlayWindow();
-            overlayWindow.Show();
-            LocalState.OverlayWindow = overlayWindow;
-        }
+        #region UI Interaction
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -77,15 +64,6 @@ namespace SequenceClicker
 
             DisableOverlayWindowInput(false);
         }
-
-        private void DisableOverlayWindowInput(bool state)
-        {
-            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
-            User32API.SetWindowTransparent(hwnd, state);
-
-            overlayWinHasInput = state;
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             //overlayWindow.Close();
@@ -93,7 +71,7 @@ namespace SequenceClicker
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
         {
-            
+
             //foreach(System.Windows.Input.TouchPoint tp in e.GetIntermediateTouchPoints(null))
             //{
             //    DLog.Log($"{tp.Position} : {tp.Action} : {tp.Size}");
@@ -113,6 +91,31 @@ namespace SequenceClicker
         private void MinWindow(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        #endregion
+
+        public MainWindow()
+        {
+            DLog.Instantiate();
+
+            InitializeComponent();
+            return;
+            LocalState.MainWindow = this;
+
+            TouchInput.Initialize();
+
+            overlayWindow = new OverlayWindow();
+            overlayWindow.Show();
+            LocalState.OverlayWindow = overlayWindow;
+        }
+
+        private void DisableOverlayWindowInput(bool state)
+        {
+            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
+            User32API.SetWindowTransparent(hwnd, state);
+
+            overlayWinHasInput = state;
         }
 
         //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
