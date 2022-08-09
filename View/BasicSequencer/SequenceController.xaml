@@ -6,8 +6,33 @@
              xmlns:local="clr-namespace:SequenceClicker.View"
              mc:Ignorable="d"             
              Background="{StaticResource DarkerGray}"
+             PreviewMouseLeftButtonDown="Ctrl_PreviewMouseLeftButtonDown"
+             PreviewMouseRightButtonDown="Ctrl_PreviewMouseRightButtonDown"
+             MouseEnter="Ctrl_MouseEnter"
+             MouseLeave="Ctrl_MouseLeave"
              Width="100" Height="25" >
     <Grid>
-        <Border Background="White" CornerRadius="0 8 8 0" Width="40" HorizontalAlignment="Left"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Name="SliderGrid" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="9.9"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Name="SliderP1" Background="White" CornerRadius="0 8 8 0"/>
+
+            <Border Grid.Column="1" HorizontalAlignment="Left" Background="White" Width="10">
+                <Border Name="SliderP2" CornerRadius="8 0 0 8" Margin="0 0 -1 0" Width="11" Background="{StaticResource DarkerGray}"/>
+            </Border>
+
+            <Label Foreground="Black" Content="Play" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <Border Name="SliderP3" Grid.Column="1" Background="White" CornerRadius="8 0 0 8"/>
     </Grid>
 </UserControl>
