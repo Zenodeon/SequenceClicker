@@ -87,13 +87,13 @@
                 </Button>
             </Grid>
 
-            <view:SequenceController Grid.Row="1"/>
+            <view:SequenceController Grid.Row="1" OnClick="SequenceController_OnClick"/>
 
         </Grid>
 
         <!--<Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
         <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>-->
 
-        <view:BasicSequencerPanel Grid.Column="1"/>
+        <view:BasicSequencerPanel x:Name="BasicSeq" Grid.Column="1"/>
     </Grid>
 </Window>

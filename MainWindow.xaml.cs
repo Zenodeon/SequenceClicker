@@ -29,9 +29,55 @@ namespace SequenceClicker
         OverlayWindow overlayWindow;
 
         bool overlayWinHasInput = false;
+        bool basicSequenceRunning = false;
 
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
+
+        public MainWindow()
+        {
+            DLog.Instantiate();
+
+            InitializeComponent();
+
+            return;
+            LocalState.MainWindow = this;
+
+            TouchInput.Initialize();
+
+            overlayWindow = new OverlayWindow();
+            overlayWindow.Show();
+            LocalState.OverlayWindow = overlayWindow;
+        }
+
+        private void DisableOverlayWindowInput(bool state)
+        {
+            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
+            User32API.SetWindowTransparent(hwnd, state);
+
+            overlayWinHasInput = state;
+        }
+
+        private async void StartBasicSequence()
+        {
+            DisableOverlayWindowInput(true);
+
+            await Task.Run(() =>
+            {
+                foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
+                {
+                        //TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
+                    Thread.Sleep(300);
+                }
+            });
+
+            DisableOverlayWindowInput(false);
+        }
+
+        private void StopBasicSequence()
+        {
+
+        }
 
         #region UI Interaction
 
@@ -64,6 +110,7 @@ namespace SequenceClicker
 
             DisableOverlayWindowInput(false);
         }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             //overlayWindow.Close();
@@ -93,30 +140,15 @@ namespace SequenceClicker
             WindowState = WindowState.Minimized;
         }
 
+        private void SequenceController_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (basicSequenceRunning)
+                StartBasicSequence();
+            else
+                StopBasicSequence();
+        }
+
         #endregion
-
-        public MainWindow()
-        {
-            DLog.Instantiate();
-
-            InitializeComponent();
-            return;
-            LocalState.MainWindow = this;
-
-            TouchInput.Initialize();
-
-            overlayWindow = new OverlayWindow();
-            overlayWindow.Show();
-            LocalState.OverlayWindow = overlayWindow;
-        }
-
-        private void DisableOverlayWindowInput(bool state)
-        {
-            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
-            User32API.SetWindowTransparent(hwnd, state);
-
-            overlayWinHasInput = state;
-        }
 
         //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         //{
