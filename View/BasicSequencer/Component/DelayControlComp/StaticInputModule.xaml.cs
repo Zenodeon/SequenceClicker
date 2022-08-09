@@ -29,5 +29,10 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             SInputCtrl.inputDelay = value;
         }
+
+        public int GetDelay()
+        {
+            return 0;
+        }
     }
 }

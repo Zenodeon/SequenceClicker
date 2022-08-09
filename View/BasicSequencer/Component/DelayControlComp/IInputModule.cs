@@ -8,6 +8,6 @@ namespace SequenceClicker.View.BasicSequencer.Component
 {
     public interface IInputModule
     {
-        
+        public int GetDelay();
     }
 }

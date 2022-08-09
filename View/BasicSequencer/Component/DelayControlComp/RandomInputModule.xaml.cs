@@ -30,5 +30,10 @@ namespace SequenceClicker.View.BasicSequencer.Component
             RInputCtrl1.inputDelay = minValue;
             RInputCtrl2.inputDelay = maxValue;
         }
+
+        public int GetDelay()
+        {
+            return 0;
+        }
     }
 }
