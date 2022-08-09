@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SequenceClicker.View"
+             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"  
              mc:Ignorable="d"             
              Background="{StaticResource DarkerGray}"
              PreviewMouseLeftButtonDown="Ctrl_PreviewMouseLeftButtonDown"
@@ -12,7 +13,8 @@
              MouseLeave="Ctrl_MouseLeave"
              Width="100" Height="25" >
     <Grid>
-        <Grid.ColumnDefinitions>
+        <CControl:MButton x:Name="tButton" Text="Play" Height="25" OnClick="MButton_OnClick"/>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
@@ -33,6 +35,6 @@
             <Label Foreground="Black" Content="Play" HorizontalAlignment="Right"/>
         </Grid>
 
-        <Border Name="SliderP3" Grid.Column="1" Background="White" CornerRadius="8 0 0 8"/>
+        <Border Name="SliderP3" Grid.Column="1" Background="White" CornerRadius="8 0 0 8"/>-->
     </Grid>
 </UserControl>

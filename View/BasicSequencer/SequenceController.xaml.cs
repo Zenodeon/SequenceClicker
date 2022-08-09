@@ -21,6 +21,8 @@ namespace SequenceClicker.View
     /// </summary>
     public partial class SequenceController : UserControl
     {
+        SliderMode sliderMode = SliderMode.Open;
+
         Storyboard animator = new Storyboard();
         DoubleAnimation valueAnim = new DoubleAnimation();
         float slidePercent = 0;
@@ -60,6 +62,7 @@ namespace SequenceClicker.View
 
         private void SlideCtrl(SliderMode mode)
         {
+            return;
             animator.Stop();
 
             valueAnim.From = slidePercent;
@@ -78,6 +81,33 @@ namespace SequenceClicker.View
             Open = 0,
             Close = 10,
             Semi = 5
+        }
+
+        private void MButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (sliderMode == SliderMode.Open)
+            {
+                sliderMode = SliderMode.Close;
+
+                tButton.Text = "Pause";
+            }
+            else
+            {
+                sliderMode = SliderMode.Open;
+
+                tButton.Text = "Play";
+            }
+
+            RaiseEvent(new RoutedEventArgs(OnClickEvent));
+        }
+
+        public static readonly RoutedEvent OnClickEvent =
+            EventManager.RegisterRoutedEvent(nameof(OnClick), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SequenceController));
+
+        public event RoutedEventHandler OnClick
+        {
+            add { AddHandler(OnClickEvent, value); }
+            remove { RemoveHandler(OnClickEvent, value); }
         }
     }
 }
