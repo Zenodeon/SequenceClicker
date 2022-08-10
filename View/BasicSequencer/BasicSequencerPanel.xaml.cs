@@ -52,5 +52,10 @@ namespace SequenceClicker.View
 
             return task;
         }
+
+        public void TestLiveMode(bool state)
+        {
+            activeTasks.tabs[0].LiveMode(state);
+        }
     }
 }

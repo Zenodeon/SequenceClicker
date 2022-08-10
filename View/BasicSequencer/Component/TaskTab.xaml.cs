@@ -23,9 +23,24 @@ namespace SequenceClicker.View.BasicSequencer.Component
         public ContentPresenter frame { get; set; }
         public int taskIndex { get; set; }
 
+        private List<IDelay> delayModules = new List<IDelay>();
+
         public TaskTab()
         {
             InitializeComponent();
+            AddDelayModules();
+        }
+
+        private void AddDelayModules()
+        {
+            delayModules.Add(SDelay);
+            delayModules.Add(HDelay);
+        }
+
+        public void LiveMode(bool state)
+        {
+            foreach (IDelay module in delayModules)
+                module.LiveMode(state);
         }
     }
 }

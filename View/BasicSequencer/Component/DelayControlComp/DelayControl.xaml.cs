@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace SequenceClicker.View.BasicSequencer.Component
 {
-    /// <summary>
-    /// Interaction logic for DelayControl.xaml
-    /// </summary>
     public partial class DelayControl : UserControl, IDelay
     {
         public DelayMode delayMode = DelayMode.Random;

@@ -45,11 +45,11 @@
             </Viewbox>
 
             <Viewbox x:Name="LiveDelayProgressVB" Height="55" VerticalAlignment="Top">
-                <TextBlock x:Name="LiveDelayProgress" Text="100" Foreground="#7C45B0"/>
+                <TextBlock x:Name="LiveDelayProgress" Text="0" Foreground="#7C45B0"/>
             </Viewbox>
 
             <Viewbox x:Name="LiveDelayVB" Height="21.3" VerticalAlignment="Bottom">
-                <TextBlock x:Name="LiveDelay" Text="100" Foreground="#7C45B0"/>
+                <TextBlock x:Name="LiveDelay" Text="0" Foreground="#7C45B0"/>
             </Viewbox>
 
         </Grid>

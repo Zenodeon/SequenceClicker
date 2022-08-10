@@ -60,6 +60,11 @@ namespace SequenceClicker
 
         private async void StartBasicSequence()
         {
+            basicSequenceRunning = true;
+
+            BasicSeq.TestLiveMode(true);
+
+            return;
             DisableOverlayWindowInput(true);
 
             await Task.Run(() =>
@@ -76,7 +81,9 @@ namespace SequenceClicker
 
         private void StopBasicSequence()
         {
+            basicSequenceRunning = false;
 
+            BasicSeq.TestLiveMode(false);
         }
 
         #region UI Interaction
@@ -143,9 +150,9 @@ namespace SequenceClicker
         private void SequenceController_OnClick(object sender, RoutedEventArgs e)
         {
             if (basicSequenceRunning)
-                StartBasicSequence();
-            else
                 StopBasicSequence();
+            else
+                StartBasicSequence();
         }
 
         #endregion

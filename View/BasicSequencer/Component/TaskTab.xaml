@@ -20,8 +20,8 @@
         
         <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="0 16 16 0"/>
 
-        <local:DelayControl Grid.Column="1" DelayCtrlName="Start Delay"/>
-        <local:DelayControl Grid.Column="5" DelayCtrlName="Hold Duration"/>
+        <local:DelayControl x:Name="SDelay" Grid.Column="1" DelayCtrlName="Start Delay"/>
+        <local:DelayControl x:Name="HDelay" Grid.Column="5" DelayCtrlName="Hold Duration"/>
         
         <!--<RichTextBox Grid.Column="1" Foreground="Black"/>-->
     </Grid>

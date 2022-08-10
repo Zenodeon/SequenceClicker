@@ -31,6 +31,7 @@ namespace SequenceClicker.View
         {
             InitializeComponent();
 
+            return;
             animator.Duration = TimeSpan.FromSeconds(1);
             animator.FillBehavior = FillBehavior.Stop;
 
