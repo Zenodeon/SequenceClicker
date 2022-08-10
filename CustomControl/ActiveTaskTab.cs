@@ -9,55 +9,52 @@ namespace SequenceClicker
 {
     public class ActiveTaskTab<T> : BindingList<T> where T : ContentPresenter
     {
-        int index = -1;
-        private SortedList<int, TaskTab> pairs = new SortedList<int, TaskTab>();
+        public List<TaskTab> tabs = new List<TaskTab>();
 
         public void Initialize()
         {
-            this.AllowEdit = true;
-            this.AllowNew = true;
-            this.AllowRemove = true;
+            base.AllowEdit = true;
+            base.AllowNew = true;
+            base.AllowRemove = true;
         }
 
         public void Add(TaskTab taskT)
         {
-            taskT.taskIndex = index++;
-
-            pairs.Add(index, taskT);
-            this.Insert(index, (T)taskT.frame);
+            tabs.Add(taskT);
+            base.Add((T)taskT.frame);
         }
 
         public void Remove(TaskTab taskT)
         {
-            pairs.Remove(taskT.taskIndex);
+            tabs.Remove(taskT);
             base.Remove((T)taskT.frame);
         }
 
         public void Add(List<TaskTab> taskTList)
         {
-            this.RaiseListChangedEvents = false;
+            base.RaiseListChangedEvents = false;
 
             foreach (TaskTab taskT in taskTList)
                 Add(taskT);
 
-            this.RaiseListChangedEvents = true;
-            this.ResetBindings();
+            base.RaiseListChangedEvents = true;
+            base.ResetBindings();
         }
 
         public void Remove(List<TaskTab> taskTList)
         {
-            this.RaiseListChangedEvents = false;
+            base.RaiseListChangedEvents = false;
 
             foreach (TaskTab taskT in taskTList)
                 Remove(taskT);
 
-            this.RaiseListChangedEvents = true;
-            this.ResetBindings();
+            base.RaiseListChangedEvents = true;
+            base.ResetBindings();
         }
 
         public new void Clear()
         {
-            pairs.Clear();
+            tabs.Clear();
             base.Clear();
         }
 
