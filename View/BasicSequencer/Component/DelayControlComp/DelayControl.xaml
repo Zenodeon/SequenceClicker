@@ -19,8 +19,8 @@
         </Grid.RowDefinitions>
 
         <Rectangle Grid.Row="0" Fill="BlueViolet"/>
-        <Rectangle Grid.Row="1" Fill="BlueViolet" Opacity="0.314"/>
-        <Rectangle Grid.Row="6" Fill="BlueViolet" HorizontalAlignment="Left" Width="120"/>
+        <Rectangle Grid.Row="1" Fill="BlueViolet" Opacity="0.4"/>
+        <Rectangle Grid.Row="6" Fill="#4B3163"/>
 
         <Viewbox Grid.Row="1" Stretch="Uniform">
             <TextBlock Text="{Binding DelayCtrlName, ElementName=DelayCtrl, FallbackValue=Delay}" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
@@ -31,13 +31,27 @@
 
         <local:StaticInputModule x:Name="SInputModl" Grid.Row="2" Visibility="Collapsed"/>
         <local:RandomInputModule x:Name="RInputModl" Grid.Row="2" Visibility="Visible"/>
-
-        <Border x:Name="LivePanel" Grid.Row="2" Opacity="0" Background="{Binding Background, ElementName=DelayCtrl}">
-            <Viewbox Width="80">
-                <TextBlock x:Name="LiveDelay" Text="100ms" Foreground="BlueViolet" Opacity="0.75"/>
-            </Viewbox>
-        </Border>
         
         <CControl:MButton x:Name="DelayModeSwitch" Height="12" Width="80" Text="Random Range" BarSize="2" Grid.Row="3" OnClick="OnDelayModeSwitch"/>
+
+        <Grid x:Name="LivePanel" Grid.Row="2" Grid.RowSpan="2" d:Opacity="1" d:Visibility="Visible" Opacity="0" Visibility="Collapsed">
+            
+            <Border Background="{Binding Background, ElementName=DelayCtrl}"/>
+            
+            <Rectangle x:Name="LiveBar" Fill="#4B3163" Opacity="0.8" Width="50" HorizontalAlignment="Left"/>
+
+            <Viewbox>
+                <TextBlock Text="MS" Foreground="#4B3163" Margin="{StaticResource NumericTextOffset}" RenderTransformOrigin="0.5,0.5"/>
+            </Viewbox>
+
+            <Viewbox x:Name="LiveDelayProgressVB" Height="55" VerticalAlignment="Top">
+                <TextBlock x:Name="LiveDelayProgress" Text="100" Foreground="#7C45B0"/>
+            </Viewbox>
+
+            <Viewbox x:Name="LiveDelayVB" Height="21.3" VerticalAlignment="Bottom">
+                <TextBlock x:Name="LiveDelay" Text="100" Foreground="#7C45B0"/>
+            </Viewbox>
+
+        </Grid>
     </Grid>
 </UserControl>

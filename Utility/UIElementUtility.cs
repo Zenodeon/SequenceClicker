@@ -10,19 +10,26 @@ namespace SequenceClicker
 {
     public static class UIElementUtility
     {
-        public static void FadeOpacity(this UIElement element, float value)
+        public static DoubleAnimation FadeOpacity(this UIElement element, float value, float duration = 0.15f)
         {
             var animation = new DoubleAnimation
             {
                 From = element.Opacity,
                 To = value,
-                Duration = TimeSpan.FromSeconds(0.15f),
+                Duration = TimeSpan.FromSeconds(duration),
                 FillBehavior = FillBehavior.Stop
             };
 
-            animation.Completed += (o, e) => element.Opacity = value;
+            animation.OnComplete(() => element.Opacity = value);
 
             element.BeginAnimation(UIElement.OpacityProperty, animation);
+
+            return animation;
+        }
+
+        public static void OnComplete(this DoubleAnimation animation, Action action)
+        {
+            animation.Completed += (o, e) => action();
         }
     }
 }

@@ -44,9 +44,17 @@ namespace SequenceClicker.View.BasicSequencer.Component
             this.IsHitTestVisible = !state;
 
             if (state)
+            {
+                LivePanel.Visibility = Visibility.Visible;
                 finalDelay = activeModule.GetDelay();
+            }
 
-            LivePanel.FadeOpacity(state ? 1 : 0);
+            LivePanel.FadeOpacity(state ? 1 : 0).OnComplete(() =>
+            {
+                if(!state)
+                    LivePanel.Visibility = Visibility.Collapsed;
+            });
+
             LiveDelay.Text = finalDelay + "";
         }
 
