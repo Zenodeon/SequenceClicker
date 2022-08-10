@@ -146,14 +146,6 @@
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
-                <bsComp:TaskTab/>
             </ItemsControl>
         </Border>
     </Grid>

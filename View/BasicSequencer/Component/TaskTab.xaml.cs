@@ -20,6 +20,9 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class TaskTab : UserControl
     {
+        public ContentPresenter frame { get; set; }
+        public int taskIndex { get; set; }
+
         public TaskTab()
         {
             InitializeComponent();

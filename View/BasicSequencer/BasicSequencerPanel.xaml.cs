@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using SequenceClicker;
+using SequenceClicker.View.BasicSequencer.Component;
+
 namespace SequenceClicker.View
 {
     /// <summary>
@@ -20,9 +23,34 @@ namespace SequenceClicker.View
     /// </summary>
     public partial class BasicSequencerPanel : UserControl
     {
+        private ScrollViewer taskViewer { get; set; }
+
+
+        ActiveTaskTab<ContentPresenter> activeTasks = new ActiveTaskTab<ContentPresenter>();
+
         public BasicSequencerPanel()
         {
             InitializeComponent();
+
+            TaskControl.ApplyTemplate();
+            taskViewer = (ScrollViewer)TaskControl.Template.FindName("TaskViewer", TaskControl);
+
+            activeTasks.Initialize();
+            TaskControl.ItemsSource = activeTasks;
+
+            activeTasks.Add(CreateTaskTab());
+        }
+
+        public TaskTab CreateTaskTab()
+        {
+            ContentPresenter frame = new ContentPresenter();
+            TaskTab task = new TaskTab();
+
+            task.frame = frame;
+
+            frame.Content = task;
+
+            return task;
         }
     }
 }
