@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="SequenceClicker.View.BasicSequencer.Component.DelayLiveView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
+             mc:Ignorable="d" 
+             Width="120" Height="64"
+             d:Visibility="Visible"
+             Visibility="Collapsed"
+             d:Opacity="1"
+             Opacity="0"
+             Background="{StaticResource MidGray}"
+             x:Name="LivePanel">
+    <Grid>
+        <Border Background="{Binding Background, ElementName=DelayCtrl}"/>
+
+        <Rectangle x:Name="LiveBar" Fill="#4B3163" Opacity="0.8" Width="50" HorizontalAlignment="Left"/>
+
+        <Viewbox>
+            <TextBlock Text="MS" Foreground="#4B3163" Margin="{StaticResource NumericTextOffset}" RenderTransformOrigin="0.5,0.5"/>
+        </Viewbox>
+
+        <Viewbox x:Name="LiveDelayProgressVB" Height="55" VerticalAlignment="Top">
+            <TextBlock x:Name="LiveDelayProgress" Text="0" Foreground="#7C45B0"/>
+        </Viewbox>
+
+        <Viewbox x:Name="LiveDelayVB" Height="21.3" VerticalAlignment="Bottom">
+            <TextBlock x:Name="LiveDelay" Text="0" Foreground="#7C45B0"/>
+        </Viewbox>
+    </Grid>
+</UserControl>

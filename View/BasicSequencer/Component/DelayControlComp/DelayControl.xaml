@@ -34,24 +34,6 @@
         
         <CControl:MButton x:Name="DelayModeSwitch" Height="12" Width="80" Text="Random Range" BarSize="2" Grid.Row="3" OnClick="OnDelayModeSwitch"/>
 
-        <Grid x:Name="LivePanel" Grid.Row="2" Grid.RowSpan="2" d:Opacity="1" d:Visibility="Visible" Opacity="0" Visibility="Collapsed">
-            
-            <Border Background="{Binding Background, ElementName=DelayCtrl}"/>
-            
-            <Rectangle x:Name="LiveBar" Fill="#4B3163" Opacity="0.8" Width="50" HorizontalAlignment="Left"/>
-
-            <Viewbox>
-                <TextBlock Text="MS" Foreground="#4B3163" Margin="{StaticResource NumericTextOffset}" RenderTransformOrigin="0.5,0.5"/>
-            </Viewbox>
-
-            <Viewbox x:Name="LiveDelayProgressVB" Height="55" VerticalAlignment="Top">
-                <TextBlock x:Name="LiveDelayProgress" Text="0" Foreground="#7C45B0"/>
-            </Viewbox>
-
-            <Viewbox x:Name="LiveDelayVB" Height="21.3" VerticalAlignment="Bottom">
-                <TextBlock x:Name="LiveDelay" Text="0" Foreground="#7C45B0"/>
-            </Viewbox>
-
-        </Grid>
+        <local:DelayLiveView Grid.Row="2" Grid.RowSpan="2" x:Name="LivePanel"/>
     </Grid>
 </UserControl>
