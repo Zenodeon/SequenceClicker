@@ -28,25 +28,25 @@ namespace SequenceClicker.CustomControl
 
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
-            Bar.FadeOpacity(1);
-            Label.FadeOpacity(1);
+            Bar.FadeProperty(OpacityProperty, 1);
+            Label.FadeProperty(OpacityProperty, 1);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
         {
-            Bar.FadeOpacity(0);
-            Label.FadeOpacity(0.7f);
+            Bar.FadeProperty(OpacityProperty, 0);
+            Label.FadeProperty(OpacityProperty, 0.7f);
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Bar.FadeOpacity(0.5f);
+            Bar.FadeProperty(OpacityProperty, 0.5f);
         }
 
         private void OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             RaiseEvent(new RoutedEventArgs(OnClickEvent));
-            Bar.FadeOpacity(1f);
+            Bar.FadeProperty(OpacityProperty, 1f);
         }
 
         #region Dependency Property
