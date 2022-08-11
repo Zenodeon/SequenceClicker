@@ -10,9 +10,11 @@ namespace SequenceClicker
 {
     public static class UIElementUtility
     {
-        public static DoubleAnimation FadeProperty(this UIElement element, DependencyProperty dp, double value, int msDuration = 150)
+        public static ElementPropertyHandler FadeProperty(this UIElement element, DependencyProperty dp, double value, int msDuration = 150)
         {
-            var animation = new DoubleAnimation
+            ElementPropertyHandler handler = new ElementPropertyHandler();
+
+            DoubleAnimation animation = new DoubleAnimation
             {
                 From = (double)element.GetValue(dp),
                 To = value,
@@ -20,21 +22,37 @@ namespace SequenceClicker
                 FillBehavior = FillBehavior.Stop
             };
 
-            animation.OnComplete(() => element.SetValue(dp, value));
+            animation.Completed += (o, e) => element.SetValue(dp, value);
            
             element.BeginAnimation(dp, animation);
 
-            return animation;
+            handler.animation = animation;
+            return handler;
         }
 
-        public static void OnComplete(this DoubleAnimation animation, Action action)
+        public static ElementPropertyHandler OnComplete(this ElementPropertyHandler handler, Action action)
         {
-            animation.Completed += (o, e) => action();
+            handler.completeAction = action;
+            handler.animation.Completed += handler.OnComplete;
+            return handler;
         }
 
-        public static void OnUpdate(this DoubleAnimation animation, Action action)
+        public static ElementPropertyHandler OnUpdate(this ElementPropertyHandler handler, Action action)
         {
-            animation.Changed += (o, e) => action();
+            handler.updateAction = action;
+            handler.animation.CurrentTimeInvalidated += handler.OnUpdate;
+            return handler;
+        }
+
+        public class ElementPropertyHandler
+        {
+            public DoubleAnimation animation;
+
+            public Action updateAction;
+            public Action completeAction;
+
+            public void OnUpdate(object? obj, EventArgs e) => updateAction();
+            public void OnComplete(object? obj, EventArgs e) => completeAction();
         }
     }
 }
