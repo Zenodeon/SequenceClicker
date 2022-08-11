@@ -25,15 +25,15 @@ namespace SequenceClicker.View.BasicSequencer.Component
             InitializeComponent();
         }
 
-        public void SetDelayValue(float minValue, float maxValue)
+        public void SetDelayValue(int minValue, int maxValue)
         {
-            RInputCtrl1.inputDelay = minValue;
-            RInputCtrl2.inputDelay = maxValue;
+            RInputCtrl1.msDelay = minValue;
+            RInputCtrl2.msDelay = maxValue;
         }
 
         public int GetDelay()
         {
-            return 0;
+            return new Random().Next(RInputCtrl1.msDelay, RInputCtrl2.msDelay); ;
         }
     }
 }

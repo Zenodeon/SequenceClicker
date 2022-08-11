@@ -25,14 +25,14 @@ namespace SequenceClicker.View.BasicSequencer.Component
             InitializeComponent();
         }
 
-        public void SetDelayValue(float value)
+        public void SetDelayValue(int value)
         {
-            SInputCtrl.inputDelay = value;
+            SInputCtrl.msDelay = value;
         }
 
         public int GetDelay()
         {
-            return 0;
+            return SInputCtrl.msDelay;
         }
     }
 }

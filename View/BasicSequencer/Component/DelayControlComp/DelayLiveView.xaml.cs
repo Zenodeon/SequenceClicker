@@ -20,9 +20,41 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class DelayLiveView : UserControl
     {
+        float delayVBHeight = 21.3f;
+        float delayProgressVBHeight = 55;
+
+        int targetDelay = 0;
+
         public DelayLiveView()
         {
             InitializeComponent();
+        }
+
+        public void SetTargetDelay(int delay)
+        {
+            targetDelay = delay;
+            LiveDelay.Text = delay.ToString();
+        }
+
+        public void DelayLive(Action action)
+        {
+            LiveDelayVB.FadeProperty(HeightProperty, delayVBHeight);
+            LiveDelayProgressVB.FadeProperty(HeightProperty, delayProgressVBHeight);
+
+            LiveBar.FadeProperty(WidthProperty, this.Width, msDuration: targetDelay)
+                .OnUpdate(() =>
+                {
+                    DLog.Log("Bar Update");
+                })
+                .OnComplete(() => DLog.Log("Bar Done"));
+        }
+
+        public void DelayLiveOff()
+        {
+            LiveDelayVB.FadeProperty(HeightProperty, LivePanel.Height);
+            LiveDelayProgressVB.FadeProperty(HeightProperty, 0);
+
+            LiveBar.Width = 0;
         }
     }
 }

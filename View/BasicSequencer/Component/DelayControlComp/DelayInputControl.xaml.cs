@@ -23,7 +23,25 @@ namespace SequenceClicker.View.BasicSequencer.Component
     {
         public TimeType timeType = TimeType.ms;
 
-        public float inputDelay { get => float.Parse(delayInput.Text); set { delayInput.Text = value + ""; } }
+        private float delayInputValue { get => float.Parse(delayInput.Text); set { delayInput.Text = value.ToString(); } }
+
+        public int msDelay
+        {
+            get
+            {
+                if (timeType == TimeType.ms)
+                    return (int)delayInputValue;
+                else
+                    return (int)(delayInputValue * 1000);
+            }
+            set
+            {
+                if (timeType == TimeType.ms)
+                    delayInputValue = value;
+                else
+                   delayInputValue = value / 1000;
+            }
+        }
 
         public DelayInputControl()
         {
@@ -47,9 +65,9 @@ namespace SequenceClicker.View.BasicSequencer.Component
             if(needConverting)
             {
                 if (timeType == TimeType.ms)
-                    inputDelay *= 1000;
+                    delayInputValue *= 1000;
                 else
-                    inputDelay /= 1000;
+                    delayInputValue /= 1000;
             }
 
             TimeModeSwitch.Text = timeType.ToString();

@@ -63,6 +63,7 @@ namespace SequenceClicker
             basicSequenceRunning = true;
 
             BasicSeq.TestLiveMode(true);
+            BasicSeq.TestTask();
 
             return;
             DisableOverlayWindowInput(true);

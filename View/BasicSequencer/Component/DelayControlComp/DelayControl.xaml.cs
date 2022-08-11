@@ -42,20 +42,23 @@ namespace SequenceClicker.View.BasicSequencer.Component
             {
                 LivePanel.Visibility = Visibility.Visible;
                 finalDelay = activeModule.GetDelay();
+                LivePanel.SetTargetDelay(finalDelay);
+            }
+            else
+            {
+                LivePanel.DelayLiveOff();
             }
 
-            LivePanel.FadeOpacity(state ? 1 : 0).OnComplete(() =>
+            LivePanel.FadeProperty(OpacityProperty, state ? 1 : 0).OnComplete(() =>
             {
                 if (!state)
                     LivePanel.Visibility = Visibility.Collapsed;
             });
-
-            //LiveDelay.Text = finalDelay + "";
         }
 
-        public void Delay()
+        public void Delay(Action action)
         {
-
+            LivePanel.DelayLive(action);
         }
 
         private void SetDefaultValue()

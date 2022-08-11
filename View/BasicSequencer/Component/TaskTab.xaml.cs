@@ -42,5 +42,10 @@ namespace SequenceClicker.View.BasicSequencer.Component
             foreach (IDelay module in delayModules)
                 module.LiveMode(state);
         }
+
+        public void RunTask()
+        {
+            SDelay.Delay(() => HDelay.Delay(() => DLog.Log("Done")));
+        }
     }
 }
