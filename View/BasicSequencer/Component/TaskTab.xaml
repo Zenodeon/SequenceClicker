@@ -17,8 +17,10 @@
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        
+
         <Border Grid.ColumnSpan="7" Background="{StaticResource MidGray}" CornerRadius="0 16 16 0"/>
+
+        <Border x:Name="TTIndicator" Background="BlueViolet" Opacity="0.4" Width="7" Height="60" CornerRadius="3" HorizontalAlignment="Center"/>
 
         <local:DelayControl x:Name="SDelay" Grid.Column="1" DelayCtrlName="Start Delay"/>
         <local:DelayControl x:Name="HDelay" Grid.Column="5" DelayCtrlName="Hold Duration"/>

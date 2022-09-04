@@ -39,13 +39,20 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void LiveMode(bool state)
         {
+            TTIndicator.FadeProperty(OpacityProperty, state ? 1 : 0.4f, 150);
+
             foreach (IDelay module in delayModules)
                 module.LiveMode(state);
         }
 
         public void RunTask()
         {
-            SDelay.Delay(() => HDelay.Delay(() => DLog.Log("Done")));
+            SDelay.Delay(() => HDelay.Delay(() => OnTaskExecuted()));
+        }
+
+        public void OnTaskExecuted()
+        {
+
         }
     }
 }
