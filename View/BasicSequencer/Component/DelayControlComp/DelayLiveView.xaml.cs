@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace SequenceClicker.View.BasicSequencer.Component
 {
@@ -43,10 +44,12 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
             LiveBar.FadeProperty(WidthProperty, this.Width, msDuration: targetDelay)
                 .OnUpdate(() =>
+                    LiveDelayProgress.Text = (int)UUtility.RangedMapClamp((float)LiveBar.Width, 0, (float)this.Width, 0, targetDelay) + "")
+                .OnComplete(() =>
                 {
-                    DLog.Log("Bar Update");
-                })
-                .OnComplete(() => DLog.Log("Bar Done"));
+                    LiveDelayProgress.Text = (int)targetDelay + "";
+                    action();
+                });
         }
 
         public void DelayLiveOff()
@@ -54,6 +57,9 @@ namespace SequenceClicker.View.BasicSequencer.Component
             LiveDelayVB.FadeProperty(HeightProperty, LivePanel.Height);
             LiveDelayProgressVB.FadeProperty(HeightProperty, 0);
 
+            LiveDelayProgress.Text = "";
+
+            LiveBar.StopAnimation(WidthProperty);
             LiveBar.Width = 0;
         }
     }

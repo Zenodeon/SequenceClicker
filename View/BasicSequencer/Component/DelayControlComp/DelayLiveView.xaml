@@ -15,7 +15,7 @@
     <Grid>
         <Border Background="{Binding Background, ElementName=DelayCtrl}"/>
 
-        <Rectangle x:Name="LiveBar" Fill="#4B3163" Opacity="0.8" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle x:Name="LiveBar" Fill="#4B3163" Opacity="0.6" Width="0" HorizontalAlignment="Left"/>
 
         <Viewbox>
             <TextBlock Text="MS" Foreground="#4B3163" Margin="{StaticResource NumericTextOffset}" RenderTransformOrigin="0.5,0.5"/>
