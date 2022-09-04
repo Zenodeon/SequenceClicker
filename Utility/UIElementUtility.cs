@@ -38,5 +38,10 @@ namespace SequenceClicker
             animation.CurrentTimeInvalidated += (o, e) => action();
             return animation;
         }
+
+        public static void StopAnimation(this UIElement element, DependencyProperty dp)
+        {
+            element.BeginAnimation(dp, null);
+        }
     }
 }
