@@ -39,6 +39,7 @@ namespace SequenceClicker.View
             TaskControl.ItemsSource = activeTasks;
 
             activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
         }
 
         public TaskTab CreateTaskTab()
