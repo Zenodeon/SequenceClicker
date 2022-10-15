@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SequenceClicker.View.BasicSequencer.Component.KeySelectControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
+             xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"  
+             mc:Ignorable="d" 
+             Background="{StaticResource MidGray}"
+             Width="120" Height="80">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.Row="0" Fill="BlueViolet"/>
+            <Rectangle Grid.Row="1" Fill="BlueViolet" Opacity="0.4"/>
+            <Rectangle Grid.Row="6" Fill="#4B3163"/>
+
+            <Viewbox Grid.Row="1" Stretch="Uniform">
+                <TextBlock Text="Simulate Key" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
+            </Viewbox>
+
+            <Grid Grid.Row="2">
+            </Grid>
+
+            <local:StaticInputModule x:Name="SInputModl" Grid.Row="2" Visibility="Collapsed"/>
+            <local:RandomInputModule x:Name="RInputModl" Grid.Row="2" Visibility="Visible"/>
+
+            <CControl:MButton x:Name="DelayModeSwitch" Height="12" Width="80" Text="Random Range" BarSize="2" Grid.Row="3" OnClick="OnDelayModeSwitch"/>
+
+            <local:DelayLiveView Grid.Row="2" Grid.RowSpan="2" x:Name="LivePanel"/>
+        </Grid>
+    </Grid>
+</UserControl>
