@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              mc:Ignorable="d" 
              Background="Transparent"
-             Width="440" Height="80">
+             Width="460" Height="80">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="30"/>
@@ -23,6 +23,9 @@
         <Border x:Name="TTIndicator" Background="BlueViolet" Opacity="0.4" Width="7" Height="60" CornerRadius="3" HorizontalAlignment="Center"/>
 
         <local:DelayControl x:Name="SDelay" Grid.Column="1" DelayCtrlName="Start Delay"/>
+        
+        <local:KeySelectControl x:Name="KSelect" Grid.Column="3"/>
+        
         <local:DelayControl x:Name="HDelay" Grid.Column="5" DelayCtrlName="Hold Duration"/>
         
         <!--<RichTextBox Grid.Column="1" Foreground="Black"/>-->
