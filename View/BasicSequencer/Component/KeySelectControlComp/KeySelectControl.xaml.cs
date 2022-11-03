@@ -59,14 +59,16 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
             if (e.Key == Key.Return)
             {
-                Keyboard.ClearFocus();
+                this.LoseFocus();
+
                 FormatTextBox(textBox);
             }
 
             if (e.Key == Key.Escape)
             {
                 textBox.Text = lastString;
-                Keyboard.ClearFocus();
+
+                this.LoseFocus();
             }
         }
 

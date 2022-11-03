@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace SequenceClicker
@@ -42,6 +43,12 @@ namespace SequenceClicker
         public static void StopAnimation(this UIElement element, DependencyProperty dp)
         {
             element.BeginAnimation(dp, null);
+        }
+
+        public static void LoseFocus(this FrameworkElement element)
+        {
+            Keyboard.ClearFocus();
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(element), null);
         }
     }
 }
