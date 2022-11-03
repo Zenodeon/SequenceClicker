@@ -47,10 +47,25 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void RunTask()
         {
-            SDelay.Delay(() => HDelay.Delay(() => OnTaskExecuted()));
+            SDelay.Delay(() =>
+            PressInput(() =>
+            HDelay.Delay(() =>
+            ReleaseInput(TaskCompleted))));
         }
 
-        public void OnTaskExecuted()
+        public void PressInput(Action onPress)
+        {
+
+            onPress?.Invoke();
+        }
+
+        public void ReleaseInput(Action onRelease)
+        {
+
+            onRelease?.Invoke();
+        }
+
+        public void TaskCompleted()
         {
 
         }
