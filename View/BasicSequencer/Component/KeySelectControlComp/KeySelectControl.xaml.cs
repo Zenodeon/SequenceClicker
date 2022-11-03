@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,5 +25,83 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             InitializeComponent();
         }
+
+        #region TextInput Filtering
+        private readonly Regex allowedNumericRegex = new Regex("[^0-9]+");
+
+        private int maxTextLength = 2;
+
+        private string lastString;
+
+        private bool IsNumericString(string text)
+        {
+            return allowedNumericRegex.IsMatch(text);
+        }
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            bool handle = IsNumericString(e.Text);
+
+            if (!handle)
+            {
+                if (textBox.Text.Length >= maxTextLength)
+                    handle = true;
+            }
+
+            e.Handled = handle;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (e.Key == Key.Return)
+            {
+                Keyboard.ClearFocus();
+                FormatTextBox(textBox);
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                textBox.Text = lastString;
+                Keyboard.ClearFocus();
+            }
+        }
+
+        private void OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            lastString = textBox.Text;
+        }
+
+        private void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            FormatTextBox(textBox);
+        }
+
+        private void FormatTextBox(TextBox textBox)
+        {
+            if (textBox.Text == "")
+                textBox.Text = 0 + "";
+
+            textBox.Text = int.Parse(textBox.Text) + "";
+        }
+
+        private void OnTextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsNumericString(text))
+                    e.CancelCommand();
+            }
+            else
+                e.CancelCommand();
+        }
+        #endregion
     }
 }

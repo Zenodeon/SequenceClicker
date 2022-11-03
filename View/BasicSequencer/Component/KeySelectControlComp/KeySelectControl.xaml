@@ -23,13 +23,17 @@
             <Rectangle Grid.Row="6" Fill="#4B3163"/>
 
             <Viewbox Grid.Row="1" Stretch="Uniform">
-                <TextBlock Text="Simulate Key" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
+                <TextBlock Text="Simulate Input" Margin="{StaticResource TextOffset}" Foreground="White" TextAlignment="Center"/>
             </Viewbox>
 
             <Grid Grid.Row="2">
             </Grid>
 
-            <CControl:MButton x:Name="InputTypeSwitch" Height="12" Width="80" Text="Pointer" BarSize="2" Grid.Row="3"/>
+            <Viewbox Grid.Row="2" Stretch="Uniform" Height="40">
+                <TextBox x:Name="pointerID" Text="0" CaretBrush="#FF909090" PreviewTextInput="OnPreviewTextInput" KeyDown="OnKeyDown" GotKeyboardFocus="OnGotKeyboardFocus" LostKeyboardFocus="OnLostKeyboardFocus" DataObject.Pasting="OnTextBoxPasting" TextAlignment="Center" VerticalAlignment="Center" Foreground="White"  BorderThickness="0" Background="Transparent" FontFamily="Segoe UI"/>
+            </Viewbox>
+
+            <CControl:MButton x:Name="InputTypeSwitch" Height="12" Width="80" Text="Pointer ID" BarSize="2" Grid.Row="3"/>
 
         </Grid>
     </Grid>
