@@ -55,13 +55,11 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void PressInput(Action onPress)
         {
-
             onPress?.Invoke();
         }
 
         public void ReleaseInput(Action onRelease)
         {
-
             onRelease?.Invoke();
         }
 

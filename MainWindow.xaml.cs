@@ -28,7 +28,6 @@ namespace SequenceClicker
     {
         OverlayWindow overlayWindow;
 
-        bool overlayWinHasInput = false;
         bool basicSequenceRunning = false;
 
         private IntPtr hwnd;
@@ -48,34 +47,16 @@ namespace SequenceClicker
             LocalState.OverlayWindow = overlayWindow;
         }
 
-        private void DisableOverlayWindowInput(bool state)
-        {
-            IntPtr hwnd = new WindowInteropHelper(overlayWindow).Handle;
-            User32API.SetWindowTransparent(hwnd, state);
-
-            overlayWinHasInput = state;
-        }
-
         private async void StartBasicSequence()
         {
+            overlayWindow.IgnoreInput(true);
+
             basicSequenceRunning = true;
 
             BasicSeq.TestLiveMode(true);
             BasicSeq.TestTask();
 
-            return;
-            DisableOverlayWindowInput(true);
-
-            await Task.Run(() =>
-            {
-                foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
-                {
-                        //TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
-                    Thread.Sleep(300);
-                }
-            });
-
-            DisableOverlayWindowInput(false);
+            overlayWindow.IgnoreInput(false);
         }
 
         private void StopBasicSequence()
@@ -94,27 +75,6 @@ namespace SequenceClicker
             //hwndSource.AddHook(MsgHook);
 
             //User32API.RegisterHotKey(hwnd, 1, User32DS.HKMod.MOD_CONTROL, Key.P);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DisableOverlayWindowInput(!overlayWinHasInput);
-        }
-
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            DisableOverlayWindowInput(true);
-
-            await Task.Run(() =>
-            {
-                foreach (CursorPoint cursorPoint in LocalState.OverlayWindow.csrPoints)
-                {
-                    //TouchAtPoint(cursorPoint.id, cursorPoint.targetPoint);
-                    Thread.Sleep(300);
-                }
-            });
-
-            DisableOverlayWindowInput(false);
         }
 
         private void Window_Closed(object sender, EventArgs e)

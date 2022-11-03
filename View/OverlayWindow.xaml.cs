@@ -20,9 +20,11 @@ namespace SequenceClicker.View
 {
     public partial class OverlayWindow : Window
     {
+        public bool hasInput { get; private set; }
+
         public bool shown = false;
 
-        public List<CursorPoint> csrPoints = new List<CursorPoint>();
+        private Dictionary<int, CursorPoint> csrPoints = new Dictionary<int, CursorPoint>();
 
         public OverlayWindow()
         {
@@ -67,14 +69,22 @@ namespace SequenceClicker.View
         private void AddCursorPointToCanvas(CursorPoint cursorPoint)
         {
             CursorSite.Children.Add(cursorPoint);
-            csrPoints.Add(cursorPoint);
+            csrPoints.Add(cursorPoint.id, cursorPoint);
         }
 
         private void RemoveCursorPointFromCanvas(CursorPoint cursorPoint)
         {
-            DLog.Warn("'AddCursorPointToCanvas' Feature Not Done");
+            DLog.Warn("RemoveCursorPointToCanvas' Feature Not Done");
             //CursorSite.Children.Remove(cursorPoint);
             //csrPoints.Remove(cursorPoint);
+        }
+
+        public CursorPoint GetPoint(int pointID)
+        {
+            if (csrPoints.ContainsKey(pointID))
+                return csrPoints[pointID];
+            else
+                return null;
         }
 
         public void ToggleOverlayVisiblity()
@@ -95,6 +105,14 @@ namespace SequenceClicker.View
         {
             Hide();
             shown = false;
+        }
+
+        public void IgnoreInput(bool state)
+        {
+            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            User32API.SetWindowTransparent(hwnd, state);
+
+            hasInput = state;
         }
     }
 }
