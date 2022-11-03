@@ -10,7 +10,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="MainWindow" Height="450" Width="540">
+        Title="MainWindow" Height="450" Width="460">
     <Window.Resources>
         <SolidColorBrush x:Key="ToggleOn" Color="#2d2d30" />
         <SolidColorBrush x:Key="ToggleOff" Color="#3A3A3D" />
@@ -58,10 +58,10 @@
     </Window.Resources>
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="440"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
         <Border CornerRadius="8 0 0 8" Background="{StaticResource DarkGray}" MouseDown="TitleBar_MouseDown"/>
 
@@ -73,12 +73,12 @@
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource CloseBtn}" Click="CloseWindow">
+                <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CloseBtn}" Click="CloseWindow">
                     <Image Source="/Asset/Icons/Window/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
                 
@@ -94,6 +94,6 @@
         <!--<Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
         <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>-->
 
-        <view:BasicSequencerPanel x:Name="BasicSeq" Grid.Column="1"/>
+        <view:BasicSequencerPanel x:Name="BasicSeq" Grid.Row="1"/>
     </Grid>
 </Window>

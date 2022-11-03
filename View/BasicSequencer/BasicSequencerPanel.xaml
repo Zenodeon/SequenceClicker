@@ -8,7 +8,7 @@
              xmlns:SQ="clr-namespace:SequenceClicker"
              mc:Ignorable="d" 
              Background="Transparent"
-             d:DesignHeight="450" Width="440">
+             d:DesignHeight="450" Width="460">
     <UserControl.Resources>
 
         <Style x:Key="ScrollBarTrackThumb"
@@ -111,14 +111,8 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        
-        <Rectangle Fill="{StaticResource DarkGray}"/>
-
-        <Border Grid.ColumnSpan="2" x:Name="cb" Height="Auto" VerticalAlignment="Center" CornerRadius="16" Background="Transparent">
+        <!--<Rectangle Fill="{StaticResource DarkGray}"/>-->
+        <Border x:Name="cb" VerticalAlignment="Top" CornerRadius="16" Background="Transparent">
             <Border.Clip>
                 <MultiBinding Converter="{StaticResource BCC}">
                     <Binding Path="ActualWidth"
@@ -130,7 +124,7 @@
                 </MultiBinding>
             </Border.Clip>
             
-            <ItemsControl Name="TaskControl" Height="Auto" VerticalAlignment="Center" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
+            <ItemsControl Name="TaskControl" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel IsVirtualizing="True"
