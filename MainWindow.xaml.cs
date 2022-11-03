@@ -40,13 +40,11 @@ namespace SequenceClicker
 
             InitializeComponent();
 
-            return;
             LocalState.MainWindow = this;
 
             TouchInput.Initialize();
 
             overlayWindow = new OverlayWindow();
-            overlayWindow.Show();
             LocalState.OverlayWindow = overlayWindow;
         }
 
@@ -121,7 +119,7 @@ namespace SequenceClicker
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            //overlayWindow.Close();
+            overlayWindow.Close();
         }
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
@@ -154,6 +152,11 @@ namespace SequenceClicker
                 StopBasicSequence();
             else
                 StartBasicSequence();
+        }
+
+        private void OverlayToggle(object sender, RoutedEventArgs e)
+        {
+            overlayWindow.ToggleOverlayVisiblity();
         }
 
         #endregion

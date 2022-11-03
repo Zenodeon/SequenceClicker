@@ -20,6 +20,8 @@ namespace SequenceClicker.View
 {
     public partial class OverlayWindow : Window
     {
+        public bool shown = false;
+
         public List<CursorPoint> csrPoints = new List<CursorPoint>();
 
         public OverlayWindow()
@@ -73,6 +75,26 @@ namespace SequenceClicker.View
             DLog.Warn("'AddCursorPointToCanvas' Feature Not Done");
             //CursorSite.Children.Remove(cursorPoint);
             //csrPoints.Remove(cursorPoint);
+        }
+
+        public void ToggleOverlayVisiblity()
+        {
+            if (shown)
+                HideOverlay();
+            else
+                ShowOverlay();
+        }
+
+        public void ShowOverlay()
+        {
+            Show();
+            shown = true;
+        }
+
+        public void HideOverlay()
+        {
+            Hide();
+            shown = false;
         }
     }
 }

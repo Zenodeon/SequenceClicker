@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SequenceClicker"
         xmlns:view="clr-namespace:SequenceClicker.View"
+        xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"  
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -56,13 +57,13 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <Border CornerRadius="8 0 0 8" Background="{StaticResource DarkGray}" MouseDown="TitleBar_MouseDown"/>
 
         <Grid>
@@ -81,7 +82,7 @@
                 <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CloseBtn}" Click="CloseWindow">
                     <Image Source="/Asset/Icons/Window/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
-                
+
                 <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource CtmBtn}" Click="MinWindow">
                     <Image Source="/Asset/Icons/Window/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
@@ -89,6 +90,7 @@
 
             <view:SequenceController Grid.Row="1" OnClick="SequenceController_OnClick"/>
 
+            <CControl:MButton HorizontalAlignment="Right" Background="Black" Grid.Row="1" x:Name="tButton" Text="Overlay Window" Width="100" Height="25" OnClick="OverlayToggle"/>
         </Grid>
 
         <!--<Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
