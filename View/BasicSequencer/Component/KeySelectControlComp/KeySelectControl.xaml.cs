@@ -26,6 +26,11 @@ namespace SequenceClicker.View.BasicSequencer.Component
             InitializeComponent();
         }
 
+        public int GetPointID()
+        {
+            return int.Parse(pointerID.Text);
+        }
+
         #region TextInput Filtering
         private readonly Regex allowedNumericRegex = new Regex("[^0-9]+");
 

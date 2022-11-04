@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using SequenceClicker.Component;
+using SequenceClicker.TouchSim;
+
 namespace SequenceClicker.View.BasicSequencer.Component
 {
     /// <summary>
@@ -55,11 +58,18 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void PressInput(Action onPress)
         {
+            CursorPoint point = LocalState.OverlayWindow.GetPoint(KSelect.GetPointID());
+            TouchInput.SetTouchPoint(0, point.targetPoint);
+
+            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
+
             onPress?.Invoke();
         }
 
         public void ReleaseInput(Action onRelease)
         {
+            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.End);
+
             onRelease?.Invoke();
         }
 
