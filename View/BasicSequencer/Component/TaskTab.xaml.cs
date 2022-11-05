@@ -58,7 +58,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void PressInput(Action onPress)
         {
-            CursorPoint point = LocalState.OverlayWindow.GetPoint(KSelect.GetPointID());
+            ScreenPoint point = LocalState.OverlayWindow.GetPoint(KSelect.GetPointID());
             TouchInput.SetTouchPoint(0, point.targetPoint);
 
             TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);

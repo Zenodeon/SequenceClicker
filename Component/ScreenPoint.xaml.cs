@@ -17,7 +17,7 @@ using SequenceClicker.View;
 
 namespace SequenceClicker.Component
 {
-    public partial class CursorPoint : UserControl, IMenuPanelContent
+    public partial class ScreenPoint : UserControl, IMenuPanelContent
     {
         private OverlayWindow overlayWin => LocalState.OverlayWindow;
 
@@ -48,7 +48,7 @@ namespace SequenceClicker.Component
             }
         }
 
-        public CursorPoint(int id, bool main = false)
+        public ScreenPoint(int id, bool main = false)
         {
             InitializeComponent();
             this.id = id;

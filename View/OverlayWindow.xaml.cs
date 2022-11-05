@@ -24,7 +24,7 @@ namespace SequenceClicker.View
 
         public bool shown = false;
 
-        private Dictionary<int, CursorPoint> csrPoints = new Dictionary<int, CursorPoint>();
+        private Dictionary<int, ScreenPoint> csrPoints = new Dictionary<int, ScreenPoint>();
 
         public OverlayWindow()
         {
@@ -32,22 +32,22 @@ namespace SequenceClicker.View
 
             LocalState.MenuPanel = new MenuPanel();
 
-            CursorPoint cursorPoint = new CursorPoint(0, main: true);
-            AddCursorPointToCanvas(cursorPoint);
+            ScreenPoint screenPoint = new ScreenPoint(0, main: true);
+            AddCursorPointToCanvas(screenPoint);
 
             Point startingPoint = new Point(100, 100);
-            cursorPoint.SetCanvasPosition(startingPoint - ((Vector)cursorPoint.elementSize / 2), 0);
-            cursorPoint.SetTargetPoint(startingPoint);
+            screenPoint.SetCanvasPosition(startingPoint - ((Vector)screenPoint.elementSize / 2), 0);
+            screenPoint.SetTargetPoint(startingPoint);
         }
 
-        public void OpenMenuPanel(Point screenPos, CursorPoint cursorPoint)
+        public void OpenMenuPanel(Point screenPos, ScreenPoint screenPoint)
         {
             MenuPanel panel = LocalState.MenuPanel;
 
             if (!panel.active)
                 CursorSite.Children.Add(panel);
 
-            panel.OpenPanel(cursorPoint);
+            panel.OpenPanel(screenPoint);
 
             panel.SetCanvasPosition(screenPos.X, screenPos.Y, 1);
         }
@@ -61,25 +61,25 @@ namespace SequenceClicker.View
 
         public void AddCursorPoint()
         {
-            CursorPoint newCsrPoint = new CursorPoint(csrPoints.Count);
-            AddCursorPointToCanvas(newCsrPoint);
-            newCsrPoint.SetupMode();
+            ScreenPoint newScreenPoint = new ScreenPoint(csrPoints.Count);
+            AddCursorPointToCanvas(newScreenPoint);
+            newScreenPoint.SetupMode();
         }
 
-        private void AddCursorPointToCanvas(CursorPoint cursorPoint)
+        private void AddCursorPointToCanvas(ScreenPoint cursorPoint)
         {
             CursorSite.Children.Add(cursorPoint);
             csrPoints.Add(cursorPoint.id, cursorPoint);
         }
 
-        private void RemoveCursorPointFromCanvas(CursorPoint cursorPoint)
+        private void RemoveCursorPointFromCanvas(ScreenPoint cursorPoint)
         {
             DLog.Warn("RemoveCursorPointToCanvas' Feature Not Done");
             //CursorSite.Children.Remove(cursorPoint);
             //csrPoints.Remove(cursorPoint);
         }
 
-        public CursorPoint GetPoint(int pointID)
+        public ScreenPoint GetPoint(int pointID)
         {
             if (csrPoints.ContainsKey(pointID))
                 return csrPoints[pointID];
