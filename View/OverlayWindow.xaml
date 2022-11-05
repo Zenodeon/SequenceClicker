@@ -13,7 +13,7 @@
         WindowState="Maximized"     
         Title="OverlayWindow" Width="1920" Height="1080">
     <Grid>
-        <Canvas x:Name="CursorSite"/>
+        <Canvas x:Name="PointPanel"/>
         <!--<Rectangle Fill="#7FFF0000" Height="50"/>-->
     </Grid>
 </Window>

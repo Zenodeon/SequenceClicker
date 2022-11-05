@@ -24,7 +24,7 @@ namespace SequenceClicker.View
 
         public bool shown = false;
 
-        private Dictionary<int, ScreenPoint> csrPoints = new Dictionary<int, ScreenPoint>();
+        private Dictionary<int, ScreenPoint> scrPoints = new Dictionary<int, ScreenPoint>();
 
         public OverlayWindow()
         {
@@ -45,7 +45,7 @@ namespace SequenceClicker.View
             MenuPanel panel = LocalState.MenuPanel;
 
             if (!panel.active)
-                CursorSite.Children.Add(panel);
+                PointPanel.Children.Add(panel);
 
             panel.OpenPanel(screenPoint);
 
@@ -55,21 +55,21 @@ namespace SequenceClicker.View
         public void CloseMenuPanel()
         {
             MenuPanel panel = LocalState.MenuPanel;
-            CursorSite.Children.Remove(panel);
+            PointPanel.Children.Remove(panel);
             panel.ClosePanel();
         }
 
         public void AddCursorPoint()
         {
-            ScreenPoint newScreenPoint = new ScreenPoint(csrPoints.Count);
+            ScreenPoint newScreenPoint = new ScreenPoint(scrPoints.Count);
             AddCursorPointToCanvas(newScreenPoint);
             newScreenPoint.SetupMode();
         }
 
         private void AddCursorPointToCanvas(ScreenPoint cursorPoint)
         {
-            CursorSite.Children.Add(cursorPoint);
-            csrPoints.Add(cursorPoint.id, cursorPoint);
+            PointPanel.Children.Add(cursorPoint);
+            scrPoints.Add(cursorPoint.id, cursorPoint);
         }
 
         private void RemoveCursorPointFromCanvas(ScreenPoint cursorPoint)
@@ -81,8 +81,8 @@ namespace SequenceClicker.View
 
         public ScreenPoint GetPoint(int pointID)
         {
-            if (csrPoints.ContainsKey(pointID))
-                return csrPoints[pointID];
+            if (scrPoints.ContainsKey(pointID))
+                return scrPoints[pointID];
             else
                 return null;
         }
