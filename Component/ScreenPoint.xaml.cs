@@ -22,6 +22,7 @@ namespace SequenceClicker.Component
         private OverlayWindow overlayWin => LocalState.OverlayWindow;
 
         public int id { get; private set; }
+
         private bool main = false;
 
         private bool setup = false;
@@ -50,10 +51,15 @@ namespace SequenceClicker.Component
 
         public ScreenPoint(int id, bool main = false)
         {
-            InitializeComponent();
             this.id = id;
-            IDD.Text = id + "";
             this.main = main;
+
+            if (id == -1)
+                return;
+
+            InitializeComponent();
+
+            IDD.Text = id + "";
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)

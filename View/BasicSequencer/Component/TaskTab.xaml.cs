@@ -28,6 +28,12 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         private List<IDelay> delayModules = new List<IDelay>();
 
+        private ScreenPoint sPoint;
+
+        private bool stopTask = false;
+
+        private DelayControl currentDelay;
+
         public TaskTab()
         {
             InitializeComponent();
@@ -48,34 +54,103 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 module.LiveMode(state);
         }
 
-        public void RunTask()
+        public void RunTask(Action callback = null)
         {
-            SDelay.Delay(() =>
-            PressInput(() =>
-            HDelay.Delay(() =>
-            ReleaseInput(TaskCompleted))));
+            RunSubTask(TaskType.PressInput);
+
+            void RunSubTask(TaskType task)
+            {
+                switch (task)
+                {
+                    case TaskType.PressInput:
+
+                        Action onStartDelay = () => PressInput(() => RunSubTask(TaskType.HoldInput));
+                        currentDelay = SDelay.Delay(null, onStartDelay);
+
+                        break;
+
+                    case TaskType.HoldInput:
+
+                        Action onHoldDelay = () => ReleaseInput(() => RunSubTask(TaskType.TaskCompleted));
+                        currentDelay = HDelay.Delay(UpdateInput, onHoldDelay);
+
+                        break;
+
+                    case TaskType.TaskCompleted:
+
+                        currentDelay = null;
+
+                        if (!stopTask)
+                            callback?.Invoke();
+
+                        break;
+                }
+            }
+        }
+
+        public void StopTask()
+        {
+            stopTask = true;
+
+            if (currentDelay != null)
+                currentDelay.StopDelay();
         }
 
         public void PressInput(Action onPress)
         {
-            ScreenPoint point = LocalState.OverlayWindow.GetPoint(KSelect.GetPointID());
-            TouchInput.SetTouchPoint(0, point.targetPoint);
+            int id = KSelect.GetPointID();
+            sPoint = LocalState.OverlayWindow.GetPoint(id);
 
-            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
+            if (sPoint.id != -1)
+            {
+                TouchInput.SetTouchPoint(0, sPoint.targetPoint);
+                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
+            }
+            else
+            {
+                DLog.Log($"ID : {id} Does not Exist");
+            }
 
             onPress?.Invoke();
         }
 
+        public void UpdateInput()
+        {
+            if (sPoint.id != -1)
+            {
+                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Update);
+            }
+            else
+            {
+
+            }
+        }
+
         public void ReleaseInput(Action onRelease)
         {
-            TouchInput.ExecuteTouchAction(TouchInput.TouchAction.End);
+            if (sPoint.id != -1)
+            {
+                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.End);
+            }
+            else
+            {
+
+            }
 
             onRelease?.Invoke();
         }
 
-        public void TaskCompleted()
+        public void TaskCompleted(Action callback)
         {
 
+            callback.Invoke();
+        }
+
+        private enum TaskType
+        {
+            PressInput,
+            HoldInput,
+            TaskCompleted
         }
     }
 }

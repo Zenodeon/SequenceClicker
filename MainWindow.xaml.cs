@@ -53,8 +53,7 @@ namespace SequenceClicker
 
             basicSequenceRunning = true;
 
-            BasicSeq.TestLiveMode(true);
-            BasicSeq.TestTask();
+            BasicSeq.BeginTask();
 
             overlayWindow.IgnoreInput(false);
         }
@@ -63,7 +62,7 @@ namespace SequenceClicker
         {
             basicSequenceRunning = false;
 
-            BasicSeq.TestLiveMode(false);
+            BasicSeq.StopTask();
         }
 
         #region UI Interaction

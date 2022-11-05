@@ -84,7 +84,7 @@ namespace SequenceClicker.View
             if (scrPoints.ContainsKey(pointID))
                 return scrPoints[pointID];
             else
-                return null;
+                return new ScreenPoint(-1);
         }
 
         public void ToggleOverlayVisiblity()

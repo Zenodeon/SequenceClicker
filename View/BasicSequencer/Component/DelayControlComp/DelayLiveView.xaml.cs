@@ -37,30 +37,41 @@ namespace SequenceClicker.View.BasicSequencer.Component
             LiveDelay.Text = delay.ToString();
         }
 
-        public void DelayLive(Action action)
+        public void DelayLive(Action updateCallback, Action callback)
         {
             LiveDelayVB.FadeProperty(HeightProperty, delayVBHeight);
             LiveDelayProgressVB.FadeProperty(HeightProperty, delayProgressVBHeight);
 
             LiveBar.FadeProperty(WidthProperty, this.Width, msDuration: targetDelay)
                 .OnUpdate(() =>
-                    LiveDelayProgress.Text = (int)UUtility.RangedMapClamp((float)LiveBar.Width, 0, (float)this.Width, 0, targetDelay) + "")
+                {
+                    LiveDelayProgress.Text = (int)UUtility.RangedMapClamp((float)LiveBar.Width, 0, (float)this.Width, 0, targetDelay) + "";
+                    updateCallback?.Invoke();
+                })
                 .OnComplete(() =>
                 {
                     LiveDelayProgress.Text = (int)targetDelay + "";
-                    action();
+                    callback?.Invoke();
                 });
         }
 
         public void DelayLiveOff()
         {
+            StopAnimation();
+
             LiveDelayVB.FadeProperty(HeightProperty, LivePanel.Height);
             LiveDelayProgressVB.FadeProperty(HeightProperty, 0);
 
             LiveDelayProgress.Text = "";
 
-            LiveBar.StopAnimation(WidthProperty);
             LiveBar.Width = 0;
+        }
+
+        public void StopAnimation()
+        {
+            LiveDelayVB.StopAnimation(HeightProperty);
+            LiveDelayProgressVB.StopAnimation(HeightProperty);
+            LiveBar.StopAnimation(WidthProperty);
         }
     }
 }

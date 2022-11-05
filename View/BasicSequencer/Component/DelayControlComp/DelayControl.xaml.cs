@@ -56,9 +56,15 @@ namespace SequenceClicker.View.BasicSequencer.Component
             });
         }
 
-        public void Delay(Action action)
+        public DelayControl Delay(Action updateCallback, Action callback)
         {
-            LivePanel.DelayLive(action);
+            LivePanel.DelayLive(updateCallback, callback);
+            return this;
+        }
+
+        public void StopDelay()
+        {
+            LivePanel.StopAnimation();
         }
 
         private void SetDefaultValue()

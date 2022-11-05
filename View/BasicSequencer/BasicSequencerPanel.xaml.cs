@@ -25,8 +25,9 @@ namespace SequenceClicker.View
     {
         private ScrollViewer taskViewer { get; set; }
 
-
         ActiveTaskTab<ContentPresenter> activeTasks = new ActiveTaskTab<ContentPresenter>();
+
+        private int currentTaskID;
 
         public BasicSequencerPanel()
         {
@@ -54,14 +55,40 @@ namespace SequenceClicker.View
             return task;
         }
 
-        public void TestLiveMode(bool state)
+        public void BeginTask()
         {
-            activeTasks.tabs[0].LiveMode(state);
+            ToggleLiveMode(true);
+
+            currentTaskID = 0;
+            ExecuteCurrentTask();
         }
 
-        public void TestTask()
+        public void StopTask()
         {
-            activeTasks.tabs[0].RunTask();
+            ToggleLiveMode(false);
+
+            activeTasks.tabs[currentTaskID].StopTask();
+            //DLog.Log("TODO : Pause/Stop Delay");
+        }
+
+        public void ExecuteCurrentTask()
+        {
+            activeTasks.tabs[currentTaskID].RunTask(ExecuteNextTask);
+        }
+
+        private void ExecuteNextTask()
+        {
+            if (currentTaskID + 1 > activeTasks.Count - 1)
+                return;
+
+            currentTaskID++;
+            ExecuteCurrentTask();
+        }
+
+        private void ToggleLiveMode(bool state)
+        {
+            foreach (TaskTab tab in activeTasks.tabs)
+                tab.LiveMode(state);
         }
     }
 }

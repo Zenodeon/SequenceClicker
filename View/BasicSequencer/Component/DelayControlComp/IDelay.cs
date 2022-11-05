@@ -9,6 +9,6 @@ namespace SequenceClicker.View.BasicSequencer.Component
     public interface IDelay
     {
         public void LiveMode(bool state);
-        public void Delay(Action action);
+        public DelayControl Delay(Action updateCallback, Action callback);
     }
 }
