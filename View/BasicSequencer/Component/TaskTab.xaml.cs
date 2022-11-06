@@ -116,7 +116,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
             }
             else
             {
-                DLog.Log($"ID : {id} Does not Exist");
+                DLog.Log($"ID : {sPoint.id} Does not Exist");
             }
 
             onPress?.Invoke();
@@ -130,7 +130,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
             }
             else
             {
-
+                DLog.Log($"ID : {sPoint.id} Does not Exist");
             }
         }
 
@@ -142,7 +142,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
             }
             else
             {
-
+                DLog.Log($"ID : {sPoint.id} Does not Exist");
             }
 
             onRelease?.Invoke();
