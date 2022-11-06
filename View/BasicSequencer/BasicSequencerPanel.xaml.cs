@@ -79,7 +79,10 @@ namespace SequenceClicker.View
         private void ExecuteNextTask()
         {
             if (currentTaskID + 1 > activeTasks.Count - 1)
+            {
+                SequenceCompleted();
                 return;
+            }
 
             currentTaskID++;
             ExecuteCurrentTask();
@@ -89,6 +92,11 @@ namespace SequenceClicker.View
         {
             foreach (TaskTab tab in activeTasks.tabs)
                 tab.LiveMode(state);
+        }
+
+        private void SequenceCompleted()
+        {
+
         }
     }
 }

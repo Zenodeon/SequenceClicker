@@ -48,14 +48,20 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public void LiveMode(bool state)
         {
-            TTIndicator.FadeProperty(OpacityProperty, state ? 1 : 0.4f, 150);
-
             foreach (IDelay module in delayModules)
                 module.LiveMode(state);
         }
 
+        private void TaskActive(bool state)
+        {
+            TTIndicatorLeft.FadeProperty(OpacityProperty, state ? 1 : 0.4f, 150);
+            TTIndicatorRight.FadeProperty(OpacityProperty, state ? 1 : 0.4f, 150);
+        }
+
         public void RunTask(Action callback = null)
         {
+            TaskActive(true);
+
             RunSubTask(TaskType.PressInput);
 
             void RunSubTask(TaskType task)
@@ -80,6 +86,8 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
                         currentDelay = null;
 
+                        TaskActive(false);
+
                         if (!stopTask)
                             callback?.Invoke();
 
@@ -103,7 +111,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
             if (sPoint.id != -1)
             {
-                TouchInput.SetTouchPoint(0, sPoint.targetPoint);
+                TouchInput.SetTouchPoint(id, sPoint.targetPoint);
                 TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
             }
             else
@@ -138,12 +146,6 @@ namespace SequenceClicker.View.BasicSequencer.Component
             }
 
             onRelease?.Invoke();
-        }
-
-        public void TaskCompleted(Action callback)
-        {
-
-            callback.Invoke();
         }
 
         private enum TaskType

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SequenceClicker.View.BasicSequencer.Component"
              xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"  
              mc:Ignorable="d" 
-             Background="{StaticResource MidGray}"
+             Background="{StaticResource DarkGray}"
              Width="120" Height="80">
     <Grid>
         <Grid>
