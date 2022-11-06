@@ -92,7 +92,8 @@ namespace SequenceClicker
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
