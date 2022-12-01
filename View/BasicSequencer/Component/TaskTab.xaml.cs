@@ -39,13 +39,29 @@ namespace SequenceClicker.View.BasicSequencer.Component
             InitializeComponent();
             AddDelayModules();
 
-            LeftTTCtrl.OnActionClick = OnActionClicked;
-            RightTTCtrl.OnActionClick = OnActionClicked;
+            LeftTTCtrl.OnActionRequest = OnActionClicked;
+            RightTTCtrl.OnActionRequest = OnActionClicked;
         }
 
-        private void OnActionClicked(int id)
+        private void OnActionClicked(TaskTabControl.TTAction ttAction)
         {
-            DLog.Log(id + "");
+            switch (ttAction)
+            {
+                case TaskTabControl.TTAction.MoveUp:
+                    break;
+
+                case TaskTabControl.TTAction.RemoveSelf:
+                    break;
+
+                case TaskTabControl.TTAction.Add:
+                    break;
+
+                case TaskTabControl.TTAction.DuplicateSelf:
+                    break;
+
+                case TaskTabControl.TTAction.MoveDown:
+                    break;
+            }
         }
 
         private void AddDelayModules()

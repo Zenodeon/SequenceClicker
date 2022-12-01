@@ -20,36 +20,50 @@ namespace SequenceClicker.View.BasicSequencer.Component
     /// </summary>
     public partial class TaskTabControl : UserControl
     {
-        public Action<int> OnActionClick;
+        public Action<TTAction> OnActionRequest;
 
         public TaskTabControl()
         {
             InitializeComponent();
         }
 
+        private void RequestAction(TTAction action)
+        {
+            OnActionRequest?.Invoke(action);
+        }
+
         private void MoveUp(object sender, RoutedEventArgs e)
         {
-            OnActionClick?.Invoke(0);
+            RequestAction(TTAction.MoveUp);
         }
 
         private void RemoveSelf(object sender, RoutedEventArgs e)
         {
-            OnActionClick?.Invoke(1);
+            RequestAction(TTAction.RemoveSelf);
         }
 
         private void Add(object sender, RoutedEventArgs e)
         {
-            OnActionClick?.Invoke(2);
+            RequestAction(TTAction.Add);
         }
 
         private void DuplicateSelf(object sender, RoutedEventArgs e)
         {
-            OnActionClick?.Invoke(3);
+            RequestAction(TTAction.DuplicateSelf);
         }
 
         private void MoveDown(object sender, RoutedEventArgs e)
         {
-            OnActionClick?.Invoke(4);
+            RequestAction(TTAction.MoveDown);
+        }
+
+        public enum TTAction
+        {
+            MoveUp,
+            RemoveSelf,
+            Add,
+            DuplicateSelf,
+            MoveDown
         }
     }
 }
