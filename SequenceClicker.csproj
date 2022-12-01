@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Asset\Icons\TabTask\arrow.png" />
+    <None Remove="Asset\Icons\TabTask\dash.png" />
+    <None Remove="Asset\Icons\TabTask\plus.png" />
     <None Remove="Asset\Icons\Window\close.png" />
     <None Remove="Asset\Icons\Window\max.png" />
     <None Remove="Asset\Icons\Window\min.png" />
@@ -20,6 +22,12 @@
 
   <ItemGroup>
     <Resource Include="Asset\Icons\TabTask\arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Icons\TabTask\dash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\Icons\TabTask\plus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Asset\Icons\Window\close.png">
