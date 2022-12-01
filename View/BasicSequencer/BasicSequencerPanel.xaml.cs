@@ -41,6 +41,11 @@ namespace SequenceClicker.View
 
             activeTasks.Add(CreateTaskTab());
             activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
+            activeTasks.Add(CreateTaskTab());
         }
 
         public TaskTab CreateTaskTab()

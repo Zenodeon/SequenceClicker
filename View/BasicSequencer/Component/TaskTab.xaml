@@ -23,6 +23,9 @@
         <Border Grid.Column="0" x:Name="TTIndicatorLeft" Background="BlueViolet" Opacity="0.4" Width="7" Height="60" CornerRadius="3" HorizontalAlignment="Center"/>
         <Border Grid.Column="7" x:Name="TTIndicatorRight" Background="BlueViolet" Opacity="0.4" Width="7" Height="60" CornerRadius="3" HorizontalAlignment="Center"/>
 
+        <local:TaskTabControl Grid.Column="0"/>
+        <local:TaskTabControl Grid.Column="7"/>
+
         <local:DelayControl x:Name="SDelay" Grid.Column="1" DelayCtrlName="Start Delay"/>
         
         <local:KeySelectControl x:Name="KSelect" Grid.Column="3"/>

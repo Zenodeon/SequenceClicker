@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Asset\Icons\TabTask\arrow.png" />
     <None Remove="Asset\Icons\Window\close.png" />
     <None Remove="Asset\Icons\Window\max.png" />
     <None Remove="Asset\Icons\Window\min.png" />
@@ -18,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Asset\Icons\TabTask\arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Asset\Icons\Window\close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

@@ -98,6 +98,7 @@ namespace SequenceClicker
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
+            overlayWindow.Close();
             Close();
         }
 
