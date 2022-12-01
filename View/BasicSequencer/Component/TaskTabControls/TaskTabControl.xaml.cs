@@ -24,5 +24,30 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             InitializeComponent();
         }
+
+        private void MoveUp(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveSelf(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DuplicateSelf(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MoveDown(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

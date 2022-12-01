@@ -60,19 +60,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Style="{StaticResource CtmBtn}" BorderThickness="0">
+        <Button Grid.Row="0" Click="MoveUp" Style="{StaticResource CtmBtn}" BorderThickness="0">
             <Image Source="/Asset/Icons/Tabtask/arrow.png" Width="10" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Button>
 
-        <Button Grid.Row="1" Style="{StaticResource DlteBtn}" BorderThickness="0">
+        <Button Grid.Row="1" Click="RemoveSelf" Style="{StaticResource DlteBtn}" BorderThickness="0">
             <Image Source="/Asset/Icons/Tabtask/dash.png" Width="10" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Button>
 
-        <Button Grid.Row="2" Style="{StaticResource CtmBtn}" BorderThickness="0">
+        <Button Grid.Row="2" Click="Add" Style="{StaticResource CtmBtn}" BorderThickness="0">
             <Image Source="/Asset/Icons/Tabtask/plus.png" Width="10" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Button>
 
-        <Button Grid.Row="3" Style="{StaticResource CtmBtn}" BorderThickness="0">
+        <Button Grid.Row="3" Click="DuplicateSelf" Style="{StaticResource CtmBtn}" BorderThickness="0">
             <Image Source="/Asset/Icons/Tabtask/plus.png" Width="10" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -85,7 +85,7 @@
             </Image>
         </Button>
 
-        <Button Grid.Row="4" Style="{StaticResource CtmBtn}" BorderThickness="0">
+        <Button Grid.Row="4" Click="MoveDown" Style="{StaticResource CtmBtn}" BorderThickness="0">
             <Image Source="/Asset/Icons/Tabtask/arrow.png" Width="10" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
