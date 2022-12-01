@@ -38,6 +38,14 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             InitializeComponent();
             AddDelayModules();
+
+            LeftTTCtrl.OnActionClick = OnActionClicked;
+            RightTTCtrl.OnActionClick = OnActionClicked;
+        }
+
+        private void OnActionClicked(int id)
+        {
+            DLog.Log(id + "");
         }
 
         private void AddDelayModules()
