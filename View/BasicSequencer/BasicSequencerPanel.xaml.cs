@@ -106,39 +106,31 @@ namespace SequenceClicker.View
 
         public void ExecuteTabAction(TaskTab tab, TaskTabControl.TTAction ttAction)
         {
-            ContentPresenter tabPresenter = tab.frame;
-
-            int tabIndex = activeTasks.IndexOf(tabPresenter);
+            int tabIndex = activeTasks.IndexOf(tab);
             int aboveIndex = tabIndex - 1;
             int belowIndex = tabIndex + 1;
 
             switch (ttAction)
             {
                 case TaskTabControl.TTAction.MoveUp:
-                    if(aboveIndex >= 0)
-                    {
-                        activeTasks[tabIndex] = activeTasks[aboveIndex];
-                        activeTasks[aboveIndex] = tabPresenter;
-                    }
+                    activeTasks.SwitchItem(tabIndex, aboveIndex);
                     break;
 
                 case TaskTabControl.TTAction.RemoveSelf:
-                    activeTasks[tabIndex] = null;
+                    if (activeTasks.Count > 1)
+                        activeTasks.Remove(tab);
                     break;
 
                 case TaskTabControl.TTAction.Add:
-                    activeTasks.Add(CreateTaskTab());
+                    activeTasks.Insert(belowIndex, CreateTaskTab());
                     break;
 
                 case TaskTabControl.TTAction.DuplicateSelf:
+                    DLog.Log("DuplicateSelf : Future Feature");
                     break;
 
                 case TaskTabControl.TTAction.MoveDown:
-                    if (belowIndex < activeTasks.Count)
-                    {
-                        activeTasks[tabIndex] = activeTasks[belowIndex];
-                        activeTasks[belowIndex] = tabPresenter;
-                    }
+                    activeTasks.SwitchItem(tabIndex, belowIndex);
                     break;
             }
         }

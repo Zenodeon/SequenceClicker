@@ -52,6 +52,34 @@ namespace SequenceClicker
             base.ResetBindings();
         }
 
+        public void SwitchItem(int orgin, int destination)
+        {
+            if (orgin < 0 || orgin >= tabs.Count)
+                return;
+
+            if (destination < 0 || destination >= tabs.Count)
+                return;
+
+            TaskTab tab = tabs[orgin];
+
+            base[orgin] = base[destination];
+            base[destination] = (T)tab.frame;
+
+            tabs[orgin] = tabs[destination];
+            tabs[destination] = tab;
+        }
+
+        public void Insert(int index, TaskTab taskT)
+        {
+            tabs.Insert(index, taskT);
+            base.Insert(index, (T)taskT.frame);
+        }
+
+        public int IndexOf(TaskTab tab)
+        {
+            return tabs.IndexOf(tab);
+        }
+
         public new void Clear()
         {
             tabs.Clear();
@@ -66,6 +94,16 @@ namespace SequenceClicker
 
         [Obsolete]
         public new void Remove(T item)
+        {
+        }
+
+        [Obsolete]
+        public new void Insert(int index, T item)
+        {
+        }
+
+        [Obsolete]
+        public new void IndexOf(T item)
         {
         }
     }
