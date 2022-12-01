@@ -167,5 +167,34 @@ namespace SequenceClicker.View.BasicSequencer.Component
             HoldInput,
             TaskCompleted
         }
+
+        private void ToggleLeftTTCtrl(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton != MouseButtonState.Pressed)
+                return;
+
+            ToggleElementVisibility(TTIndicatorLeft);
+            ToggleElementVisibility(LeftTTCtrl);
+
+            TTIndicatorRight.Visibility = Visibility.Visible;
+            RightTTCtrl.Visibility = Visibility.Collapsed;
+        }
+
+        private void ToggleRightTTCtrl(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton != MouseButtonState.Pressed)
+                return;
+
+            ToggleElementVisibility(TTIndicatorRight);
+            ToggleElementVisibility(RightTTCtrl);
+
+            TTIndicatorLeft.Visibility = Visibility.Visible;
+            LeftTTCtrl.Visibility = Visibility.Collapsed;
+        }
+
+        private void ToggleElementVisibility(UIElement element)
+        {
+            element.Visibility = element.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible; ;
+        }
     }
 }
