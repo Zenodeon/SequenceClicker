@@ -34,9 +34,14 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         private DelayControl currentDelay;
 
-        public TaskTab()
+        private BasicSequencerPanel sequencerPanel;
+
+        public TaskTab(BasicSequencerPanel sequencerPanel)
         {
             InitializeComponent();
+
+            this.sequencerPanel = sequencerPanel;
+
             AddDelayModules();
 
             LeftTTCtrl.OnActionRequest = OnActionClicked;
@@ -45,23 +50,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         private void OnActionClicked(TaskTabControl.TTAction ttAction)
         {
-            switch (ttAction)
-            {
-                case TaskTabControl.TTAction.MoveUp:
-                    break;
-
-                case TaskTabControl.TTAction.RemoveSelf:
-                    break;
-
-                case TaskTabControl.TTAction.Add:
-                    break;
-
-                case TaskTabControl.TTAction.DuplicateSelf:
-                    break;
-
-                case TaskTabControl.TTAction.MoveDown:
-                    break;
-            }
+            sequencerPanel.ExecuteTabAction(this, ttAction);
         }
 
         private void AddDelayModules()

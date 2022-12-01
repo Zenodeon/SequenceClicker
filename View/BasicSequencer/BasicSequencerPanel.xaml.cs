@@ -51,7 +51,7 @@ namespace SequenceClicker.View
         public TaskTab CreateTaskTab()
         {
             ContentPresenter frame = new ContentPresenter();
-            TaskTab task = new TaskTab();
+            TaskTab task = new TaskTab(this);
 
             task.frame = frame;
 
@@ -102,6 +102,45 @@ namespace SequenceClicker.View
         private void SequenceCompleted()
         {
 
+        }
+
+        public void ExecuteTabAction(TaskTab tab, TaskTabControl.TTAction ttAction)
+        {
+            ContentPresenter tabPresenter = tab.frame;
+
+            int tabIndex = activeTasks.IndexOf(tabPresenter);
+            int aboveIndex = tabIndex - 1;
+            int belowIndex = tabIndex + 1;
+
+            switch (ttAction)
+            {
+                case TaskTabControl.TTAction.MoveUp:
+                    if(aboveIndex >= 0)
+                    {
+                        activeTasks[tabIndex] = activeTasks[aboveIndex];
+                        activeTasks[aboveIndex] = tabPresenter;
+                    }
+                    break;
+
+                case TaskTabControl.TTAction.RemoveSelf:
+                    activeTasks[tabIndex] = null;
+                    break;
+
+                case TaskTabControl.TTAction.Add:
+                    activeTasks.Add(CreateTaskTab());
+                    break;
+
+                case TaskTabControl.TTAction.DuplicateSelf:
+                    break;
+
+                case TaskTabControl.TTAction.MoveDown:
+                    if (belowIndex < activeTasks.Count)
+                    {
+                        activeTasks[tabIndex] = activeTasks[belowIndex];
+                        activeTasks[belowIndex] = tabPresenter;
+                    }
+                    break;
+            }
         }
     }
 }
