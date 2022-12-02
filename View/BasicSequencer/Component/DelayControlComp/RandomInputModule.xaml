@@ -12,7 +12,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Rectangle Fill="White" Grid.ColumnSpan="2" Height="1.5" Width="10"/>
+        <Rectangle Fill="White" Grid.ColumnSpan="2" Height="1.5" Width="10" Margin="55,19,55,31"/>
 
         <local:DelayInputControl x:Name="RInputCtrl1" Grid.Column="0" Margin="-5 0 0 0"/>
         <local:DelayInputControl x:Name="RInputCtrl2" Grid.Column="1" Margin="0 0 -5 0"/>
