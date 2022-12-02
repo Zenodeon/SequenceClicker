@@ -139,7 +139,7 @@ namespace SequenceClicker.Component
         public void AddMenuContent(ref List<MenuButtonBP> buttons)
         {
             buttons.Add(new MenuButtonBP("Add", overlayWin.AddCursorPoint, ButtonState.Down));
-            buttons.Add(new MenuButtonBP("Remove", null, ButtonState.Up));
+            buttons.Add(new MenuButtonBP("Remove", () => overlayWin.RemoveCursorPoint(this), ButtonState.Up));
         }
 
         public void SetTargetPoint(Point point)

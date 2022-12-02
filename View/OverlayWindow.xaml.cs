@@ -66,6 +66,11 @@ namespace SequenceClicker.View
             newScreenPoint.SetupMode();
         }
 
+        public void RemoveCursorPoint(ScreenPoint cursorPoint)
+        {
+            RemoveCursorPointFromCanvas(cursorPoint);
+        }
+
         private void AddCursorPointToCanvas(ScreenPoint cursorPoint)
         {
             PointPanel.Children.Add(cursorPoint);
@@ -74,7 +79,7 @@ namespace SequenceClicker.View
 
         private void RemoveCursorPointFromCanvas(ScreenPoint cursorPoint)
         {
-            DLog.Warn("RemoveCursorPointToCanvas' Feature Not Done");
+            DLog.Warn("RemoveCursorPointToCanvas : Feature Not Done");
             //CursorSite.Children.Remove(cursorPoint);
             //csrPoints.Remove(cursorPoint);
         }

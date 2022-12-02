@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Component\WindowComp\**" />
+    <EmbeddedResource Remove="Component\WindowComp\**" />
+    <None Remove="Component\WindowComp\**" />
+    <Page Remove="Component\WindowComp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Asset\Icons\TabTask\arrow.png" />
     <None Remove="Asset\Icons\TabTask\dash.png" />
     <None Remove="Asset\Icons\TabTask\plus.png" />
@@ -36,10 +43,6 @@
     <Resource Include="Asset\Icons\Window\min.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Component\WindowComp\" />
   </ItemGroup>
 
 </Project>
