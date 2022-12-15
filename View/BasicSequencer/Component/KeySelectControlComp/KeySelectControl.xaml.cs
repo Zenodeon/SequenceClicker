@@ -113,7 +113,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public SaveData GetSaveData()
         {
-            return new SaveData(pointerID.Text, InputTypeSwitch);
+            return new SaveData(pointerID.Text);
         }
 
         public void LoadSaveData(SaveData data)
@@ -122,11 +122,6 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 pointerID.Text = data.pointerID;
             else
                 pointerID.Text = "0";
-
-            SInputModl.LoadSaveData(data.sInputModlSD);
-            RInputModl.LoadSaveData(data.rInputModlSD);
-
-            UpdateModeFormat();
         }
 
         private bool IsVaildInt(string text)
@@ -146,13 +141,9 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             public string pointerID;
 
-            public DelayInputControl.SaveData inputTypeSwitchSD;
-
-            public SaveData(string pointerID, DelayInputControl inputTypeSwitch)
+            public SaveData(string pointerID)
             {
                 this.pointerID = pointerID;
-
-                inputTypeSwitchSD = inputTypeSwitch.GetSaveData();
             }
         }
     }

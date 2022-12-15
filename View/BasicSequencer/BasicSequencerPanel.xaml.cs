@@ -107,24 +107,36 @@ namespace SequenceClicker.View
             switch (ttAction)
             {
                 case TaskTabControl.TTAction.MoveUp:
-                    activeTasks.SwitchItem(tabIndex, aboveIndex);
+                    {
+                        activeTasks.SwitchItem(tabIndex, aboveIndex);
+                    }
                     break;
 
                 case TaskTabControl.TTAction.RemoveSelf:
-                    if (activeTasks.Count > 1)
-                        activeTasks.Remove(tab);
+                    {
+                        if (activeTasks.Count > 1)
+                            activeTasks.Remove(tab);
+                    }
                     break;
 
                 case TaskTabControl.TTAction.Add:
-                    activeTasks.Insert(belowIndex, CreateTaskTab());
+                    {
+                        activeTasks.Insert(belowIndex, CreateTaskTab());
+                    }
                     break;
 
                 case TaskTabControl.TTAction.DuplicateSelf:
-                    DLog.Log("DuplicateSelf : Future Feature");
+                    {
+                        TaskTab dupTaskTab = CreateTaskTab();
+                        dupTaskTab.LoadSaveData(tab.GetSaveData());
+                        activeTasks.Insert(belowIndex, dupTaskTab);
+                    }
                     break;
 
                 case TaskTabControl.TTAction.MoveDown:
-                    activeTasks.SwitchItem(tabIndex, belowIndex);
+                    {
+                        activeTasks.SwitchItem(tabIndex, belowIndex);
+                    }
                     break;
             }
         }
