@@ -34,5 +34,27 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             return SInputCtrl.msDelay;
         }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(SInputCtrl);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            SInputCtrl.LoadSaveData(data.SInputCtrlSD);
+        }
+
+        public struct SaveData
+        {
+            public DelayInputControl.SaveData SInputCtrlSD;
+
+            public SaveData(DelayInputControl iCtrl)
+            {
+                SInputCtrlSD = iCtrl.GetSaveData();
+            }
+        }
     }
 }
+
+

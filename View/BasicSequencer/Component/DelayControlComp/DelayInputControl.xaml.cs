@@ -39,7 +39,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 if (timeType == TimeType.ms)
                     delayInputValue = value;
                 else
-                   delayInputValue = value / 1000;
+                    delayInputValue = value / 1000;
             }
         }
 
@@ -62,7 +62,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             bool needConverting = delayInput.Text.Contains('.') || Keyboard.IsKeyDown(Key.LeftShift);
 
-            if(needConverting)
+            if (needConverting)
             {
                 if (timeType == TimeType.ms)
                     delayInputValue *= 1000;
@@ -77,6 +77,36 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             ms,
             Second
+        }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(timeType, delayInput.Text);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            if (IsVaildFloat(data.delayInputValue))
+                delayInput.Text = data.delayInputValue;
+            else
+                delayInput.Text = "0";
+
+            timeType = data.timeType;
+
+            UpdateModeFormat();
+        }
+
+        private bool IsVaildFloat(string text)
+        {
+            try
+            {
+                float.Parse(text);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #region TextInput Filtering
@@ -107,5 +137,17 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 e.CancelCommand();
         }
         #endregion
+
+        public struct SaveData
+        {
+            public TimeType timeType;
+            public string delayInputValue;
+
+            public SaveData(TimeType timeType, string delayInputValue)
+            {
+                this.timeType = timeType;
+                this.delayInputValue = delayInputValue;
+            }
+        }
     }
 }

@@ -114,5 +114,35 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public static readonly DependencyProperty DelayCtrlNameProperty =
             DependencyProperty.Register("DelayCtrlName", typeof(string), typeof(DelayControl), new PropertyMetadata("Delay"));
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(delayMode, SInputModl, RInputModl);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            delayMode = data.delayMode;
+
+            SInputModl.LoadSaveData(data.sInputModlSD);
+            RInputModl.LoadSaveData(data.rInputModlSD);
+
+            UpdateModeFormat();
+        }
+
+        public struct SaveData
+        {
+            public DelayMode delayMode;
+            public StaticInputModule.SaveData sInputModlSD;
+            public RandomInputModule.SaveData rInputModlSD;
+
+            public SaveData(DelayMode delayMode, StaticInputModule sInputModl, RandomInputModule rInputModl)
+            {
+                this.delayMode = delayMode;
+
+                sInputModlSD = sInputModl.GetSaveData();
+                rInputModlSD = rInputModl.GetSaveData();
+            }
+        }
     }
 }

@@ -35,5 +35,28 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             return new Random().Next(RInputCtrl1.msDelay, RInputCtrl2.msDelay); ;
         }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(RInputCtrl1, RInputCtrl2);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            RInputCtrl1.LoadSaveData(data.rInputCtrl1SD);
+            RInputCtrl2.LoadSaveData(data.rInputCtrl2SD);
+        }
+
+        public struct SaveData
+        {
+            public DelayInputControl.SaveData rInputCtrl1SD;
+            public DelayInputControl.SaveData rInputCtrl2SD;
+
+            public SaveData(DelayInputControl iCtrl1, DelayInputControl iCtrl2)
+            {
+                rInputCtrl1SD = iCtrl1.GetSaveData();
+                rInputCtrl2SD = iCtrl2.GetSaveData();
+            }
+        }
     }
 }
