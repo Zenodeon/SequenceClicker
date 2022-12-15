@@ -196,5 +196,34 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             element.Visibility = element.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible; ;
         }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(KSelect, SDelay, HDelay);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            KSelect.LoadSaveData(data.kSelect);
+
+            SDelay.LoadSaveData(data.sDelaySD);
+            HDelay.LoadSaveData(data.hDelaySD);
+        }
+
+        public struct SaveData
+        {
+            public KeySelectControl.SaveData kSelect;
+
+            public DelayControl.SaveData sDelaySD;
+            public DelayControl.SaveData hDelaySD;
+
+            public SaveData(KeySelectControl kSelect, DelayControl sDelay, DelayControl hDelay)
+            {
+                this.kSelect = kSelect.GetSaveData(); ;
+
+                sDelaySD = sDelay.GetSaveData();
+                hDelaySD = hDelay.GetSaveData();
+            }
+        }
     }
 }

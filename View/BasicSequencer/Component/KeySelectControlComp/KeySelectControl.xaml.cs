@@ -110,5 +110,50 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 e.CancelCommand();
         }
         #endregion
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(pointerID.Text, InputTypeSwitch);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            if (IsVaildInt(data.pointerID))
+                pointerID.Text = data.pointerID;
+            else
+                pointerID.Text = "0";
+
+            SInputModl.LoadSaveData(data.sInputModlSD);
+            RInputModl.LoadSaveData(data.rInputModlSD);
+
+            UpdateModeFormat();
+        }
+
+        private bool IsVaildInt(string text)
+        {
+            try
+            {
+                int.Parse(text);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public struct SaveData
+        {
+            public string pointerID;
+
+            public DelayInputControl.SaveData inputTypeSwitchSD;
+
+            public SaveData(string pointerID, DelayInputControl inputTypeSwitch)
+            {
+                this.pointerID = pointerID;
+
+                inputTypeSwitchSD = inputTypeSwitch.GetSaveData();
+            }
+        }
     }
 }
