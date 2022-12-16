@@ -140,5 +140,34 @@ namespace SequenceClicker.View
                     break;
             }
         }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(activeTasks.tabs);
+        }
+
+        public void LoadSaveData(SaveData data)
+        {
+            activeTasks.Clear();
+
+            foreach(TaskTab.SaveData saveData in data.taskTabsSD)
+            {
+                TaskTab tab = CreateTaskTab();
+                tab.LoadSaveData(saveData);
+                activeTasks.Add(tab);
+            }
+        }
+
+        public struct SaveData
+        {
+            public List<TaskTab.SaveData> taskTabsSD;
+
+            public SaveData(List<TaskTab> taskTabs)
+            {
+                taskTabsSD = new List<TaskTab.SaveData>();
+                foreach (TaskTab taskTab in taskTabs)
+                    taskTabsSD.Add(taskTab.GetSaveData());
+            }
+        }
     }
 }
