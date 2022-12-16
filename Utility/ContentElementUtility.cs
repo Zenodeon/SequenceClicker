@@ -9,9 +9,9 @@ using System.Windows.Media.Animation;
 
 namespace SequenceClicker
 {
-    public static class UIElementUtility
+    public static class ContentElementUtility
     {
-        public static DoubleAnimation FadeProperty(this UIElement element, DependencyProperty dp, double toValue, int msDuration = 150)
+        public static DoubleAnimation FadeProperty(this ContentElement element, DependencyProperty dp, double toValue, int msDuration = 150)
         {
             DoubleAnimation animation = new DoubleAnimation
             {
@@ -28,7 +28,7 @@ namespace SequenceClicker
             return animation;
         }
 
-        public static void StopAnimation(this UIElement element, DependencyProperty dp)
+        public static void StopAnimation(this ContentElement element, DependencyProperty dp)
         {
             element.BeginAnimation(dp, null);
         }

@@ -60,42 +60,52 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition x:Name="MenuTabHeight" Height="20"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border CornerRadius="8 0 0 8" Background="{StaticResource DarkGray}" MouseDown="TitleBar_MouseDown"/>
+        <Border Grid.Row="0" Grid.RowSpan="3" CornerRadius="16" Background="{StaticResource DarkGray}" MouseDown="TitleBar_MouseDown"/>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="25"/>
-                </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource CtmBtn}" Click="ToggleMenuTab">
+                <Image Source="/Asset/Icons/TabTask/arrow.png" Width="10" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="180"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button>
 
-                <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CloseBtn}" Click="CloseWindow">
-                    <Image Source="/Asset/Icons/Window/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                </Button>
+            <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource CtmBtn}" Click="MinWindow">
+                <Image Source="/Asset/Icons/Window/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Button>
 
-                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource CtmBtn}" Click="MinWindow">
-                    <Image Source="/Asset/Icons/Window/min.png" Width="15" Height="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                </Button>
-            </Grid>
+            <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource CloseBtn}" Click="CloseWindow">
+                <Image Source="/Asset/Icons/Window/close.png" Width="18" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Button>
 
-            <view:SequenceController Grid.Row="1" OnClick="SequenceController_OnClick"/>
-
-            <CControl:MButton HorizontalAlignment="Right" Background="Black" Grid.Row="1" x:Name="tButton" Text="Overlay Window" Width="100" Height="25" OnClick="OverlayToggle"/>
         </Grid>
+
+        <view:SequenceController Grid.Row="2" OnClick="SequenceController_OnClick"/>
+
+        <CControl:MButton HorizontalAlignment="Right" Background="Black" Grid.Row="2" x:Name="tButton" Text="Overlay Window" Width="100" Height="25" OnClick="OverlayToggle"/>
 
         <!--<Button Grid.Column="0" Height="30" Width="100" Click="Button_Click" Content="Toggle Overlay Mode" Margin="0,187,0,217"/>
         <Button Grid.Column="0" Height="30" Width="100" Click="Button_Click_1" Content="Sequence Points" Margin="0,217,0,187"/>-->
 
-        <view:BasicSequencerPanel x:Name="BasicSeq" Grid.Row="1"/>
+        <view:BasicSequencerPanel x:Name="BasicSeq" Grid.Row="3"/>
     </Grid>
 </Window>

@@ -107,6 +107,15 @@ namespace SequenceClicker
             WindowState = WindowState.Minimized;
         }
 
+        private void ToggleMenuTab(object sender, RoutedEventArgs e)
+        {
+            DLog.Log(MenuTabHeight.ActualHeight + "");
+
+            //MenuTabHeight.anim
+
+            MenuTabHeight.FadeProperty(HeightProperty, 10);
+        }
+
         private void SequenceController_OnClick(object sender, RoutedEventArgs e)
         {
             if (basicSequenceRunning)
