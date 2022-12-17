@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Ookii.Dialogs.Wpf;
+
 using SequenceClicker.View;
 
 namespace SequenceClicker.Component
@@ -29,7 +30,10 @@ namespace SequenceClicker.Component
                     filePath = newPath;
             }
 
-            DLog.Log(filePath);
+            if (!File.Exists(filePath))
+                File.Create(filePath).Close();
+
+            string data;
         }
 
         public void SaveDataAs()
