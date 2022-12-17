@@ -33,6 +33,7 @@ namespace SequenceClicker
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
 
+        private SeqFileData defaultFileData;
         private SeqFileData currentFileData;
 
         public MainWindow()
@@ -48,6 +49,12 @@ namespace SequenceClicker
             overlayWindow = new OverlayWindow();
             LocalState.OverlayWindow = overlayWindow;
 
+            defaultFileData = new SeqFileData();
+            defaultFileData.basicSeqData = BasicSeq.GetSaveData();
+
+            currentFileData = new SeqFileData();
+            currentFileData.basicSeqData = BasicSeq.GetSaveData();
+
             MenuTab.OnActionRequest = MenuAction;
         }
 
@@ -55,21 +62,28 @@ namespace SequenceClicker
         {
             switch(menuTabAction)
             {
-                case MenuTab.MenuTabAction.NewFile:
+                case MenuTab.MenuTabAction.OpenFile:
                     {
 
+                    }
+                    break;
+
+                case MenuTab.MenuTabAction.NewFile:
+                    {
+                        currentFileData = defaultFileData;
+                        BasicSeq.LoadSaveData(currentFileData.basicSeqData);
                     }
                     break;
 
                 case MenuTab.MenuTabAction.SaveFile:
                     {
-
+                        currentFileData.SaveData();
                     }
                     break;
 
                 case MenuTab.MenuTabAction.SaveAsFile:
                     {
-
+                        currentFileData.SaveDataAs();
                     }
                     break;
             }
