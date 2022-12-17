@@ -96,7 +96,6 @@ namespace SequenceClicker.View
 
         private void SequenceCompleted()
         {
-            DLog.Log("Done");
 
         }
 
@@ -123,9 +122,7 @@ namespace SequenceClicker.View
 
                 case TaskTabControl.TTAction.Add:
                     {
-                        DLog.Log(activeTasks.Count + " : Before");
                         activeTasks.Insert(belowIndex, CreateTaskTab());
-                        DLog.Log(activeTasks.Count + " : After");
                     }
                     break;
 
