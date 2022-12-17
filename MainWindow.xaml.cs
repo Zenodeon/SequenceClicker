@@ -33,6 +33,8 @@ namespace SequenceClicker
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
 
+        private SeqFileData currentFileData;
+
         public MainWindow()
         {
             DLog.Instantiate();
@@ -45,9 +47,35 @@ namespace SequenceClicker
 
             overlayWindow = new OverlayWindow();
             LocalState.OverlayWindow = overlayWindow;
+
+            MenuTab.OnActionRequest = MenuAction;
         }
 
-        private async void StartBasicSequence()
+        private void MenuAction(MenuTab.MenuTabAction menuTabAction)
+        {
+            switch(menuTabAction)
+            {
+                case MenuTab.MenuTabAction.NewFile:
+                    {
+
+                    }
+                    break;
+
+                case MenuTab.MenuTabAction.SaveFile:
+                    {
+
+                    }
+                    break;
+
+                case MenuTab.MenuTabAction.SaveAsFile:
+                    {
+
+                    }
+                    break;
+            }
+        }
+
+        private void StartBasicSequence()
         {
             overlayWindow.IgnoreInput(true);
 
@@ -109,11 +137,7 @@ namespace SequenceClicker
 
         private void ToggleMenuTab(object sender, RoutedEventArgs e)
         {
-            DLog.Log(MenuTabHeight.ActualHeight + "");
-
-            //MenuTabHeight.anim
-
-            MenuTabHeight.FadeProperty(HeightProperty, 10);
+            MenuTab.ToggleVisibilty();
         }
 
         private void SequenceController_OnClick(object sender, RoutedEventArgs e)
