@@ -50,6 +50,8 @@ namespace SequenceClicker.Component
             VistaSaveFileDialog saveFileDialog = new VistaSaveFileDialog();
             saveFileDialog.FileName = $"InputSequence.{fileExtention}";
 
+            saveFileDialog.OverwritePrompt = false;
+
             if ((bool)saveFileDialog.ShowDialog())
                 path = saveFileDialog.FileName;
             else
