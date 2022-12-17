@@ -20,15 +20,49 @@ namespace SequenceClicker.Component
         private string filePath = "";
         private static string fileExtention = "sqd";
 
+        public static SeqFileData CreateFromFile()
+        {
+            string path = "";
+
+            VistaOpenFileDialog openFileDialog = new VistaOpenFileDialog();
+
+            if ((bool)openFileDialog.ShowDialog())
+                path = openFileDialog.FileName;
+            else
+                return null;
+
+            return CreateFromFile(path);
+        }
+
+        public static SeqFileData CreateFromFile(string path)
+        {
+            if (!File.Exists(path))
+                return null;
+
+            SeqFileData fileData = null;
+
+            try
+            {
+                string data = File.ReadAllText(path);
+                fileData = JsonConvert.DeserializeObject<SeqFileData>(data);
+            }
+            catch(Exception e)
+            {
+                DLog.Warn(e.Message);
+            }
+
+            if (fileData != null)
+                fileData.filePath = path;
+
+            return fileData;
+        }
+
         public void SaveData()
         {
             if (filePath == "")
             {
-                string newPath = GetVaildFilePath();
-                if (newPath == "")
-                    return;
-                else
-                    filePath = newPath;
+                SaveDataAs();
+                return;
             }
 
             if (!File.Exists(filePath))
@@ -40,7 +74,13 @@ namespace SequenceClicker.Component
 
         public void SaveDataAs()
         {
+            string newPath = GetVaildFilePath();
+            if (newPath == "")
+                return;
+            else
+                filePath = newPath;
 
+            SaveData();
         }
 
         private string GetVaildFilePath()

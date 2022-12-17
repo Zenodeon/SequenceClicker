@@ -64,29 +64,46 @@ namespace SequenceClicker
             {
                 case MenuTab.MenuTabAction.OpenFile:
                     {
-
+                        SeqFileData fileData = SeqFileData.CreateFromFile();
+                        if (fileData != null)
+                        {
+                            currentFileData = fileData;
+                            UpdateElementFromData();
+                        }
                     }
                     break;
 
                 case MenuTab.MenuTabAction.NewFile:
                     {
                         currentFileData = defaultFileData;
-                        BasicSeq.LoadSaveData(currentFileData.basicSeqData);
+                        UpdateElementFromData();
                     }
                     break;
 
                 case MenuTab.MenuTabAction.SaveFile:
                     {
+                        UpdateDataFromElement();
                         currentFileData.SaveData();
                     }
                     break;
 
                 case MenuTab.MenuTabAction.SaveAsFile:
                     {
+                        UpdateDataFromElement();
                         currentFileData.SaveDataAs();
                     }
                     break;
             }
+        }
+
+        private void UpdateDataFromElement()
+        {
+            currentFileData.basicSeqData = BasicSeq.GetSaveData();
+        }
+
+        private void UpdateElementFromData()
+        {
+            BasicSeq.LoadSaveData(currentFileData.basicSeqData);
         }
 
         private void StartBasicSequence()
