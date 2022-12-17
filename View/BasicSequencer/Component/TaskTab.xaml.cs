@@ -75,6 +75,8 @@ namespace SequenceClicker.View.BasicSequencer.Component
         {
             TaskActive(true);
 
+            stopTask = false;
+
             RunSubTask(TaskType.PressInput);
 
             void RunSubTask(TaskType task)
@@ -199,14 +201,13 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public SaveData GetSaveData()
         {
-            return new SaveData(KSelect, SDelay, HDelay);
+            return new SaveData(SDelay, KSelect, HDelay);
         }
 
         public void LoadSaveData(SaveData data)
         {
-            KSelect.LoadSaveData(data.kSelect);
-
             SDelay.LoadSaveData(data.sDelaySD);
+            KSelect.LoadSaveData(data.kSelect);
             HDelay.LoadSaveData(data.hDelaySD);
         }
 
@@ -216,7 +217,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
             public KeySelectControl.SaveData kSelect;
             public DelayControl.SaveData hDelaySD;
 
-            public SaveData(KeySelectControl kSelect, DelayControl sDelay, DelayControl hDelay)
+            public SaveData(DelayControl sDelay, KeySelectControl kSelect, DelayControl hDelay)
             {
                 sDelaySD = sDelay.GetSaveData();
                 this.kSelect = kSelect.GetSaveData();
