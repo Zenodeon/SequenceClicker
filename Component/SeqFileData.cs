@@ -16,6 +16,7 @@ namespace SequenceClicker.Component
     public class SeqFileData
     {
         public BasicSequencerPanel.SaveData basicSeqData;
+        public OverlayWindow.SaveData overlayWindowData;
 
         private string filePath = "";
         private static string fileExtention = "sqd";

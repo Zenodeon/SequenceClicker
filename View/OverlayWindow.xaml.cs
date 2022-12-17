@@ -119,5 +119,39 @@ namespace SequenceClicker.View
 
             hasInput = state;
         }
+
+        public SaveData GetSaveData()
+        {
+            List<ScreenPoint.SaveData> screenPointsSD = new List<ScreenPoint.SaveData>();
+
+            foreach (ScreenPoint screenPoint in scrPoints.Values)
+                screenPointsSD.Add(screenPoint.GetSaveData());
+
+            return new SaveData(screenPointsSD);
+        }
+
+        public void LoadSaveData(SaveData saveData)
+        {
+            scrPoints.Clear();
+            PointPanel.Children.Clear();
+
+            foreach (ScreenPoint.SaveData screenPoingSD in saveData.screenPointsSD)
+            {
+                ScreenPoint screenPoint = new ScreenPoint(-1);
+                screenPoint.LoadSaveData(screenPoingSD);
+
+                AddCursorPointToCanvas(screenPoint);
+            }
+        }
+
+        public struct SaveData
+        {
+            public List<ScreenPoint.SaveData> screenPointsSD;
+
+            public SaveData(List<ScreenPoint.SaveData> screenPointsSD)
+            {
+                this.screenPointsSD = screenPointsSD;
+            }
+        }
     }
 }

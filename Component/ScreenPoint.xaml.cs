@@ -51,15 +51,19 @@ namespace SequenceClicker.Component
 
         public ScreenPoint(int id, bool main = false)
         {
-            this.id = id;
-            this.main = main;
-
-            if (id == -1)
-                return;
-
             InitializeComponent();
 
+            UpdateID(id);
+            this.main = main;
+        }
+
+        private void UpdateID(int newID)
+        {
+            id = newID;
             IDD.Text = id + "";
+
+            if (id == 0)
+                main = true;
         }
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -145,6 +149,41 @@ namespace SequenceClicker.Component
         public void SetTargetPoint(Point point)
         {
             targetPoint = point;
+        }
+
+        private void SetPointPosition(Point screenPosition)
+        {
+            Point centerPoint = (Point)((Vector)elementSize / 2);
+
+            screenPosition.X -= centerPoint.X;
+            screenPosition.Y -= centerPoint.Y;
+
+            this.SetCanvasPosition(screenPosition);
+        }
+
+        public SaveData GetSaveData()
+        {
+            return new SaveData(id, targetPoint);
+        }
+
+        public void LoadSaveData(SaveData saveData)
+        {
+            UpdateID(saveData.id);
+            targetPoint = saveData.point;
+
+            SetPointPosition(targetPoint);
+        }
+
+        public struct SaveData
+        {
+            public int id;
+            public Point point;
+
+            public SaveData(int id, Point point)
+            {
+                this.id = id;
+                this.point = point;
+            }
         }
     }
 }

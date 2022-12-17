@@ -49,13 +49,24 @@ namespace SequenceClicker
             overlayWindow = new OverlayWindow();
             LocalState.OverlayWindow = overlayWindow;
 
-            defaultFileData = new SeqFileData();
-            defaultFileData.basicSeqData = BasicSeq.GetSaveData();
-
-            currentFileData = new SeqFileData();
-            currentFileData.basicSeqData = BasicSeq.GetSaveData();
+            FileDataSetup();
 
             MenuTab.OnActionRequest = MenuAction;
+        }
+
+        private void FileDataSetup()
+        {
+            defaultFileData = new SeqFileData();
+            currentFileData = new SeqFileData();
+
+            BasicSequencerPanel.SaveData basicSeqSD = BasicSeq.GetSaveData();
+            OverlayWindow.SaveData overlayWinSD = overlayWindow.GetSaveData();
+
+            defaultFileData.basicSeqData = basicSeqSD;
+            defaultFileData.overlayWindowData = overlayWinSD;
+
+            currentFileData.basicSeqData = basicSeqSD;
+            currentFileData.overlayWindowData = overlayWinSD;
         }
 
         private void MenuAction(MenuTab.MenuTabAction menuTabAction)
@@ -99,11 +110,13 @@ namespace SequenceClicker
         private void UpdateDataFromElement()
         {
             currentFileData.basicSeqData = BasicSeq.GetSaveData();
+            currentFileData.overlayWindowData = overlayWindow.GetSaveData();
         }
 
         private void UpdateElementFromData()
         {
             BasicSeq.LoadSaveData(currentFileData.basicSeqData);
+            overlayWindow.LoadSaveData(currentFileData.overlayWindowData);
         }
 
         private void StartBasicSequence()
