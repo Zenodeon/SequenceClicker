@@ -29,6 +29,9 @@ namespace SequenceClicker.View
 
         private int currentTaskID;
 
+        private int viewTaskID = 2;
+        private int viewTaskIDOffset;
+
         public BasicSequencerPanel()
         {
             InitializeComponent();
@@ -59,6 +62,7 @@ namespace SequenceClicker.View
             ToggleLiveMode(true);
 
             currentTaskID = 0;
+            viewTaskIDOffset = viewTaskID;
             ExecuteCurrentTask();
         }
 
@@ -66,14 +70,26 @@ namespace SequenceClicker.View
         {
             ToggleLiveMode(false);
 
-            if (currentTaskID < activeTasks.Count)
+            if (activeTasks.ContainsIndex(currentTaskID))
                 activeTasks.tabs[currentTaskID].StopTask();
             //DLog.Log("TODO : Pause/Stop Delay");
         }
 
         public void ExecuteCurrentTask()
         {
+            AlignScrollView();
             activeTasks.tabs[currentTaskID].RunTask(ExecuteNextTask);
+        }
+
+        private void AlignScrollView()
+        {
+            if (activeTasks.ContainsIndex(currentTaskID + viewTaskIDOffset))
+                activeTasks[currentTaskID + viewTaskIDOffset].BringIntoView();
+            else
+            {
+                viewTaskIDOffset--;
+                AlignScrollView();
+            }
         }
 
         private void ExecuteNextTask()

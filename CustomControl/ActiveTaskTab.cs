@@ -86,6 +86,10 @@ namespace SequenceClicker
             base.Clear();
         }
 
+        public bool ContainsIndex(int index)
+        {
+            return index < base.Count;
+        }
 
         [Obsolete]
         public new void Add(T item)
