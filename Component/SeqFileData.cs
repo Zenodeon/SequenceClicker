@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Ookii.Dialogs.Wpf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using SequenceClicker.View;
 
@@ -13,11 +15,10 @@ namespace SequenceClicker.Component
 {
     public class SeqFileData
     {
-        private string filePath = "";
-
         public BasicSequencerPanel.SaveData basicSeqData;
 
-        public static string fileExtention = "sqd";
+        private string filePath = "";
+        private static string fileExtention = "sqd";
 
         public void SaveData()
         {
@@ -33,7 +34,8 @@ namespace SequenceClicker.Component
             if (!File.Exists(filePath))
                 File.Create(filePath).Close();
 
-            string data;
+            string data = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText(filePath, data);
         }
 
         public void SaveDataAs()

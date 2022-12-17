@@ -212,16 +212,14 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
         public struct SaveData
         {
-            public KeySelectControl.SaveData kSelect;
-
             public DelayControl.SaveData sDelaySD;
+            public KeySelectControl.SaveData kSelect;
             public DelayControl.SaveData hDelaySD;
 
             public SaveData(KeySelectControl kSelect, DelayControl sDelay, DelayControl hDelay)
             {
-                this.kSelect = kSelect.GetSaveData(); ;
-
                 sDelaySD = sDelay.GetSaveData();
+                this.kSelect = kSelect.GetSaveData();
                 hDelaySD = hDelay.GetSaveData();
             }
         }
