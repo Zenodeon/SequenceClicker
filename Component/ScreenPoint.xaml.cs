@@ -68,6 +68,9 @@ namespace SequenceClicker.Component
 
         private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (LocalState.MainWindow.basicSeqRunning)
+                return;
+
             cursorPosOnElement = e.GetPosition(this);
 
             switch (e.ChangedButton)
@@ -85,6 +88,9 @@ namespace SequenceClicker.Component
 
         private void OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (LocalState.MainWindow.basicSeqRunning)
+                return;
+
             switch (e.ChangedButton)
             {
                 case MouseButton.Left:
@@ -109,6 +115,9 @@ namespace SequenceClicker.Component
 
         private void OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
+            if (LocalState.MainWindow.basicSeqRunning)
+                return;
+
             if (!holding)
                 return;
 

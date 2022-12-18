@@ -7,10 +7,6 @@
              xmlns:CControl="clr-namespace:SequenceClicker.CustomControl"  
              mc:Ignorable="d"             
              Background="{StaticResource DarkerGray}"
-             PreviewMouseLeftButtonDown="Ctrl_PreviewMouseLeftButtonDown"
-             PreviewMouseRightButtonDown="Ctrl_PreviewMouseRightButtonDown"
-             MouseEnter="Ctrl_MouseEnter"
-             MouseLeave="Ctrl_MouseLeave"
              Width="250" Height="25" >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,8 +15,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <CControl:MButton Grid.Column="0" x:Name="sButton" Text="Stop" Height="25" Width="50" OnClick="MButton_OnClick"/>
+        <CControl:MButton Grid.Column="0" x:Name="sButton" Text="Stop" Height="25" Width="50" OnClick="SButton_OnClick"/>
         <CControl:MButton Grid.Column="1" x:Name="mButton" Text="Start" Height="25" Width="75" OnClick="MButton_OnClick"/>
-        <CControl:MButton Grid.Column="2" x:Name="rButton" Text="Restart" Height="25" Width="75" OnClick="MButton_OnClick"/>
+        <CControl:MButton Grid.Column="2" x:Name="rButton" Text="Restart" Height="25" Width="75" OnClick="RButton_OnClick"/>
     </Grid>
 </UserControl>

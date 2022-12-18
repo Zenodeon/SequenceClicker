@@ -61,18 +61,28 @@ namespace SequenceClicker.View
         {
             ToggleLiveMode(true);
 
-            currentTaskID = 0;
             viewTaskIDOffset = viewTaskID;
             ExecuteCurrentTask();
+        }
+
+        public void PauseTask()
+        {
+            StopCurrentTask();
         }
 
         public void StopTask()
         {
             ToggleLiveMode(false);
 
+            currentTaskID = 0;
+
+            StopCurrentTask();
+        }
+
+        private void StopCurrentTask()
+        {
             if (activeTasks.ContainsIndex(currentTaskID))
                 activeTasks.tabs[currentTaskID].StopTask();
-            //DLog.Log("TODO : Pause/Stop Delay");
         }
 
         public void ExecuteCurrentTask()

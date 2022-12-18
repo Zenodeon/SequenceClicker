@@ -31,6 +31,8 @@ namespace SequenceClicker
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
 
+        public bool basicSeqRunning;
+
         private SeqFileData defaultFileData;
         private SeqFileData currentFileData;
 
@@ -80,7 +82,7 @@ namespace SequenceClicker
 
                 case SequenceController.StateAction.Pause:
                     {
-
+                        PauseBasicSequence();
                     }
                     break;
 
@@ -151,19 +153,25 @@ namespace SequenceClicker
 
         private void StartBasicSequence()
         {
-            overlayWindow.IgnoreInput(true);
+            //overlayWindow.IgnoreInput(true);
             BasicSeq.BeginTask();
+
+            basicSeqRunning = true;
         }
 
         private void PauseBasicSequence()
         {
+            BasicSeq.PauseTask();
 
+            basicSeqRunning = false;
         }
 
         private void StopBasicSequence()
         {
             BasicSeq.StopTask();
-            overlayWindow.IgnoreInput(false);
+            //overlayWindow.IgnoreInput(false);
+
+            basicSeqRunning = false;
         }
 
         #region UI Interaction
