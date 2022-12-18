@@ -21,94 +21,52 @@ namespace SequenceClicker.View
     /// </summary>
     public partial class SequenceController : UserControl
     {
-        SliderMode sliderMode = SliderMode.Open;
+        bool startButtonVisible = true;
 
-        Storyboard animator = new Storyboard();
-        DoubleAnimation valueAnim = new DoubleAnimation();
-        float slidePercent = 0;
+        public Action<StateAction> OnActionRequest;
 
         public SequenceController()
         {
             InitializeComponent();
-
-            return;
-            animator.Duration = TimeSpan.FromSeconds(1);
-            animator.FillBehavior = FillBehavior.Stop;
-
-            animator.Children.Add(valueAnim);
-
-            valueAnim.Changed += (o, e) => UpdateSlider();
-            valueAnim.Completed += (o, e) => UpdateSlider();
         }
 
-        private void Ctrl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void RequestAction(StateAction action)
         {
-            SlideCtrl(SliderMode.Close);
-        }
-
-        private void Ctrl_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            SlideCtrl(SliderMode.Close);
-        }
-
-        private void Ctrl_MouseEnter(object sender, MouseEventArgs e)
-        {
-            SlideCtrl(SliderMode.Close);
-        }
-
-        private void Ctrl_MouseLeave(object sender, MouseEventArgs e)
-        {
-            SlideCtrl(SliderMode.Open);
-        }
-
-        private void SlideCtrl(SliderMode mode)
-        {
-            return;
-            animator.Stop();
-
-            valueAnim.From = slidePercent;
-            valueAnim.To = (int)mode;
-
-            animator.Begin();
-        }
-
-        private void UpdateSlider()
-        {
-            DLog.Log("Value : " + slidePercent);
-        }
-
-        private enum SliderMode
-        {
-            Open = 0,
-            Close = 10,
-            Semi = 5
+            OnActionRequest?.Invoke(action);
         }
 
         private void MButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (sliderMode == SliderMode.Open)
+            if (startButtonVisible)
             {
-                sliderMode = SliderMode.Close;
-
-                tButton.Text = "Pause";
+                RequestAction(StateAction.Start);
+                mButton.Text = "Pause";
             }
             else
             {
-                sliderMode = SliderMode.Open;
-
-                tButton.Text = "Start";
+                RequestAction(StateAction.Pause);
+                mButton.Text = "Start";
             }
 
-            RaiseEvent(new RoutedEventArgs(OnClickEvent));
+            startButtonVisible = !startButtonVisible;
         }
 
-        public static readonly RoutedEvent OnClickEvent =
-            EventManager.RegisterRoutedEvent(nameof(OnClick), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SequenceController));
-
-        public event RoutedEventHandler OnClick
+        private void SButton_OnClick(object sender, RoutedEventArgs e)
         {
-            add { AddHandler(OnClickEvent, value); }
-            remove { RemoveHandler(OnClickEvent, value); }
+            RequestAction(StateAction.Stop);
+        }
+
+        private void RButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            RequestAction(StateAction.Restart);
+        }
+
+        public enum StateAction
+        {
+            Start,
+            Pause,
+            Stop,
+            Restart
         }
     }
 }

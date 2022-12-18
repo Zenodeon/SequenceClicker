@@ -28,8 +28,6 @@ namespace SequenceClicker
     {
         OverlayWindow overlayWindow;
 
-        bool basicSequenceRunning = false;
-
         private IntPtr hwnd;
         //private HwndSource? hwndSource;
 
@@ -51,6 +49,7 @@ namespace SequenceClicker
 
             FileDataSetup();
 
+            SeqCtrl.OnActionRequest = SeqCtrlAction;
             MenuTab.OnActionRequest = MenuAction;
         }
 
@@ -67,6 +66,37 @@ namespace SequenceClicker
 
             currentFileData.basicSeqData = basicSeqSD;
             currentFileData.overlayWindowData = overlayWinSD;
+        }
+
+        private void SeqCtrlAction(SequenceController.StateAction action)
+        {
+            switch (action)
+            {
+                case SequenceController.StateAction.Start:
+                    {
+                        StartBasicSequence();
+                    }
+                    break;
+
+                case SequenceController.StateAction.Pause:
+                    {
+
+                    }
+                    break;
+
+                case SequenceController.StateAction.Stop:
+                    {
+                        StopBasicSequence();
+                    }
+                    break;
+
+                case SequenceController.StateAction.Restart:
+                    {
+                        StartBasicSequence();
+                        StopBasicSequence();
+                    }
+                    break;
+            }
         }
 
         private void MenuAction(MenuTab.MenuTabAction menuTabAction)
@@ -122,19 +152,18 @@ namespace SequenceClicker
         private void StartBasicSequence()
         {
             overlayWindow.IgnoreInput(true);
-
-            basicSequenceRunning = true;
-
             BasicSeq.BeginTask();
+        }
 
-            overlayWindow.IgnoreInput(false);
+        private void PauseBasicSequence()
+        {
+
         }
 
         private void StopBasicSequence()
         {
-            basicSequenceRunning = false;
-
             BasicSeq.StopTask();
+            overlayWindow.IgnoreInput(false);
         }
 
         #region UI Interaction
@@ -182,14 +211,6 @@ namespace SequenceClicker
         private void ToggleMenuTab(object sender, RoutedEventArgs e)
         {
             MenuTab.ToggleVisibilty();
-        }
-
-        private void SequenceController_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (basicSequenceRunning)
-                StopBasicSequence();
-            else
-                StartBasicSequence();
         }
 
         private void OverlayToggle(object sender, RoutedEventArgs e)
