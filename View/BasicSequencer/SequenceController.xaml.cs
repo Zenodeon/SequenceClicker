@@ -96,7 +96,7 @@ namespace SequenceClicker.View
             {
                 sliderMode = SliderMode.Open;
 
-                tButton.Text = "Play";
+                tButton.Text = "Start";
             }
 
             RaiseEvent(new RoutedEventArgs(OnClickEvent));
