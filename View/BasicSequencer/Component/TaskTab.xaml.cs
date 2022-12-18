@@ -126,7 +126,15 @@ namespace SequenceClicker.View.BasicSequencer.Component
 
             if (sPoint.id != -1)
             {
-                TouchInput.SetTouchPoint(id, sPoint.targetPoint);
+                Random rnd = new Random();
+
+                Point point = sPoint.targetPoint;
+                Point offset = new Point(rnd.Next(-8, 8), rnd.Next(-8, 8));
+
+                point.X += offset.X;
+                point.Y += offset.Y;
+
+                TouchInput.SetTouchPoint(id, point);
                 TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
             }
             else
