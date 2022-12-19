@@ -32,6 +32,8 @@ namespace SequenceClicker.View
         private int viewTaskID = 2;
         private int viewTaskIDOffset;
 
+        public EventHandler OnSequencerComplete;
+
         public BasicSequencerPanel()
         {
             InitializeComponent();
@@ -57,12 +59,18 @@ namespace SequenceClicker.View
             return task;
         }
 
-        public void BeginTask()
+        public void BeginTask(bool toggleLiveMode = true)
         {
-            ToggleLiveMode(true);
+            if (toggleLiveMode)
+                ToggleLiveMode(true);
 
-            viewTaskIDOffset = viewTaskID;
-            ExecuteCurrentTask();
+            if (currentTaskID == 0)
+            {
+                //viewTaskIDOffset = viewTaskID;
+                ExecuteCurrentTask();
+            }
+            else
+                ExecuteNextTask();
         }
 
         public void PauseTask()
@@ -70,13 +78,15 @@ namespace SequenceClicker.View
             StopCurrentTask();
         }
 
-        public void StopTask()
+        public void StopTask(bool toggleLiveMode = true)
         {
-            ToggleLiveMode(false);
-
-            currentTaskID = 0;
+            if (toggleLiveMode)
+                ToggleLiveMode(false);
 
             StopCurrentTask();
+
+            currentTaskID = 0;
+            viewTaskIDOffset = 0;
         }
 
         private void StopCurrentTask()
@@ -91,14 +101,20 @@ namespace SequenceClicker.View
             activeTasks.tabs[currentTaskID].RunTask(ExecuteNextTask);
         }
 
-        private void AlignScrollView()
+        private void AlignScrollView(bool incrementToTargetOffset = true)
         {
+            if (incrementToTargetOffset)
+                if (currentTaskID != 0)
+                    if (currentTaskID <= viewTaskID)
+                        if (activeTasks.ContainsIndex(currentTaskID))
+                            viewTaskIDOffset++;
+
             if (activeTasks.ContainsIndex(currentTaskID + viewTaskIDOffset))
                 activeTasks[currentTaskID + viewTaskIDOffset].BringIntoView();
             else
             {
                 viewTaskIDOffset--;
-                AlignScrollView();
+                AlignScrollView(incrementToTargetOffset: false);
             }
         }
 
@@ -122,7 +138,7 @@ namespace SequenceClicker.View
 
         private void SequenceCompleted()
         {
-
+            OnSequencerComplete?.Invoke(this, null);
         }
 
         public void ExecuteTabAction(TaskTab tab, TaskTabControl.TTAction ttAction)

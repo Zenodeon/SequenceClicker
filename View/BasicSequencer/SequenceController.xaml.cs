@@ -40,25 +40,41 @@ namespace SequenceClicker.View
             if (startButtonVisible)
             {
                 RequestAction(StateAction.Start);
-                mButton.Text = "Pause";
+                ShowStartButton(false);
             }
             else
             {
                 RequestAction(StateAction.Pause);
-                mButton.Text = "Start";
+                ShowStartButton(true);
             }
-
-            startButtonVisible = !startButtonVisible;
         }
 
         private void SButton_OnClick(object sender, RoutedEventArgs e)
         {
             RequestAction(StateAction.Stop);
+
+            ShowStartButton(true);
         }
 
         private void RButton_OnClick(object sender, RoutedEventArgs e)
         {
             RequestAction(StateAction.Restart);
+
+            ShowStartButton(false);
+        }
+
+        public void ShowStartButton(bool state)
+        {
+            if(state)
+            {
+                startButtonVisible = true;
+                mButton.Text = "Start";
+            }
+            else
+            {
+                startButtonVisible = false;
+                mButton.Text = "Pause";
+            }
         }
 
         public enum StateAction

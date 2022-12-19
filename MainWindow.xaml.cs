@@ -53,6 +53,8 @@ namespace SequenceClicker
 
             SeqCtrl.OnActionRequest = SeqCtrlAction;
             MenuTab.OnActionRequest = MenuAction;
+
+            BasicSeq.OnSequencerComplete += OnSequencerComplete;
         }
 
         private void FileDataSetup()
@@ -76,13 +78,15 @@ namespace SequenceClicker
             {
                 case SequenceController.StateAction.Start:
                     {
-                        StartBasicSequence();
+                        if (!basicSeqRunning)
+                            StartBasicSequence();
                     }
                     break;
 
                 case SequenceController.StateAction.Pause:
                     {
-                        PauseBasicSequence();
+                        BasicSeq.PauseTask();
+                        basicSeqRunning = false;
                     }
                     break;
 
@@ -94,11 +98,33 @@ namespace SequenceClicker
 
                 case SequenceController.StateAction.Restart:
                     {
-                        StartBasicSequence();
-                        StopBasicSequence();
+                        if (basicSeqRunning)
+                            BasicSeq.StopTask(toggleLiveMode: false);
+                        BasicSeq.BeginTask(toggleLiveMode: !basicSeqRunning);
+                        basicSeqRunning = true;
                     }
                     break;
             }
+
+            void StartBasicSequence()
+            {
+                //overlayWindow.IgnoreInput(true);
+                BasicSeq.BeginTask(!basicSeqRunning);
+                basicSeqRunning = true;
+            }
+
+            void StopBasicSequence()
+            {
+                BasicSeq.StopTask();
+                //overlayWindow.IgnoreInput(false);
+                basicSeqRunning = false;
+            }
+        }
+
+        private void OnSequencerComplete(object o, EventArgs e)
+        {
+            basicSeqRunning = false;
+            SeqCtrl.ShowStartButton(true);
         }
 
         private void MenuAction(MenuTab.MenuTabAction menuTabAction)
@@ -149,29 +175,6 @@ namespace SequenceClicker
         {
             BasicSeq.LoadSaveData(currentFileData.basicSeqData);
             overlayWindow.LoadSaveData(currentFileData.overlayWindowData);
-        }
-
-        private void StartBasicSequence()
-        {
-            //overlayWindow.IgnoreInput(true);
-            BasicSeq.BeginTask();
-
-            basicSeqRunning = true;
-        }
-
-        private void PauseBasicSequence()
-        {
-            BasicSeq.PauseTask();
-
-            basicSeqRunning = false;
-        }
-
-        private void StopBasicSequence()
-        {
-            BasicSeq.StopTask();
-            //overlayWindow.IgnoreInput(false);
-
-            basicSeqRunning = false;
         }
 
         #region UI Interaction
