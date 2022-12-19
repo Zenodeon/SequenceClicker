@@ -135,7 +135,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 point.Y += offset.Y;
 
                 TouchInput.SetTouchPoint(id, point);
-                //TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
+                TouchInput.ExecuteTouchAction(TouchInput.TouchAction.Touch);
             }
             else
             {
