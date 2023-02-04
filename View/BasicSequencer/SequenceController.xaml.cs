@@ -37,6 +37,11 @@ namespace SequenceClicker.View
 
         private void MButton_OnClick(object sender, RoutedEventArgs e)
         {
+            ToggleSequencePlayback();
+        }
+
+        public void ToggleSequencePlayback()
+        {
             if (startButtonVisible)
             {
                 RequestAction(StateAction.Start);
