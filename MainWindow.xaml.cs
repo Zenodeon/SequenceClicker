@@ -1,26 +1,13 @@
 ﻿global using DebugLogger.Wpf;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-using SequenceClicker.API;
 using SequenceClicker.View;
 using SequenceClicker.Component;
 using SequenceClicker.TouchSim;
+using SequenceClicker.Hotkey;
 
 namespace SequenceClicker
 {
@@ -35,7 +22,7 @@ namespace SequenceClicker
         private SeqFileData defaultFileData;
         private SeqFileData currentFileData;
 
-        private KeyboardListener kListener = new KeyboardListener();
+        private HotkeyManager hotkeyM;
 
         public MainWindow()
         {
@@ -57,7 +44,12 @@ namespace SequenceClicker
 
             BasicSeq.OnSequencerComplete += OnSequencerComplete;
 
-            kListener.KeyStateChange += ListenForHotKeys;
+            SetHotkeys();
+        }
+
+        private void SetHotkeys()
+        {
+            hotkeyM = HotkeyManager.Instantiate();
         }
 
         private void FileDataSetup()
@@ -180,11 +172,6 @@ namespace SequenceClicker
             overlayWindow.LoadSaveData(currentFileData.overlayWindowData);
         }
 
-        private void ListenForHotKeys(object o, RawKeyEventArgs e)
-        {
-
-        }
-
     #region UI Interaction
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
@@ -209,7 +196,8 @@ namespace SequenceClicker
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            kListener.Dispose();
+            if (hotkeyM != null)
+                hotkeyM.Stop();
             overlayWindow.Close();
         }
 

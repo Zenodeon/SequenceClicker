@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 //Based Of https://gist.github.com/Ciantic/471698
 
-namespace SequenceClicker.API
+namespace SequenceClicker.Hotkey.Core
 {
     /// <summary>
     /// Listens keyboard globally.
@@ -23,10 +23,10 @@ namespace SequenceClicker.API
         public KeyboardListener()
         {
             // Dispatcher thread handling the KeyDown/KeyUp events.
-            this.dispatcher = Dispatcher.CurrentDispatcher;
+            dispatcher = Dispatcher.CurrentDispatcher;
 
             // We have to store the LowLevelKeyboardProc, so that it is not garbage collected runtime
-            hookedLowLevelKeyboardProc = (InterceptKeys.LowLevelKeyboardProc)LowLevelKeyboardProc;
+            hookedLowLevelKeyboardProc = LowLevelKeyboardProc;
 
             // Set the hook
             hookId = InterceptKeys.SetHook(hookedLowLevelKeyboardProc);
@@ -97,8 +97,8 @@ namespace SequenceClicker.API
                 {
                     // Captures the character(s) pressed only on WM_KEYDOWN
                     chars = InterceptKeys.VKCodeToString((uint)Marshal.ReadInt32(lParam),
-                        (wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_KEYDOWN ||
-                        wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_SYSKEYDOWN));
+                        wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_KEYDOWN ||
+                        wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_SYSKEYDOWN);
 
                     hookedKeyboardCallbackAsync.Invoke((InterceptKeys.KeyEvent)wParam.ToUInt32(), Marshal.ReadInt32(lParam), chars);
                 }
@@ -216,9 +216,9 @@ namespace SequenceClicker.API
         {
             this.isKeyDown = isKeyDown;
             this.VKCode = VKCode;
-            this.IsSysKey = isSysKey;
+            IsSysKey = isSysKey;
             this.Character = Character;
-            this.Key = System.Windows.Input.KeyInterop.KeyFromVirtualKey(VKCode);
+            Key = KeyInterop.KeyFromVirtualKey(VKCode);
         }
 
     }
@@ -378,7 +378,7 @@ namespace SequenceClicker.API
                 return "";
 
             // Converts the VKCode to unicode
-            int relevantKeyCountInBuffer = ToUnicodeEx(VKCode, lScanCode, bKeyState, sbString, sbString.Capacity, (uint)0, HKL);
+            int relevantKeyCountInBuffer = ToUnicodeEx(VKCode, lScanCode, bKeyState, sbString, sbString.Capacity, 0, HKL);
 
             string ret = "";
 
@@ -415,7 +415,7 @@ namespace SequenceClicker.API
             if (lastVKCode != 0 && lastIsDead)
             {
                 System.Text.StringBuilder sbTemp = new System.Text.StringBuilder(5);
-                ToUnicodeEx(lastVKCode, lastScanCode, lastKeyState, sbTemp, sbTemp.Capacity, (uint)0, HKL);
+                ToUnicodeEx(lastVKCode, lastScanCode, lastKeyState, sbTemp, sbTemp.Capacity, 0, HKL);
                 lastVKCode = 0;
 
                 return ret;
@@ -437,7 +437,7 @@ namespace SequenceClicker.API
             int rc;
             do
             {
-                byte[] lpKeyStateNull = new Byte[255];
+                byte[] lpKeyStateNull = new byte[255];
                 rc = ToUnicodeEx(vk, sc, lpKeyStateNull, sb, sb.Capacity, 0, hkl);
             } while (rc < 0);
         }
