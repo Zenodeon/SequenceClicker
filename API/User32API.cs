@@ -10,31 +10,12 @@ namespace SequenceClicker.API
 
     public static class User32API
     {
-        [DllImport("user32.dll")]
-        internal static extern bool GetMessage(out string lpMsg, IntPtr hWnd, int wMsgFilterMin, int wMsgFilterMax);
-
         #region Mouse Events
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         internal static extern bool SetCursorPosition(int x, int y);
 
         [DllImport("user32.dll", EntryPoint = "mouse_event")]
         internal static extern void ExecuteMouseEvent(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        public static bool RegisterHotKey(IntPtr hWnd, int id, User32DS.HKMod fsModifiers, Key vk)
-        {
-            return RegisterHotKey(hWnd, id, (int)fsModifiers, (int)vk);
-        }
-
-        public static bool DeRegisterHotKey(IntPtr hWnd, int id)
-        {
-            return UnregisterHotKey(hWnd, id);
-        }
         #endregion
 
         #region Window Click Through
