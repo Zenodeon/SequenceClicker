@@ -270,7 +270,10 @@ namespace SequenceClicker.API
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule)
             {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
+                string name = curModule?.ModuleName;
+                if (name == null)
+                    name = "";
+                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(name), 0);
             }
         }
 
