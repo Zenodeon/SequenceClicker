@@ -11,7 +11,8 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="MainWindow" Height="520" Width="460">
+        Title="MainWindow" Height="520" Width="460"
+        Closing="Window_Closing">
     <Window.Resources>
         <SolidColorBrush x:Key="ToggleOn" Color="#2d2d30" />
         <SolidColorBrush x:Key="ToggleOff" Color="#3A3A3D" />

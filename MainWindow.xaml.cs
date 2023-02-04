@@ -29,12 +29,13 @@ namespace SequenceClicker
         OverlayWindow overlayWindow;
 
         private IntPtr hwnd;
-        //private HwndSource? hwndSource;
 
         public bool basicSeqRunning;
 
         private SeqFileData defaultFileData;
         private SeqFileData currentFileData;
+
+        private KeyboardListener kListener = new KeyboardListener();
 
         public MainWindow()
         {
@@ -55,6 +56,8 @@ namespace SequenceClicker
             MenuTab.OnActionRequest = MenuAction;
 
             BasicSeq.OnSequencerComplete += OnSequencerComplete;
+
+            kListener.KeyStateChange += ListenForHotKeys;
         }
 
         private void FileDataSetup()
@@ -121,7 +124,7 @@ namespace SequenceClicker
             }
         }
 
-        private void OnSequencerComplete(object o, EventArgs e)
+        private void OnSequencerComplete(object? o, EventArgs e)
         {
             basicSeqRunning = false;
             SeqCtrl.ShowStartButton(true);
@@ -129,7 +132,7 @@ namespace SequenceClicker
 
         private void MenuAction(MenuTab.MenuTabAction menuTabAction)
         {
-            switch(menuTabAction)
+            switch (menuTabAction)
             {
                 case MenuTab.MenuTabAction.OpenFile:
                     {
@@ -177,21 +180,12 @@ namespace SequenceClicker
             overlayWindow.LoadSaveData(currentFileData.overlayWindowData);
         }
 
-        #region UI Interaction
-
-        protected override void OnSourceInitialized(EventArgs e)
+        private void ListenForHotKeys(object o, RawKeyEventArgs e)
         {
-            hwnd = new WindowInteropHelper(this).Handle;
-            //hwndSource = HwndSource.FromHwnd(hwnd);
-            //hwndSource.AddHook(MsgHook);
 
-            //User32API.RegisterHotKey(hwnd, 1, User32DS.HKMod.MOD_CONTROL, Key.P);
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            overlayWindow.Close();
-        }
+    #region UI Interaction
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
         {
@@ -210,8 +204,13 @@ namespace SequenceClicker
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            overlayWindow.Close();
             Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            kListener.Dispose();
+            overlayWindow.Close();
         }
 
         private void MinWindow(object sender, RoutedEventArgs e)
@@ -230,34 +229,5 @@ namespace SequenceClicker
         }
 
         #endregion
-
-        //private IntPtr MsgHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        //{
-        //    string hotkeyId = wParam.ToString();
-
-        //    if (msg == User32DS.WM_HOTKEY)
-        //    {
-        //        DLog.Log(msg + " : " + hotkeyId);
-        //        handled = true;
-        //    }
-        //    //if (msg == Constants.WM_HOTKEY && hotkeyId == Constants.START_HOTKEY_ID || hotkeyId == Constants.STOP_HOTKEY_ID || hotkeyId == Constants.TOGGLE_HOTKEY_ID)
-        //    //{
-        //    //    int virtualKey = ((int)lParam >> 16) & 0xFFFF;
-        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StartHotkey.VirtualKeyCode && CanStartOperation())
-        //    //    {
-        //    //        StartCommand_Execute(null, null);
-        //    //    }
-        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.StopHotkey.VirtualKeyCode && clickTimer.Enabled)
-        //    //    {
-        //    //        StopCommand_Execute(null, null);
-        //    //    }
-        //    //    if (virtualKey == SettingsUtils.CurrentSettings.HotkeySettings.ToggleHotkey.VirtualKeyCode && CanStartOperation() | clickTimer.Enabled)
-        //    //    {
-        //    //        ToggleCommand_Execute(null, null);
-        //    //    }
-        //    //    handled = true;
-        //    //}
-        //    return IntPtr.Zero;
-        //}
     }
 }
