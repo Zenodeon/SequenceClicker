@@ -48,12 +48,17 @@ namespace SequenceClicker.API
         /// <summary>
         /// Fired when any of the keys is pressed down.
         /// </summary>
-        public event RawKeyEventHandler KeyDown;
+        public event RawKeyEventHandler KeyStateChange;
 
-        /// <summary>
-        /// Fired when any of the keys is released.
-        /// </summary>
-        public event RawKeyEventHandler KeyUp;
+        ///// <summary>
+        ///// Fired when any of the keys is pressed down.
+        ///// </summary>
+        //public event RawKeyEventHandler KeyDown;
+
+        ///// <summary>
+        ///// Fired when any of the keys is released.
+        ///// </summary>
+        //public event RawKeyEventHandler KeyUp;
 
         #region Inner workings
 
@@ -95,7 +100,7 @@ namespace SequenceClicker.API
                         (wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_KEYDOWN ||
                         wParam.ToUInt32() == (int)InterceptKeys.KeyEvent.WM_SYSKEYDOWN));
 
-                    hookedKeyboardCallbackAsync.BeginInvoke((InterceptKeys.KeyEvent)wParam.ToUInt32(), Marshal.ReadInt32(lParam), chars, null, null);
+                    hookedKeyboardCallbackAsync.Invoke((InterceptKeys.KeyEvent)wParam.ToUInt32(), Marshal.ReadInt32(lParam), chars);
                 }
 
             return InterceptKeys.CallNextHookEx(hookId, nCode, wParam, lParam);
@@ -123,22 +128,22 @@ namespace SequenceClicker.API
             {
                 // KeyDown events
                 case InterceptKeys.KeyEvent.WM_KEYDOWN:
-                    if (KeyDown != null)
-                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyDown), this, new RawKeyEventArgs(vkCode, false, character));
+                    if (KeyStateChange != null)
+                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyStateChange), this, new RawKeyEventArgs(vkCode, true, false, character));
                     break;
                 case InterceptKeys.KeyEvent.WM_SYSKEYDOWN:
-                    if (KeyDown != null)
-                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyDown), this, new RawKeyEventArgs(vkCode, true, character));
+                    if (KeyStateChange != null)
+                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyStateChange), this, new RawKeyEventArgs(vkCode, true, true, character));
                     break;
 
                 // KeyUp events
                 case InterceptKeys.KeyEvent.WM_KEYUP:
-                    if (KeyUp != null)
-                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyUp), this, new RawKeyEventArgs(vkCode, false, character));
+                    if (KeyStateChange != null)
+                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyStateChange), this, new RawKeyEventArgs(vkCode, false, false, character));
                     break;
                 case InterceptKeys.KeyEvent.WM_SYSKEYUP:
-                    if (KeyUp != null)
-                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyUp), this, new RawKeyEventArgs(vkCode, true, character));
+                    if (KeyStateChange != null)
+                        dispatcher.BeginInvoke(new RawKeyEventHandler(KeyStateChange), this, new RawKeyEventArgs(vkCode, false, true, character));
                     break;
 
                 default:
@@ -183,6 +188,11 @@ namespace SequenceClicker.API
         public bool IsSysKey;
 
         /// <summary>
+        /// Is the key pressed down or released.
+        /// </summary>
+        public bool isKeyDown;
+
+        /// <summary>
         /// Convert to string.
         /// </summary>
         /// <returns>Returns string representation of this key, if not possible empty string is returned.</returns>
@@ -202,8 +212,9 @@ namespace SequenceClicker.API
         /// <param name="VKCode"></param>
         /// <param name="isSysKey"></param>
         /// <param name="Character">Character</param>
-        public RawKeyEventArgs(int VKCode, bool isSysKey, string Character)
+        public RawKeyEventArgs(int VKCode, bool isKeyDown, bool isSysKey, string Character)
         {
+            this.isKeyDown = isKeyDown;
             this.VKCode = VKCode;
             this.IsSysKey = isSysKey;
             this.Character = Character;
