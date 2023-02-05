@@ -49,23 +49,9 @@ namespace SequenceClicker.View
             }
             else
             {
-                RequestAction(StateAction.Pause);
+                RequestAction(StateAction.Stop);
                 ShowStartButton(true);
             }
-        }
-
-        private void SButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            RequestAction(StateAction.Stop);
-
-            ShowStartButton(true);
-        }
-
-        private void RButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            RequestAction(StateAction.Restart);
-
-            ShowStartButton(false);
         }
 
         public void ShowStartButton(bool state)
@@ -78,16 +64,14 @@ namespace SequenceClicker.View
             else
             {
                 startButtonVisible = false;
-                mButton.Text = "Pause";
+                mButton.Text = "Stop";
             }
         }
 
         public enum StateAction
         {
             Start,
-            Pause,
             Stop,
-            Restart
         }
     }
 }

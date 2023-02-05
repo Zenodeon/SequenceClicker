@@ -58,7 +58,10 @@ namespace SequenceClicker.Hotkey
                     return;
             }
             else
+            {
                 hotkeys[e.Key]?.Invoke(new Hotkey(e.Key));
+                hotkeysHeldDown.Add(e.Key);
+            }
         }
 
         public void Stop()

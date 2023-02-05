@@ -80,25 +80,9 @@ namespace SequenceClicker
                     }
                     break;
 
-                case SequenceController.StateAction.Pause:
-                    {
-                        BasicSeq.PauseTask();
-                        basicSeqRunning = false;
-                    }
-                    break;
-
                 case SequenceController.StateAction.Stop:
                     {
                         StopBasicSequence();
-                    }
-                    break;
-
-                case SequenceController.StateAction.Restart:
-                    {
-                        if (basicSeqRunning)
-                            BasicSeq.StopTask(toggleLiveMode: false);
-                        BasicSeq.BeginTask(toggleLiveMode: !basicSeqRunning);
-                        basicSeqRunning = true;
                     }
                     break;
             }
