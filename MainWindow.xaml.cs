@@ -50,6 +50,8 @@ namespace SequenceClicker
         private void SetHotkeys()
         {
             hotkeyM = HotkeyManager.Instantiate();
+
+            hotkeyM.RegisterKey(Key.F6, (hKey) => SeqCtrl.ToggleSequencePlayback());
         }
 
         private void FileDataSetup()
