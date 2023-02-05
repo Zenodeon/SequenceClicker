@@ -138,6 +138,7 @@ namespace SequenceClicker.View
 
         private void SequenceCompleted()
         {
+            currentTaskID = 0;
             OnSequencerComplete?.Invoke(this, null);
         }
 

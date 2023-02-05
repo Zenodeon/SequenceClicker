@@ -86,26 +86,28 @@ namespace SequenceClicker
                     }
                     break;
             }
+        }
 
-            void StartBasicSequence()
-            {
-                //overlayWindow.IgnoreInput(true);
-                BasicSeq.BeginTask(!basicSeqRunning);
-                basicSeqRunning = true;
-            }
+        private void StartBasicSequence()
+        {
+            //overlayWindow.IgnoreInput(true);
+            BasicSeq.BeginTask(!basicSeqRunning);
+            basicSeqRunning = true;
+        }
 
-            void StopBasicSequence()
-            {
-                BasicSeq.StopTask();
-                //overlayWindow.IgnoreInput(false);
-                basicSeqRunning = false;
-            }
+        private void StopBasicSequence()
+        {
+            BasicSeq.StopTask();
+            //overlayWindow.IgnoreInput(false);
+            basicSeqRunning = false;
         }
 
         private void OnSequencerComplete(object? o, EventArgs e)
         {
-            basicSeqRunning = false;
-            SeqCtrl.ShowStartButton(true);
+            StartBasicSequence();
+
+            //basicSeqRunning = false;
+            //SeqCtrl.ShowStartButton(true);
         }
 
         private void MenuAction(MenuTab.MenuTabAction menuTabAction)
@@ -162,7 +164,6 @@ namespace SequenceClicker
 
         private void Window_GotTouchCapture(object sender, TouchEventArgs e)
         {
-
             //foreach(System.Windows.Input.TouchPoint tp in e.GetIntermediateTouchPoints(null))
             //{
             //    DLog.Log($"{tp.Position} : {tp.Action} : {tp.Size}");

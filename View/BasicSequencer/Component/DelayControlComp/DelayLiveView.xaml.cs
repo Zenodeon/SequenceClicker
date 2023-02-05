@@ -51,6 +51,7 @@ namespace SequenceClicker.View.BasicSequencer.Component
                 .OnComplete(() =>
                 {
                     LiveDelayProgress.Text = (int)targetDelay + "";
+                    LiveBar.Width = 0;
                     callback?.Invoke();
                 });
         }
